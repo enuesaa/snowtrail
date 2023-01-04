@@ -1,13 +1,13 @@
 # snowtrail-app
 App for managing posts you read or you should read.
 
+## Motivation
+Sometimes we read past-read posts because we live with the internet, pulling up a phone so many times.  
+Just as there is a word like `Time is money`, We don't want to see such a post.  
+
+## Compile Target
+- mac or ipad
+
 ## Architecture
-### Matters
-- on mac or ipad
-- show listed web sites
-  - b.hatena.ne.jp
-  - livedoor blog
-### Tauri as frontend
-Tauri is a rust-based cross application framework like Electron.
-### Golang as backend api
-### Firebase as infrastructure
+### wry as webview renderer
+Wry is a rust-based cross os webview renderer.
