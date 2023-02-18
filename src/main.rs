@@ -16,9 +16,10 @@ fn main() -> wry::Result<()> {
     let mut utilities = MenuBar::new();
     utilities.add_native_item(MenuItem::Quit);
     utilities.add_native_item(MenuItem::Services);
-    menu_bar.add_submenu("Utilities", true, utilities);
+    menu_bar.add_submenu("&AppName", true, utilities);
 
     let window = WindowBuilder::new()
+        .with_title("snowtrail")
         .with_inner_size(LogicalSize::new(1500, 1000))
         .with_menu(menu_bar)
         .build(&event_loop)?;
