@@ -24,6 +24,7 @@ fn main() -> wry::Result<()> {
         .with_menu(menu_bar)
         .build(&event_loop)?;
 
+    // To customize titlebar, see https://github.com/tauri-apps/wry/blob/d7c9097256/examples/custom_titlebar.rs
     let webview = WebViewBuilder::new(window)?
         .build()?;
 
