@@ -27,6 +27,7 @@ fn main() -> wry::Result<()> {
 
     // To customize titlebar, see https://github.com/tauri-apps/wry/blob/d7c9097256/examples/custom_titlebar.rs
     let webview = WebViewBuilder::new(window)?
+        .with_back_forward_navigation_gestures(true)
         .build()?;
 
     webview.load_url("https://yahoo.co.jp");
