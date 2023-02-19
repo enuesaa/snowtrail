@@ -22,6 +22,7 @@ fn main() -> wry::Result<()> {
         .with_title("snowtrail")
         .with_inner_size(LogicalSize::new(1500, 1000))
         .with_menu(menu_bar)
+        // .with_visible(false)
         .build(&event_loop)?;
 
     // To customize titlebar, see https://github.com/tauri-apps/wry/blob/d7c9097256/examples/custom_titlebar.rs
