@@ -11,7 +11,13 @@ use wry::{
 };
 
 fn main() -> wry::Result<()> {
-    let event_loop = EventLoop::new();
+    enum UserEvent {
+        Navigation(String),
+    }
+
+    let event_loop: EventLoop<UserEvent> = EventLoop::with_user_event();
+    let proxy = event_loop.create_proxy();
+    let mut histories: Vec<String> = Vec::new();
 
     let mut menu_bar = MenuBar::new();
     let mut utilities = MenuBar::new();
@@ -25,23 +31,26 @@ fn main() -> wry::Result<()> {
         .with_menu(menu_bar)
         // .with_visible(false)
         .build(&event_loop)?;
-    let window2 = WindowBuilder::new()
-        .with_title("snowtrail2")
-        .build(&event_loop)?;
+    // let window2 = WindowBuilder::new()
+    //     .with_title("snowtrail2")
+    //     .build(&event_loop)?;
 
-    window.set_tabbing_identifier("a");
-    window2.set_tabbing_identifier("a");
+    // window.set_tabbing_identifier("a");
+    // window2.set_tabbing_identifier("a");
 
     // To customize titlebar, see https://github.com/tauri-apps/wry/blob/d7c9097256/examples/custom_titlebar.rs
     let webview = WebViewBuilder::new(window)?
         .with_back_forward_navigation_gestures(true)
+        .with_navigation_handler(move |uri: String| {
+            proxy.send_event(UserEvent::Navigation(uri.clone())).is_ok() || true
+        })
         .build()?; 
-    let webview2 = WebViewBuilder::new(window2)?
-        .with_back_forward_navigation_gestures(true)
-        .build()?;
+    // let webview2 = WebViewBuilder::new(window2)?
+    //     .with_back_forward_navigation_gestures(true)
+    //     .build()?;
 
     webview.load_url("https://yahoo.co.jp");
-    webview2.load_url("https://yahoo.com");
+    // webview2.load_url("https://yahoo.com");
 
     event_loop.run(move |event, _, control_flow| {
         *control_flow = ControlFlow::Wait;
@@ -51,7 +60,13 @@ fn main() -> wry::Result<()> {
             Event::WindowEvent {
                 event: WindowEvent::CloseRequested,
                 ..
-            } => *control_flow = ControlFlow::Exit,
+            } => {
+                println!("{:?}", histories);
+                *control_flow = ControlFlow::Exit
+            },
+            Event::UserEvent(UserEvent::Navigation(uri)) => {
+                histories.push(uri.clone())
+            },
             _ => (),
         }
     });
