@@ -5,6 +5,7 @@ use wry::{
         event_loop::{ControlFlow, EventLoop},
         menu::{MenuBar, MenuItem},
         window::WindowBuilder,
+        platform::macos::WindowExtMacOS,
     },
     webview::WebViewBuilder,
 };
@@ -24,13 +25,23 @@ fn main() -> wry::Result<()> {
         .with_menu(menu_bar)
         // .with_visible(false)
         .build(&event_loop)?;
+    let window2 = WindowBuilder::new()
+        .with_title("snowtrail2")
+        .build(&event_loop)?;
+
+    window.set_tabbing_identifier("a");
+    window2.set_tabbing_identifier("a");
 
     // To customize titlebar, see https://github.com/tauri-apps/wry/blob/d7c9097256/examples/custom_titlebar.rs
     let webview = WebViewBuilder::new(window)?
         .with_back_forward_navigation_gestures(true)
+        .build()?; 
+    let webview2 = WebViewBuilder::new(window2)?
+        .with_back_forward_navigation_gestures(true)
         .build()?;
 
     webview.load_url("https://yahoo.co.jp");
+    webview2.load_url("https://yahoo.com");
 
     event_loop.run(move |event, _, control_flow| {
         *control_flow = ControlFlow::Wait;
