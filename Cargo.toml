@@ -1,3 +1,7 @@
+[lib]
+crate-type = ["bin"]
+path = "src-tauri/main.rs"
+
 [package]
 name = "snowtrail-app"
 version = "0.1.0"
