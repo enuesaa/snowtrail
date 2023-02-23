@@ -16,12 +16,11 @@ export default function TopPage() {
       <div className="container">
         <h1>Welcome to Tauri!</h1>
         <div className="row">
-          <a href="https://tauri.app" target="_blank">
+          <a href="https://tauri.app">
             <img src="/public/assets/tauri.svg" className="logo tauri" alt="Tauri logo" />
           </a>
           <a
             href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
-            target="_blank"
           >
             <img
               src="/public/assets/javascript.svg"
