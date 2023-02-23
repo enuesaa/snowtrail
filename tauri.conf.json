@@ -2,8 +2,8 @@
   "build": {
     "beforeBuildCommand": "yarn build",
     "beforeDevCommand": "yarn dev",
-    "devPath": "./frontend",
-    "distDir": "./frontend/dist"
+    "devPath": "http://localhost:3000",
+    "distDir": "../dist"
   },
   "package": {
     "productName": "tauri-app",
@@ -25,7 +25,9 @@
         "depends": []
       },
       "externalBin": [],
-      "icon": [],
+      "icon": [
+        "public/icon.png"
+      ],
       "identifier": "com.tauri.dev",
       "longDescription": "",
       "macOS": {
