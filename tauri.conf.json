@@ -1,10 +1,9 @@
 {
   "build": {
-    "beforeDevCommand": "",
-    "beforeBuildCommand": "",
+    "beforeBuildCommand": "yarn build",
+    "beforeDevCommand": "yarn dev",
     "devPath": "./frontend",
-    "distDir": "./frontend",
-    "withGlobalTauri": true
+    "distDir": "./frontend/dist"
   },
   "package": {
     "productName": "tauri-app",
