@@ -6,7 +6,8 @@ import { MouseEventHandler } from 'react';
 export default function TopPage() {
   const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault()
-    invoke('greet', { name: 'aa' }).then((a) => { console.log(a) })
+    // invoke('greet', { name: 'aa' }).then((a) => { console.log(a) })
+    invoke('feed', { url: 'https://www.yahoo.com/news/rss' }).then((a) => { console.log(a) })
   }
 
   return (
