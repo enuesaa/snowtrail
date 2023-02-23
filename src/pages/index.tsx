@@ -1,47 +1,28 @@
 import { Header } from '../components/common/Header'
 import { Main } from '../components/common/Main'
 import { invoke } from '@tauri-apps/api/tauri'
-import { MouseEventHandler } from 'react';
+import { useRef, useState, MouseEventHandler } from 'react';
 
 export default function TopPage() {
-  const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+  const [message, setMessage] = useState<string>('')
+  const urlInput = useRef<HTMLInputElement>(null)
+
+  const handleClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()
-    // invoke('greet', { name: 'aa' }).then((a) => { console.log(a) })
-    invoke('feed', { url: 'https://www.yahoo.com/news/rss' }).then((a) => { console.log(a) })
+    const url = urlInput.current?.value ?? ''
+    const res = await invoke('feed', { url })
+    setMessage(res as string)
   }
 
   return (
     <>
       <Header />
       <Main>
-      <div className="container">
-        <h1>Welcome to Tauri!</h1>
-        <div className="row">
-          <a href="https://tauri.app">
-            <img src="/public/assets/tauri.svg" className="logo tauri" alt="Tauri logo" />
-          </a>
-          <a
-            href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"
-          >
-            <img
-              src="/public/assets/javascript.svg"
-              className="logo vanilla"
-              alt="JavaScript logo"
-            />
-          </a>
+        <div style={{ color: '#fafafa' }}>
+          <input ref={urlInput} placeholder="Enter a url..." />
+          <button onClick={handleClick}>Greet</button>
+          <p>{message}</p>
         </div>
-
-        <p>Click on the Tauri logo to learn more about the framework</p>
-
-        <div className="row">
-          <div>
-            <input id="greet-input" placeholder="Enter a name..." />
-            <button id="greet-button" type="button" onClick={handleClick}>Greet</button>
-          </div>
-        </div>
-
-        <p id="greet-msg"></p>
-      </div>
       </Main>
     </>
   )
