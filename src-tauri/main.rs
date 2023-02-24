@@ -13,16 +13,24 @@ async fn feed_async(url: &str) -> Result<Channel, Box<dyn Error>> {
         .bytes()
         .await?;
     let channel = Channel::read_from(&content[..])?;
+    // println!("{:?}", channel.items()[0]);
     Ok(channel)
 }
 
 #[tauri::command]
-fn feed(url: &str) -> String {
+fn feed(url: &str) -> Vec<String> {
     // see https://ja.stackoverflow.com/questions/88987
-    if let Ok(res) = tauri::async_runtime::block_on(feed_async(url)) {
-        return res.description
+    if let Ok(channel) = tauri::async_runtime::block_on(feed_async(url)) {
+        let items = channel.items();
+        let titles: Vec<String> = items.iter().map(|item| {
+            if let Some(title) = item.title() {
+                return String::from(title);
+            };
+            return String::from("");
+        }).collect();
+        return titles;
     };
-    String::from("failed")
+    vec![String::from("failed")]
 }
 
 fn main() {
