@@ -1,33 +1,23 @@
-import { invoke } from '@tauri-apps/api/tauri'
-import { useRef, useState, MouseEventHandler } from 'react'
+import { useRef, MouseEventHandler } from 'react'
 import { FeedItem } from './FeedItem'
+import { useFetch } from '../../states/usefetch'
+import { messageAtom } from '../../states/feed'
 
-type MessageItem = {
-  title: string;
-  url: string;
-  descripion: string;
-}
-type Message = {
-  title: string;
-  items: MessageItem[];
-}
 export const FeedBoard = () => {
-  const [message, setMessage] = useState<Message>({ title: '', items: [] })
+  const { data, invoke } = useFetch(messageAtom)
   const urlInput = useRef<HTMLInputElement>(null)
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()
-    const url = urlInput.current?.value ?? ''
-    const res = await invoke('feed', { url })
-    setMessage(res as Message)
+    invoke({ url: urlInput.current?.value ?? '' })
   }
 
   return (
     <div style={{ color: '#fafafa' }}>
       <input ref={urlInput} />
       <button onClick={handleClick}>Greet</button>
-      <h2>{message.title}</h2>
-      {message.items.map((m,i) => (
+      <h2>{data?.title}</h2>
+      {data?.items.map((m,i) => (
         <FeedItem key={i} url={m.url} title={m.title} />
       ))}
     </div>
