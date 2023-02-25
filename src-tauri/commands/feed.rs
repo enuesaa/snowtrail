@@ -7,6 +7,7 @@ use serde::{Serialize};
 struct FeedItem {
     title: String,
     url: String,
+    description: String,
 }
 #[derive(Serialize)]
 pub struct FeedReposne {
@@ -22,8 +23,8 @@ impl FeedReposne {
         self.title = String::from(title);
     }
 
-    pub fn append(&mut self, title: &str, url: &str) {
-        self.items.push(FeedItem { title: String::from(title), url: String::from(url) })
+    pub fn append(&mut self, title: &str, url: &str, description: &str) {
+        self.items.push(FeedItem { title: String::from(title), url: String::from(url), description: String::from(description) })
     }
 }
 
@@ -33,7 +34,7 @@ async fn feed_async(url: &str) -> Result<Channel, Box<dyn Error>> {
         .bytes()
         .await?;
     let channel = Channel::read_from(&content[..])?;
-    // println!("{:?}", channel.items()[0]);
+    println!("{:#?}", channel.items()[0]);
     Ok(channel)
 }
 
@@ -46,10 +47,8 @@ pub fn feed(url: &str) -> FeedReposne {
 
         let items = channel.items();
         items.iter().for_each(|item| {
-            if let Some(title) = item.title() {
-                if let Some(url) = item.link() {
-                    res.append(title, url);
-                }
+            if let (Some(title), Some(url), Some(description)) = (item.title(), item.link(), item.description()) {
+                res.append(title, url, description);
             };
         });
     };

@@ -5,6 +5,7 @@ import { FeedItem } from './FeedItem'
 type MessageItem = {
   title: string;
   url: string;
+  descripion: string;
 }
 type Message = {
   title: string;
