@@ -1,7 +1,8 @@
 import { Header } from '../components/common/Header'
 import { Main } from '../components/common/Main'
 import { invoke } from '@tauri-apps/api/tauri'
-import { useRef, useState, MouseEventHandler } from 'react';
+import { useRef, useState, MouseEventHandler } from 'react'
+import { FeedItem } from '../components/feed/FeedItem'
 
 type MessageItem = {
   title: string;
@@ -31,7 +32,7 @@ export default function TopPage() {
           <button onClick={handleClick}>Greet</button>
           <h2>{message.title}</h2>
           {message.items.map((m,i) => (
-            <a key={i} href={m.url}>{m.title}</a>
+            <FeedItem key={i} url={m.url} title={m.title} />
           ))}
         </div>
       </Main>
