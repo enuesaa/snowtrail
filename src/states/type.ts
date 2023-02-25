@@ -1,5 +1,6 @@
-export type FetchAtom<R, A> = {
+import { type PrimitiveAtom } from 'jotai'
+
+export type Fetchmeta<R, A> = {
   name: string;
-  res: null | R;
-  arg: A;
+  atom: PrimitiveAtom<null | R>;
 }

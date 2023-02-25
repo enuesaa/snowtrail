@@ -1,10 +1,10 @@
 import { useRef, MouseEventHandler } from 'react'
 import { FeedItem } from './FeedItem'
 import { useFetch } from '../../states/usefetch'
-import { messageAtom } from '../../states/feed'
+import { messageMeta } from '../../states/feed'
 
 export const FeedBoard = () => {
-  const { data, invoke } = useFetch(messageAtom)
+  const { data, invoke } = useFetch(messageMeta)
   const urlInput = useRef<HTMLInputElement>(null)
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = async (e) => {

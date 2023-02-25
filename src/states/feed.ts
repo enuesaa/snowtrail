@@ -1,5 +1,5 @@
 import { atom } from 'jotai'
-import { type FetchAtom } from './type'
+import { type Fetchmeta } from './type'
 
 type MessageItem = {
   title: string;
@@ -14,5 +14,7 @@ export type MessageArg = {
   url: string;
 }
 
-export const messageAtom = atom<FetchAtom<MessageResponse, MessageArg>>({ name: 'feed', res: null, arg: { url: '' }})
-
+export const messageMeta: Fetchmeta<MessageResponse, MessageArg> = {
+  name: 'feed',
+  atom: atom<MessageResponse | null>(null),
+}
