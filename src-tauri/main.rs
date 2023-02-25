@@ -16,16 +16,13 @@ fn main() {
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();
-            let res = window.with_webview(|webview| {
+            window.with_webview(|webview| {
                 #[cfg(target_os = "macos")]
                 unsafe {
                     let () = msg_send![webview.inner(), setAllowsBackForwardNavigationGestures: true];
                 }
-            });
-            match res {
-                Ok(_) => Ok(()),
-                Err(_) => Ok(()),
-            }
+            })?;
+            Ok(())
         })
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
