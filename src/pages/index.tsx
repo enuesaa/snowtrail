@@ -3,15 +3,23 @@ import { Main } from '../components/common/Main'
 import { invoke } from '@tauri-apps/api/tauri'
 import { useRef, useState, MouseEventHandler } from 'react';
 
+type MessageItem = {
+  title: string;
+  url: string;
+}
+type Message = {
+  title: string;
+  items: MessageItem[];
+}
 export default function TopPage() {
-  const [messages, setMessages] = useState<string[]>([])
+  const [message, setMessage] = useState<Message>({ title: '', items: [] })
   const urlInput = useRef<HTMLInputElement>(null)
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()
     const url = urlInput.current?.value ?? ''
     const res = await invoke('feed', { url })
-    setMessages(res as string[])
+    setMessage(res as Message)
   }
 
   return (
@@ -21,8 +29,9 @@ export default function TopPage() {
         <div style={{ color: '#fafafa' }}>
           <input ref={urlInput} placeholder="Enter a url..." />
           <button onClick={handleClick}>Greet</button>
-          {messages.map((m,i) => (
-            <p key={i}>{m}</p>
+          <h2>{message.title}</h2>
+          {message.items.map((m,i) => (
+            <a key={i} href={m.url}>{m.title}</a>
           ))}
         </div>
       </Main>

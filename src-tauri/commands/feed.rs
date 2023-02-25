@@ -1,6 +1,31 @@
 use std::error::Error;
 use rss::Channel;
 use reqwest;
+use serde::{Serialize};
+
+#[derive(Serialize)]
+struct FeedItem {
+    title: String,
+    url: String,
+}
+#[derive(Serialize)]
+pub struct FeedReposne {
+    title: String,
+    items: Vec<FeedItem>,
+}
+impl FeedReposne {
+    pub fn new () -> Self {
+        FeedReposne { title: String::from(""), items: vec![] }
+    }
+
+    pub fn set_titlke(&mut self, title: &str) {
+        self.title = String::from(title);
+    }
+
+    pub fn append(&mut self, title: &str, url: &str) {
+        self.items.push(FeedItem { title: String::from(title), url: String::from(url) })
+    }
+}
 
 async fn feed_async(url: &str) -> Result<Channel, Box<dyn Error>> {
     let content = reqwest::get(url)
@@ -13,17 +38,20 @@ async fn feed_async(url: &str) -> Result<Channel, Box<dyn Error>> {
 }
 
 #[tauri::command]
-pub fn feed(url: &str) -> Vec<String> {
+pub fn feed(url: &str) -> FeedReposne {
+    let mut res = FeedReposne::new();
     // see https://ja.stackoverflow.com/questions/88987
     if let Ok(channel) = tauri::async_runtime::block_on(feed_async(url)) {
+        res.set_titlke(channel.title());
+
         let items = channel.items();
-        let titles: Vec<String> = items.iter().map(|item| {
+        items.iter().for_each(|item| {
             if let Some(title) = item.title() {
-                return String::from(title);
+                if let Some(url) = item.link() {
+                    res.append(title, url);
+                }
             };
-            return String::from("");
-        }).collect();
-        return titles;
+        });
     };
-    vec![String::from("failed")]
+    res
 }
