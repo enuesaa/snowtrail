@@ -4,7 +4,7 @@ import { css } from '@emotion/react'
 type Props = {
   children: ReactNode
 }
-export function Main({ children }: Props) {
+export const Main = ({ children }: Props) => {
   const styles = {
     main: css({
       width: '90%',
