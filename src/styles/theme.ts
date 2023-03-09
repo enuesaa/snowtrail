@@ -30,6 +30,7 @@ export const baseTheme = {
     fontWeight: '600',
     padding: '10px',
     fontSize: '30px',
+    userSelect: 'none',
   },
 
   color: {
