@@ -2,8 +2,10 @@ import { useRef, MouseEventHandler } from 'react'
 import { FeedItem } from './FeedItem'
 import { useFetch } from '../../states/usefetch'
 import { messageMeta } from '../../states/feed'
+import { useTheme, css } from '@emotion/react'
 
 export const FeedBoard = () => {
+  const theme = useTheme()
   const { data, invoke } = useFetch(messageMeta)
   const urlInput = useRef<HTMLInputElement>(null)
 
@@ -12,8 +14,14 @@ export const FeedBoard = () => {
     invoke({ url: urlInput.current?.value ?? '' })
   }
 
+  const styles = {
+    wrap: css(theme.innerbox, {
+      color: theme.color.main,
+    }),
+  }
+
   return (
-    <div style={{ color: '#fafafa' }}>
+    <div css={styles.wrap}>
       <input ref={urlInput} />
       <button onClick={handleClick}>Greet</button>
       <h2>{data?.title}</h2>

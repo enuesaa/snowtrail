@@ -9,8 +9,8 @@ export const baseTheme = {
     padding: '10px',
   },
   innerbox: {
-    width: '90%',
-    margin: '0 auto',
+    width: '98%',
+    margin: '10px auto',
     padding: '10px',
   },
   card: {},
