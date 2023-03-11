@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "tauri dev",
+    "dev": "tauri dev --no-watch",
     "next:dev": "next dev",
     "next:build": "next build && next export -o dist",
     "next:lint": "next lint",
