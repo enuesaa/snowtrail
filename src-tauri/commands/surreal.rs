@@ -25,40 +25,29 @@ pub fn end_surreal() {
 }
 
 
-use std::borrow::Cow;
 use surrealdb::Surreal;
 use surrealdb::engine::remote::http::Http;
 use surrealdb::opt::auth::Root;
 
 #[derive(Serialize, Deserialize)]
-struct Name {
-    first: Cow<'static, str>,
-    last: Cow<'static, str>,
-}
-
-#[derive(Serialize, Deserialize)]
 struct Person {
-    #[serde(skip_serializing)]
-    id: Option<String>,
-    title: Cow<'static, str>,
-    name: Name,
+    title: String,
     marketing: bool,
 }
 
 async fn record_async() -> surrealdb::Result<()> {
     let db = Surreal::new::<Http>("localhost:8000").await?;
-    db.signin(Root { username: "root", password: "root" }).await?;
-    db.use_ns("test").use_db("test").await?;
-
-    db.create("person").content(Person {
-        id: None,
-        title: "titl".into(),
-        name: Name {
-            first: "bbb".into(),
-            last: "aaa".into(),
-        },
+    if let Err(e) = db.signin(Root { username: "root", password: "root" }).await {
+        println!("{:?}", e);
+    };
+    if let Err(e) = db.use_ns("test").use_db("test").await {
+        println!("{:?}", e);
+    };
+    let person = Person {
+        title: "titll".to_string(),
         marketing: true,
-    }).await?;
+    };
+    db.create("person").content(person).await?;
     Ok(())
 }
 
