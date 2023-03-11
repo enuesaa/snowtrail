@@ -4,6 +4,7 @@ use commands::greet::greet;
 use commands::feed::feed;
 use commands::localfiles::localfiles;
 use commands::runls::runls;
+use commands::surreal::{start_surreal, end_surreal};
 use tauri_plugin_store::StoreBuilder;
 use serde_json::json;
 use std::env;
@@ -20,6 +21,8 @@ fn main() {
             feed,
             localfiles,
             runls,
+            start_surreal,
+            end_surreal,
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();
