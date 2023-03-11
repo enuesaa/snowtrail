@@ -1,5 +1,5 @@
 import { MouseEventHandler } from 'react'
-import { useFetch } from '../../states/usefetch'
+import { useFetch } from '@/states/usefetch'
 import { useTheme, css } from '@emotion/react'
 import { startSurrealMeta, endSurrealMeta } from '../../states/surreal'
 import Link from 'next/link'

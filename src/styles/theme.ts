@@ -1,4 +1,6 @@
-export const baseTheme = {
+import { Theme } from '@emotion/react'
+
+export const baseTheme: Theme = {
   form: {
     'input': {},
     'textarea':{},

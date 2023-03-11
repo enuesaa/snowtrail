@@ -1,6 +1,6 @@
 import { MouseEventHandler } from 'react'
-import { useFetch } from '../../states/usefetch'
-import { localfilesMeta } from '../../states/localfiles'
+import { useFetch } from '@/states/usefetch'
+import { localfilesMeta } from '@/states/localfiles'
 import { useTheme, css } from '@emotion/react'
 
 export const Board = () => {

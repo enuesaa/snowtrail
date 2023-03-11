@@ -1,5 +1,5 @@
 import { atom } from 'jotai'
-import { type Fetchmeta } from './type'
+import { type Fetchmeta } from '@/states/type'
 
 type MessageItem = {
   title: string;

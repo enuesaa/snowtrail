@@ -1,5 +1,5 @@
 import { atom } from 'jotai'
-import { type Fetchmeta } from './type'
+import { type Fetchmeta } from '@/states/type'
 
 export type StartSurrealResponse = {
   status: string;

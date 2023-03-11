@@ -1,6 +1,6 @@
 import { useAtom } from 'jotai'
 import { invoke as invokeTauri, type InvokeArgs } from '@tauri-apps/api/tauri'
-import { type Fetchmeta } from './type'
+import { type Fetchmeta } from '@/states/type'
 
 export type UseFetchResult<R, A> = {
   data: null | R;
