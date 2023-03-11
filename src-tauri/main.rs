@@ -3,6 +3,7 @@ pub mod commands;
 use commands::greet::greet;
 use commands::feed::feed;
 use commands::localfiles::localfiles;
+use commands::runls::runls;
 use tauri_plugin_store::StoreBuilder;
 use serde_json::json;
 use std::env;
@@ -18,6 +19,7 @@ fn main() {
             greet,
             feed,
             localfiles,
+            runls,
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();
