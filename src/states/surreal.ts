@@ -19,3 +19,9 @@ export const endSurrealMeta: Fetchmeta<EndSurrealResponse, EndSurrealArg> = {
   name: 'end_surreal',
   atom: atom<EndSurrealResponse | null>(null),
 }
+
+
+export const recordMeta: Fetchmeta<{}, {}> = {
+  name: 'record',
+  atom: atom<{} | null>(null),
+}

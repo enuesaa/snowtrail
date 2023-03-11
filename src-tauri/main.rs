@@ -2,7 +2,7 @@ pub mod commands;
 
 use commands::feed::feed;
 use commands::localfiles::localfiles;
-use commands::surreal::{start_surreal, end_surreal};
+use commands::surreal::{start_surreal, end_surreal, record};
 use std::env;
 
 #[cfg(target_os = "macos")]
@@ -17,6 +17,7 @@ fn main() {
             localfiles,
             start_surreal,
             end_surreal,
+            record,
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();

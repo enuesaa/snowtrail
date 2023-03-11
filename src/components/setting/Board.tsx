@@ -1,7 +1,7 @@
 import { MouseEventHandler } from 'react'
 import { useFetch } from '@/states/usefetch'
 import { useTheme, css } from '@emotion/react'
-import { startSurrealMeta, endSurrealMeta } from '../../states/surreal'
+import { startSurrealMeta, endSurrealMeta, recordMeta } from '../../states/surreal'
 import Link from 'next/link'
 
 export const Board = () => {
@@ -9,6 +9,7 @@ export const Board = () => {
 
   const { data, invoke: invokeStartSurreal } = useFetch(startSurrealMeta)
   const { invoke: invokeEndSurreal } = useFetch(endSurrealMeta)
+  const { invoke: invokeRecord } = useFetch(recordMeta)
 
   const handleStart: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()
@@ -17,6 +18,10 @@ export const Board = () => {
   const handleEnd: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()
     invokeEndSurreal({})
+  }
+  const handleInvokeRecord: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault()
+    invokeRecord({})
   }
 
   const styles = {
@@ -30,6 +35,7 @@ export const Board = () => {
       {data?.status}
       <button onClick={handleStart}>start</button>
       <button onClick={handleEnd}>end</button>
+      <button onClick={handleInvokeRecord}>record</button>
       <Link href="http://localhost:8000/">check</Link>
     </div>
   )
