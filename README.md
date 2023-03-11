@@ -7,3 +7,8 @@ App for managing posts you read or you should read.
 
 ## Todo
 - histories
+
+## 
+- イメージはイベントハブ
+- visualize git commit count
+- read article count
