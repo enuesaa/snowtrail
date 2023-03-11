@@ -8,7 +8,7 @@ pub struct StartSurrealRepsonse {
 #[tauri::command]
 pub fn start_surreal() -> StartSurrealRepsonse {
     let output = Command::new("docker")
-        .args(["run", "-d", "--rm", "--name", "snowtrail-surreal", "-p", "8000:8000", "surrealdb/surrealdb:latest", "start"])
+        .args(["run", "-d", "--rm", "--name", "snowtrail-surreal", "-p", "8000:8000", "surrealdb/surrealdb:latest", "start", "--user", "root", "--pass", "root"])
         .stdout(Stdio::piped())
         .stderr(Stdio::piped())
         .output()
@@ -48,7 +48,7 @@ struct Person {
 async fn record_async() -> surrealdb::Result<()> {
     let db = Surreal::new::<Http>("localhost:8000").await?;
     db.signin(Root { username: "root", password: "root" }).await?;
-    db.use_ns("namespace").use_db("database").await?;
+    db.use_ns("test").use_db("test").await?;
 
     db.create("person").content(Person {
         id: None,
