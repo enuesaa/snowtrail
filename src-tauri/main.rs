@@ -2,6 +2,7 @@ pub mod commands;
 
 use commands::greet::greet;
 use commands::feed::feed;
+use commands::localfiles::localfiles;
 use tauri_plugin_store::StoreBuilder;
 use serde_json::json;
 use std::env;
@@ -16,6 +17,7 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             greet,
             feed,
+            localfiles,
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();

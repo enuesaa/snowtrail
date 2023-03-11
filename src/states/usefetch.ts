@@ -10,6 +10,7 @@ export const useFetch = <R, A>(meta: Fetchmeta<R, A>): UseFetchResult<R, A> => {
   const [value, setValue] = useAtom(meta.atom)
   const invoke = async (arg: A) => {
     const res = await invokeTauri(meta.name, arg as InvokeArgs)
+    console.log(res)
     setValue(res as R)
   }
   return { data: value, invoke }

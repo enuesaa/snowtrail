@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Header } from '../components/common/Header'
 import { FeedBoard } from '../components/feed/FeedBoard'
 
@@ -6,6 +7,7 @@ export default function TopPage() {
     <>
       <Header />
       <FeedBoard />
+      <Link href={'/localfiles'} style={{ color: '#fafafa' }}>localfiles</Link>
     </>
   )
 }
