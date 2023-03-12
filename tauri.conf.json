@@ -28,7 +28,7 @@
       "icon": [
         "public/icon.png"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "dev.nsrciog.snowtrail",
       "longDescription": "",
       "macOS": {
         "entitlements": null,

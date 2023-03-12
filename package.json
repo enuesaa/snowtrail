@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "tauri dev --no-watch",
+    "build": "tauri build",
     "next:dev": "next dev",
     "next:build": "next build && next export -o dist",
     "next:lint": "next lint",
