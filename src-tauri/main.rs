@@ -4,6 +4,7 @@ use commands::feed::feed;
 use commands::localfiles::localfiles;
 use commands::surreal::{start_surreal, end_surreal, record};
 use commands::git::git_histories;
+use commands::greet::greet;
 use std::env;
 
 #[cfg(target_os = "macos")]
@@ -20,6 +21,7 @@ fn main() {
             end_surreal,
             record,
             git_histories,
+            greet,
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();
