@@ -3,6 +3,7 @@ pub mod commands;
 use commands::feed::feed;
 use commands::localfiles::localfiles;
 use commands::surreal::{start_surreal, end_surreal, record};
+use commands::git::git_histories;
 use std::env;
 
 #[cfg(target_os = "macos")]
@@ -18,6 +19,7 @@ fn main() {
             start_surreal,
             end_surreal,
             record,
+            git_histories,
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();
