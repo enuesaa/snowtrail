@@ -1,5 +1,5 @@
-use std::env;
 use serde::Serialize;
+use dirs::home_dir;
 
 #[derive(Debug, Serialize)]
 struct LocalfileItem {
@@ -14,12 +14,11 @@ pub struct LocalfilesResponse {
 pub fn localfiles() -> LocalfilesResponse {
     let mut res = LocalfilesResponse { items: Vec::new() };
 
-    let dir = env::current_dir().unwrap().parent().unwrap().to_owned();
+    let dir = home_dir().unwrap();
     for file in dir.read_dir().unwrap() {
         res.items.push(LocalfileItem {
             name: file.unwrap().path().to_str().unwrap().to_string()
         });
     };
-    println!("{:?}", res);
     res
 }
