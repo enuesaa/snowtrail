@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { css, useTheme } from '@emotion/react'
+import { IoMdSnow } from 'react-icons/io'
 
 export const Header = () => {
   const theme = useTheme()
@@ -10,15 +11,15 @@ export const Header = () => {
     }),
     title: css(theme.heading, {
       color: '#fafafa',
+      fontSize: theme.fontSize.large,
+      padding: '2px',
     }),
   }
 
   return (
     <>
       <header css={styles.top}>
-        <Link href={{ pathname: `/` }} css={styles.title}>
-          snowtrail-app
-        </Link>
+        <Link href='/' css={styles.title}><IoMdSnow /></Link>
       </header>
     </>
   )
