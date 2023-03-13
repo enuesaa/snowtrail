@@ -4,7 +4,7 @@ pub mod services;
 use commands::feed::feed;
 use commands::localfiles::localfiles;
 use commands::surreal::{start_surreal, end_surreal};
-use commands::person::add_person;
+use commands::event::add_event;
 use commands::git::git_histories;
 use commands::greet::greet;
 use std::env;
@@ -21,7 +21,7 @@ fn main() {
             localfiles,
             start_surreal,
             end_surreal,
-            add_person,
+            add_event,
             git_histories,
             greet,
         ])

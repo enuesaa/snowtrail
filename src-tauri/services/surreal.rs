@@ -23,7 +23,7 @@ pub fn downdb() {
 
 pub async fn connect() -> Result<Surreal<Client>, Error> {
     let db = Surreal::new::<Http>("localhost:8000").await?;
-    db.signin(Root { username: "root", password: "root" }).await?;
-    db.use_ns("test").use_db("test").await?;
+    let _ = db.signin(Root { username: "root", password: "root" }).await;
+    let _ = db.use_ns("test").use_db("test").await;
     Ok(db)
 }

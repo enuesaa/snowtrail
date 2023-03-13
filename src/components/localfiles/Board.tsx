@@ -3,6 +3,7 @@ import { useFetch } from '@/states/usefetch'
 import { localfilesMeta } from '@/states/localfiles'
 import { gitHistoriesMeta } from '@/states/git'
 import { greetMeta } from '@/states/greet'
+import { eventMeta } from '@/states/event'
 import { useTheme, css } from '@emotion/react'
 
 export const Board = () => {
@@ -10,6 +11,7 @@ export const Board = () => {
   const { data, invoke } = useFetch(localfilesMeta)
   const { data: gitHistories, invoke: invokeGitHistories } = useFetch(gitHistoriesMeta)
   const { data: greetData, invoke: invokeGreet } = useFetch(greetMeta)
+  const { invoke: invokeAddEvent } = useFetch(eventMeta)
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()
@@ -22,6 +24,10 @@ export const Board = () => {
   const handleGreet: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()
     invokeGreet({ name: 'aaa' })
+  }
+  const handleAddEvent: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault()
+    invokeAddEvent({})
   }
 
   const styles = {
@@ -42,6 +48,7 @@ export const Board = () => {
       <button onClick={handleClick}>aa</button>
       <button onClick={handleGitHistories}>gitHistories</button>
       <button onClick={handleGreet}>greet</button>
+      <button onClick={handleAddEvent}>event</button>
     </div>
   )
 }

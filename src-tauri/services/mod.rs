@@ -1,2 +1,2 @@
 pub mod surreal;
-pub mod person;
+pub mod event;
