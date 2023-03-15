@@ -17,4 +17,8 @@ jobs:
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: yarn next:build
       - run: cargo test
