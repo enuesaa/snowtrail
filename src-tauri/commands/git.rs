@@ -30,6 +30,7 @@ pub fn git_histories() -> GitHistories {
 
 #[test]
 fn test_git_histories() {
+    // 環境依存. service layer を定義し service を入れ替えられるようにする
     let histories = git_histories();
     assert_eq!(histories.items.len(), 5);
     assert_ne!(histories.items[0].hash, "".to_string()); // Is this meaningful ?
