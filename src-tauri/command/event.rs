@@ -1,4 +1,4 @@
-use crate::services::event::{add_event as add_event_to_db, Event};
+use crate::service::event::{add_event as add_event_to_db, Event};
 
 #[tauri::command]
 pub async fn add_event() {

@@ -1,13 +1,13 @@
-pub mod commands;
-pub mod services;
+pub mod command;
+pub mod service;
 pub mod repository;
 
-use commands::feed::feed;
-use commands::localfiles::localfiles;
-use commands::surreal::{start_surreal, end_surreal};
-use commands::event::add_event;
-use commands::git::git_histories;
-use commands::greet::greet;
+use command::feed::feed;
+use command::localfiles::localfiles;
+use command::surreal::{start_surreal, end_surreal};
+use command::event::add_event;
+use command::git::git_histories;
+use command::greet::greet;
 use std::env;
 
 #[cfg(target_os = "macos")]

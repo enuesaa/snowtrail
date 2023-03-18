@@ -1,4 +1,4 @@
-use crate::services::git::{get_git_histories, GitHistories};
+use crate::service::git::{get_git_histories, GitHistories};
 use crate::repository::command::Runcommand;
 
 #[tauri::command]

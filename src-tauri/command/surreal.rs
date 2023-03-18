@@ -1,5 +1,5 @@
 use serde::Serialize;
-use crate::services::surreal::{updb, downdb};
+use crate::service::surreal::{updb, downdb};
 
 #[derive(Serialize)]
 pub struct StartSurrealRepsonse {

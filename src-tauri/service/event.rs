@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-use crate::services::surreal::connect;
+use crate::service::surreal::connect;
 use std::error::Error;
 
 #[derive(Serialize, Deserialize)]
