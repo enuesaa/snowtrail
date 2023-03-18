@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
 import { invoke as invokeTauri, type InvokeArgs } from '@tauri-apps/api/tauri'
 
-export const useQueryInit = <A, R>(cmd: string) => (arg: A) => {
+type CommandName = string
+
+const useQueryInit = <A, R>(cmd: CommandName) => (arg: A) => {
   const [data, setData] = useState<R|null>(null)
   useEffect(() => {
     (async () => {
@@ -13,7 +15,7 @@ export const useQueryInit = <A, R>(cmd: string) => (arg: A) => {
   return data
 }
 
-export const useLazyQueryInit = <A, R>(cmd: string) => () => {
+const useLazyInit = <A, R>(cmd: CommandName) => () => {
   const [data, setData] = useState<R|null>(null)
   const invoke = async (arg: A) => {
     const res = await invokeTauri<R>(cmd, arg as InvokeArgs)
@@ -21,4 +23,21 @@ export const useLazyQueryInit = <A, R>(cmd: string) => () => {
   }
 
   return { data, invoke }
+}
+
+type QueryMap<A, R> = {
+  Query: (arg: A) => R;
+  Lazy: () => { data: null | R, invoke: (arg: A) => void};
+}
+
+export const useQueriesInit = <A, R>(cmd: CommandName) => {
+  const queryFn = useQueryInit<A, R>(cmd)
+  const lazyFn = useLazyInit<A, R>(cmd)
+
+  return {
+    [`use${cmd.toUpperCase()}Query`]: queryFn,
+    [`use${cmd.toUpperCase()}Lazy`]: lazyFn,
+  } as {
+    [Q in keyof QueryMap<A, R> as `use${Capitalize<CommandName>}${Q}`]: QueryMap<A, R>[Q];
+  }
 }
