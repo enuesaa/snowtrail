@@ -1,7 +1,7 @@
 use crate::services::git::{get_git_histories, GitHistories};
-use crate::repository::command::RunCommand;
+use crate::repository::command::Runcommand;
 
 #[tauri::command]
 pub fn git_histories() -> GitHistories {
-    get_git_histories(RunCommand::new())
+    get_git_histories(Runcommand::new())
 }
