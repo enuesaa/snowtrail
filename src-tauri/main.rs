@@ -1,5 +1,6 @@
 pub mod commands;
 pub mod services;
+pub mod repository;
 
 use commands::feed::feed;
 use commands::localfiles::localfiles;
