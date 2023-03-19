@@ -33,17 +33,6 @@ export const {
   useGreetLazy,
 } = useQueriesInit<{ name: string }, string>('greet')
 
-// surreal
-export const {
-  useStartSurrealQuery,
-  useStartSurrealLazy,
-} = useQueriesInit<{}, { status: 'string' }>('startSurreal')
-
-export const {
-  useEndSurrealQuery,
-  useEndSurrealLazy,
-} = useQueriesInit<{}, {}>('endSurreal')
-
 // record
 export const {
   useRecordQuery,
