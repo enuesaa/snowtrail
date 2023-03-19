@@ -4,9 +4,9 @@ pub mod repository;
 
 use command::feed::feed;
 use command::localfiles::localfiles;
-use command::surreal::{start_surreal, end_surreal};
-use command::event::add_event;
-use command::git::git_histories;
+use command::surreal::{startSurreal, endSurreal};
+use command::event::addEvent;
+use command::git::gitHistories;
 use command::greet::greet;
 use std::env;
 
@@ -20,10 +20,10 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             feed,
             localfiles,
-            start_surreal,
-            end_surreal,
-            add_event,
-            git_histories,
+            startSurreal,
+            endSurreal,
+            addEvent,
+            gitHistories,
             greet,
         ])
         .setup(|app| {

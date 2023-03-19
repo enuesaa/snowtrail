@@ -6,12 +6,12 @@ pub struct StartSurrealRepsonse {
     status: String,
 }
 #[tauri::command]
-pub fn start_surreal() -> StartSurrealRepsonse {
+pub fn startSurreal() -> StartSurrealRepsonse {
     let container_id = updb();
     StartSurrealRepsonse { status: container_id }
 }
 
 #[tauri::command]
-pub fn end_surreal() {
+pub fn endSurreal() {
     downdb();
 }
