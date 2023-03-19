@@ -7,7 +7,7 @@ export default function TopPage() {
     <>
       <Header />
       <FeedBoard />
-      <Link href={'/localfiles'} style={{ color: '#fafafa' }}>localfiles</Link>
+      <Link href={'/git'} style={{ color: '#fafafa' }}>git</Link>
       <Link href={'/setting'} style={{ color: '#fafafa' }}>setting</Link>
     </>
   )

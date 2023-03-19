@@ -1,6 +1,4 @@
 use serde::{Serialize, Deserialize};
-use crate::repository::surreal::Surreal;
-use std::error::Error;
 #[allow(unused_imports)]
 use crate::repository::repository::RepositoryTrait;
 

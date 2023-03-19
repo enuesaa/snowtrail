@@ -13,7 +13,7 @@ impl Surreal {
 
 impl RepositoryTrait<BaseSurreal<Client>> for Surreal {
     fn exec(self) -> Result<BaseSurreal<Client>, Box<dyn Error>> {
-        let mut rt = tokio::runtime::Runtime::new().unwrap();
+        let rt = tokio::runtime::Runtime::new().unwrap();
         rt.block_on(async {
             let db = BaseSurreal::new::<Http>("localhost:8000").await?;
             let _ = db.signin(Root { username: "root", password: "root" }).await;

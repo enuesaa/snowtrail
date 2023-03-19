@@ -18,7 +18,6 @@ fn main() {
             endSurreal,
             greet,
             gitHistories,
-            addEvent,
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();
