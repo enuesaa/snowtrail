@@ -12,24 +12,29 @@ struct GitHistory {
 pub struct GitHistories {
     items: Vec<GitHistory>,
 }
-pub fn get_git_histories(runcommand: Runcommand) -> GitHistories {
-    let mut ret = GitHistories { items: Vec::new() };
-    if let Ok(stdout) = runcommand.program("git").args(vec!["log", "--pretty=format:%H", "-n", "5"]).exec() {
-        stdout.split("\n").for_each(|v| {
-            ret.items.push(GitHistory { hash: v.to_string() })
-        });
+impl GitHistories {
+    pub fn new() -> Self {
+        GitHistories { items: vec![] }
     }
-    ret
+
+    pub fn fetch(runcommand: Runcommand) -> Self {
+        let mut histories = GitHistories { items: vec![] };
+        if let Ok(stdout) = runcommand.program("git").args(vec!["log", "--pretty=format:%H", "-n", "5"]).exec() {
+            stdout.split("\n").for_each(|v| {
+                histories.items.push(GitHistory { hash: v.to_string() })
+            });
+        };
+        histories
+    }
 }
 
 #[test]
-fn test_get_git_histories() {
+fn test_fetch_git_histories() {
     impl Runcommand {
         fn exec(self) -> Result<String, String> {
             Ok("a".to_string())
         }
     }
-    let runcommand = Runcommand::new();
-    let histories = get_git_histories(runcommand);
+    let histories = GitHistories::fetch(Runcommand::new());
     assert_eq!(GitHistories { items: vec![ GitHistory { hash: "a".to_string() }] }, histories);
 }

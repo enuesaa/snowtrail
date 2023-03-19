@@ -11,10 +11,10 @@ impl Event {
     pub fn new(name: &str) -> Self {
         Event { title: name.to_string(), marketing: false }
     }
-}
 
-pub async fn add_event(event: Event) -> Result<(), Box<dyn Error>> {
-    let db = connect().await?;
-    db.create("event").content(event).await?;
-    Ok(())
+    pub async fn create(self) -> Result<(), Box<dyn Error>> {
+        let db = connect().await?;
+        db.create("event").content(self).await?;
+        Ok(())
+    }
 }
