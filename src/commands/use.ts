@@ -33,10 +33,11 @@ type QueryMap<A, R> = {
 export const useQueriesInit = <A, R>(cmd: CommandName) => {
   const queryFn = useQueryInit<A, R>(cmd)
   const lazyFn = useLazyInit<A, R>(cmd)
+  const cmdCamel = `${cmd.charAt(0).toUpperCase()}${cmd.slice(1)}`
 
   return {
-    [`use${cmd.toUpperCase()}Query`]: queryFn,
-    [`use${cmd.toUpperCase()}Lazy`]: lazyFn,
+    [`use${cmdCamel}Query`]: queryFn,
+    [`use${cmdCamel}Lazy`]: lazyFn,
   } as {
     [Q in keyof QueryMap<A, R> as `use${Capitalize<CommandName>}${Q}`]: QueryMap<A, R>[Q];
   }
