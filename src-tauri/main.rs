@@ -2,11 +2,7 @@ pub mod command;
 pub mod service;
 pub mod repository;
 
-use command::feed::feed;
-use command::surreal::{startSurreal, endSurreal};
-use command::event::addEvent;
-use command::git::gitHistories;
-use command::greet::greet;
+use command::*;
 use std::env;
 
 #[cfg(target_os = "macos")]
@@ -20,9 +16,9 @@ fn main() {
             feed,
             startSurreal,
             endSurreal,
-            addEvent,
-            gitHistories,
             greet,
+            gitHistories,
+            addEvent,
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();
