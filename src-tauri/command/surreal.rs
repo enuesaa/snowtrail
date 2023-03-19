@@ -1,19 +1,14 @@
-use serde::Serialize;
-use crate::service::surreal::{updb, downdb};
+use crate::service::surreal_management::SurrealManagement;
+use crate::repository::command::Runcommand;
 
-#[derive(Serialize)]
-pub struct StartSurrealRepsonse {
-    status: String,
-}
 #[tauri::command]
 #[allow(non_snake_case)]
-pub fn startSurreal() -> StartSurrealRepsonse {
-    let container_id = updb();
-    StartSurrealRepsonse { status: container_id }
+pub fn startSurreal() -> String {
+    SurrealManagement::up(Runcommand::new())
 }
 
 #[tauri::command]
 #[allow(non_snake_case)]
 pub fn endSurreal() {
-    downdb();
+    SurrealManagement::down(Runcommand::new());
 }
