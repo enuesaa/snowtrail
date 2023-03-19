@@ -3,7 +3,6 @@ pub mod service;
 pub mod repository;
 
 use command::feed::feed;
-use command::localfiles::localfiles;
 use command::surreal::{startSurreal, endSurreal};
 use command::event::addEvent;
 use command::git::gitHistories;
@@ -19,7 +18,6 @@ fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             feed,
-            localfiles,
             startSurreal,
             endSurreal,
             addEvent,

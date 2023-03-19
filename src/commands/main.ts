@@ -39,19 +39,6 @@ export const {
   useGreetLazy,
 } = useQueriesInit<{ name: string }, string>('greet')
 
-// localfiles
-export type LocalfileItem = {
-  name: string;
-}
-export type LocalfilesResponse = {
-  items: LocalfileItem[];
-}
-export type LocalfilesArg = {}
-export const {
-  useLocalfilesQuery,
-  useLocalfilesLazy,
-} = useQueriesInit<{}, LocalfilesResponse>('localfiles')
-
 // surreal
 export const {
   useStartSurrealQuery,
