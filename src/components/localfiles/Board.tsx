@@ -1,17 +1,13 @@
 import { MouseEventHandler } from 'react'
-import { useFetch } from '@/states/usefetch'
-import { localfilesMeta } from '@/states/localfiles'
-import { gitHistoriesMeta } from '@/states/git'
-import { greetMeta } from '@/states/greet'
-import { eventMeta } from '@/states/event'
+import { useGitHistoriesLazy, useGreetLazy, useAddEventLazy, useLocalfilesLazy } from '@/commands/main'
 import { useTheme, css } from '@emotion/react'
 
 export const Board = () => {
   const theme = useTheme()
-  const { data, invoke } = useFetch(localfilesMeta)
-  const { data: gitHistories, invoke: invokeGitHistories } = useFetch(gitHistoriesMeta)
-  const { data: greetData, invoke: invokeGreet } = useFetch(greetMeta)
-  const { invoke: invokeAddEvent } = useFetch(eventMeta)
+  const { data, invoke } = useLocalfilesLazy()
+  const { data: gitHistories, invoke: invokeGitHistories } = useGitHistoriesLazy()
+  const { data: greetData, invoke: invokeGreet } = useGreetLazy()
+  const { invoke: invokeAddEvent } = useAddEventLazy()
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()

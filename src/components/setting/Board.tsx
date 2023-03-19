@@ -1,15 +1,14 @@
 import { MouseEventHandler } from 'react'
-import { useFetch } from '@/states/usefetch'
 import { useTheme, css } from '@emotion/react'
-import { startSurrealMeta, endSurrealMeta, recordMeta } from '../../states/surreal'
+import { useEndSurrealLazy, useStartSurrealLazy, useRecordLazy } from '@/commands/main'
 import Link from 'next/link'
 
 export const Board = () => {
   const theme = useTheme()
 
-  const { data, invoke: invokeStartSurreal } = useFetch(startSurrealMeta)
-  const { invoke: invokeEndSurreal } = useFetch(endSurrealMeta)
-  const { invoke: invokeRecord } = useFetch(recordMeta)
+  const { data, invoke: invokeStartSurreal } = useStartSurrealLazy()
+  const { invoke: invokeEndSurreal } = useEndSurrealLazy()
+  const { invoke: invokeRecord } = useRecordLazy()
 
   const handleStart: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()

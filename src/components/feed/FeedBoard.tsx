@@ -1,12 +1,11 @@
 import { useRef, MouseEventHandler } from 'react'
 import { FeedItem } from './FeedItem'
-import { useFetch } from '@/states/usefetch'
-import { messageMeta } from '@/states/feed'
+import { useFeedLazy } from '@/commands/main'
 import { useTheme, css } from '@emotion/react'
 
 export const FeedBoard = () => {
   const theme = useTheme()
-  const { data, invoke } = useFetch(messageMeta)
+  const { data, invoke } = useFeedLazy()
   const urlInput = useRef<HTMLInputElement>(null)
 
   const handleClick: MouseEventHandler<HTMLButtonElement> = async (e) => {
