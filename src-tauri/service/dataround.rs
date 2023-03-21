@@ -1,20 +1,33 @@
-use crate::repository::command::Runcommand;
-use crate::repository::repository::RepositoryTrait;
-use dirs;
+use rs_docker::Docker;
+use rs_docker::container::ContainerCreate;
+use std::collections::HashMap;
 
 pub struct Dataround {}
 impl Dataround {
-    pub fn up(runcommand: Runcommand) -> String {
-        if let Ok(stdout) = runcommand.dir(dirs::home_dir().unwrap()).program("docker").args(vec!["run", "--name", "snowtrail-redis", "-p", "6380:6379", "-d", "redis"]).exec() {
-                stdout.to_string()
-        } else {
-            "".to_string()
-        }
+    pub fn up() -> String {
+        let mut docker = match Docker::connect("unix:///var/run/docker.sock") {
+            Ok(docker) => docker,
+            Err(e) => { panic!("{}", e); }
+        };
+        let mut ports = HashMap::new();
+        ports.insert("6380/tcp".to_string(), HashMap::new());
+
+        let _ = docker.create_container("snowtrail-redis".to_string(), ContainerCreate {
+            Image: "redis".to_string(),
+            Labels: None,
+            ExposedPorts: Some(ports),
+            HostConfig: None,
+        });
+        let _ = docker.start_container("snowtrail-redis");
+        "snowtrail-redis".to_string()
     }
     
-    pub fn down(runcommand: Runcommand) {
-        let rmcommand = runcommand.clone();
-        let _ = runcommand.dir(dirs::home_dir().unwrap()).program("docker").args(vec!["stop", "snowtrail-redis"]).exec();
-        let _ = rmcommand.dir(dirs::home_dir().unwrap()).program("docker").args(vec!["rm", "snowtrail-redis"]).exec();
+    pub fn down() {
+        let mut docker = match Docker::connect("unix:///var/run/docker.sock") {
+            Ok(docker) => docker,
+            Err(e) => { panic!("{}", e); }
+        };
+        let _ = docker.stop_container("snowtrail-redis");
+        let _ = docker.delete_container("snowtrail-redis");
     }
 }
