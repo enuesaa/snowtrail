@@ -10,6 +10,7 @@ const queryInit = <A, R>(cmd: CommandName) => (arg: A) => {
       const res = await invokeTauri<R>(cmd, arg as InvokeArgs)
       setData(res)
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return data
