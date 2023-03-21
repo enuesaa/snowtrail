@@ -12,7 +12,7 @@ impl Event {
     }
 
     pub fn create(self) {
-        let mut redis = Redis::new();
+        let redis = Redis::new();
         let _ = redis.create(&self.title, "a");
     }
 }

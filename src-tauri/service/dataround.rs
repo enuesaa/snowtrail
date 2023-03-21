@@ -1,5 +1,5 @@
 use rs_docker::Docker;
-use rs_docker::container::ContainerCreate;
+use rs_docker::container::{ContainerCreate, HostConfigCreate, PortBinding};
 use std::collections::HashMap;
 
 pub struct Dataround {}
@@ -10,13 +10,17 @@ impl Dataround {
             Err(e) => { panic!("{}", e); }
         };
         let mut ports = HashMap::new();
-        ports.insert("6380/tcp".to_string(), HashMap::new());
+        ports.insert("6379/tcp".to_string(), vec![PortBinding { HostIp: None, HostPort: "6380".to_string()}]);
 
         let _ = docker.create_container("snowtrail-redis".to_string(), ContainerCreate {
             Image: "redis".to_string(),
             Labels: None,
-            ExposedPorts: Some(ports),
-            HostConfig: None,
+            ExposedPorts: None,
+            HostConfig: Some(HostConfigCreate {
+                NetworkMode: None,
+                PublishAllPorts: None,
+                PortBindings: Some(ports),
+            }),
         });
         let _ = docker.start_container("snowtrail-redis");
         "snowtrail-redis".to_string()
