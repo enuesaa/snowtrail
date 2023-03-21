@@ -1,11 +1,11 @@
-import { useQueriesInit } from '@/commands/use'
+import { queriesInit } from '@/commands/use'
 
 export const {
   useUpDataQuery,
   useUpDataLazy,
-} = useQueriesInit<{}, string>('upData')
+} = queriesInit<{}, string>('upData')
 
 export const {
   useDownDataQuery,
   useDownDataLazy,
-} = useQueriesInit<{}, string>('downData')
+} = queriesInit<{}, string>('downData')

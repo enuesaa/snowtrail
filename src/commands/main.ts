@@ -1,4 +1,4 @@
-import { useQueriesInit } from '@/commands/use'
+import { queriesInit } from '@/commands/use'
 
 // git histories
 export type GitHistory = {
@@ -10,7 +10,7 @@ export type GitHistoriesResponse = {
 export const {
   useGitHistoriesQuery,
   useGitHistoriesLazy,
-} = useQueriesInit<{}, GitHistoriesResponse>('gitHistories')
+} = queriesInit<{}, GitHistoriesResponse>('gitHistories')
 
 // feed
 type MessageItem = {
@@ -25,16 +25,16 @@ export type MessageResponse = {
 export const {
   useFeedQuery,
   useFeedLazy,
-} = useQueriesInit<{ url: string }, MessageResponse>('feed')
+} = queriesInit<{ url: string }, MessageResponse>('feed')
 
 // greet
 export const {
   useGreetQuery,
   useGreetLazy,
-} = useQueriesInit<{ name: string }, string>('greet')
+} = queriesInit<{ name: string }, string>('greet')
 
 // record
 export const {
   useRecordQuery,
   useRecordLazy,
-} = useQueriesInit<{}, {}>('record')
+} = queriesInit<{}, {}>('record')
