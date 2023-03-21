@@ -18,6 +18,7 @@ fn main() {
             gitHistories,
             upData,
             downData,
+            putEvent,
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();

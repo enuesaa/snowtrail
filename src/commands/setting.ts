@@ -9,3 +9,8 @@ export const {
   useDownDataQuery,
   useDownDataLazy,
 } = queriesInit<{}, string>('downData')
+
+export const {
+  usePutEventQuery,
+  usePutEventLazy,
+} = queriesInit<{}, string>('putEvent')
