@@ -3,6 +3,7 @@ use std::env;
 use std::error::Error;
 use crate::repository::repository::RepositoryTrait;
 
+#[derive(Clone)]
 pub struct Runcommand {
     program: String,
     args: Vec<String>,

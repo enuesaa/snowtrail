@@ -16,6 +16,8 @@ fn main() {
             feed,
             greet,
             gitHistories,
+            upData,
+            downData,
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();

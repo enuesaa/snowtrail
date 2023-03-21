@@ -12,6 +12,8 @@ impl Dataround {
     }
     
     pub fn down(runcommand: Runcommand) {
+        let rmcommand = runcommand.clone();
         let _ = runcommand.program("docker").args(vec!["stop", "snowtrail-redis"]).exec();
+        let _ = rmcommand.program("docker").args(vec!["rm", "snowtrail-redis"]).exec();
     }
 }
