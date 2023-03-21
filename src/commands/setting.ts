@@ -6,6 +6,11 @@ export const {
 } = queriesInit<{}, string>('upData')
 
 export const {
+  useStatusDataQuery,
+  useStatusDataLazy,
+} = queriesInit<{}, boolean>('statusData')
+
+export const {
   useDownDataQuery,
   useDownDataLazy,
 } = queriesInit<{}, string>('downData')

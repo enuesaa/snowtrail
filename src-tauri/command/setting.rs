@@ -8,6 +8,12 @@ pub fn upData() -> String {
 
 #[tauri::command]
 #[allow(non_snake_case)]
+pub fn statusData() -> bool {
+    Dataround::is_started()
+}
+
+#[tauri::command]
+#[allow(non_snake_case)]
 pub fn downData() {
     Dataround::down();
 }

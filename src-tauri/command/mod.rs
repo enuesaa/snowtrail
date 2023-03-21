@@ -7,5 +7,5 @@ mod event;
 pub use feed::feed;
 pub use greet::greet;
 pub use git::gitHistories;
-pub use setting::{upData, downData};
+pub use setting::{upData, downData, statusData};
 pub use event::putEvent;

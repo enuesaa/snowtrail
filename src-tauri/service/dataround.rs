@@ -8,6 +8,10 @@ impl Dataround {
         container.create().start();
         "snowtrail-redis".to_string()
     }
+
+    pub fn is_started() -> bool {
+        Container::is_started("snowtrail-redis")
+    }
     
     pub fn down() {
         let container = Container::new("snowtrail-redis", "redis", vec![]);

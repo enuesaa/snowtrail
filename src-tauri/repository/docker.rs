@@ -20,7 +20,7 @@ impl Container {
         }
     }
 
-    pub fn connect(&self) -> Docker {
+    pub fn connect() -> Docker {
         Docker::connect("unix:///var/run/docker.sock").unwrap()
     }
 
@@ -30,8 +30,7 @@ impl Container {
             ports.insert(p.container.clone(), vec![PortBinding { HostIp: None, HostPort: p.host.clone() }]);
         });
 
-        let mut con = self.connect();
-        let _ = con.create_container(self.name.clone(), ContainerCreate {
+        let _ = Container::connect().create_container(self.name.clone(), ContainerCreate {
             Image: self.image.clone(),
             Labels: None,
             ExposedPorts: None,
@@ -45,24 +44,30 @@ impl Container {
     }
 
     pub fn start(self) -> Self {
-        let mut con = self.connect();
-        let _ = con.start_container(&self.name.clone());
+        let _ = Container::connect().start_container(&self.name.clone());
         self
     }
 
-    // pub fn status(self) {
-
-    // }
+    pub fn is_started(name: &str) -> bool {
+        let con = Container::connect().get_containers(true);
+        if let Ok(containers) = con {
+            let count = containers.iter()
+            .filter(|&c| {
+                return c.Names.iter().filter(|&n| n.eq(&format!("/{}", name))).count() > 0
+            })
+            .count();
+            return count > 0
+        };
+        false
+    }
 
     pub fn stop(self) -> Self {
-        let mut con = self.connect();
-        let _ = con.stop_container(&self.name.clone());
+        let _ = Container::connect().stop_container(&self.name.clone());
         self
     }
 
     pub fn delete(self) -> Self {
-        let mut con = self.connect();
-        let _ = con.delete_container(&self.name.clone());
+        let _ = Container::connect().delete_container(&self.name.clone());
         self
     }
 }

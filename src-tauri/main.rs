@@ -17,6 +17,7 @@ fn main() {
             greet,
             gitHistories,
             upData,
+            statusData,
             downData,
             putEvent,
         ])
