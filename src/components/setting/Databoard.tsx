@@ -5,7 +5,7 @@ import { MouseEventHandler } from 'react'
 export const Databoard = () => {
   const theme = useTheme()
 
-  const { invoke: invokeUpData } = useUpDataLazy()
+  const { data, invoke: invokeUpData } = useUpDataLazy()
   const { invoke: invokeDownData } = useDownDataLazy()
 
   const handleUpData: MouseEventHandler<HTMLButtonElement> = (e) => {
@@ -19,6 +19,7 @@ export const Databoard = () => {
 
   return (
     <>
+      {data}
       <button onClick={handleUpData}>up</button>
       <button onClick={handleDownData}>down</button>
     </>

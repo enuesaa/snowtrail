@@ -1,3 +1,4 @@
+use std::path::PathBuf;
 use std::process::{Command, Stdio};
 use std::env;
 use std::error::Error;
@@ -7,11 +8,12 @@ use crate::repository::repository::RepositoryTrait;
 pub struct Runcommand {
     program: String,
     args: Vec<String>,
+    dir: PathBuf,
 }
 
 impl Runcommand {
     pub fn new() -> Self {
-        Runcommand { program: "".to_string(), args: vec![] }
+        Runcommand { program: "".to_string(), args: vec![], dir: env::current_dir().unwrap() }
     }
 
     pub fn program(mut self, program: &str) -> Self {
@@ -23,13 +25,18 @@ impl Runcommand {
         self.args = args.iter().map(|&v| v.to_string()).collect();
         self
     }
+
+    pub fn dir(mut self, dir: PathBuf) -> Self {
+        self.dir = dir;
+        self
+    }
 }
 
 impl RepositoryTrait<String> for Runcommand {
     fn exec(self) -> Result<String, Box<dyn Error>> {
         let output = Command::new(self.program)
             .args(self.args)
-            .current_dir(env::current_dir().unwrap())
+            .current_dir(self.dir)
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
             .output()
