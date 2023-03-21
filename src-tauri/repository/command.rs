@@ -34,6 +34,8 @@ impl Runcommand {
 
 impl RepositoryTrait<String> for Runcommand {
     fn exec(self) -> Result<String, Box<dyn Error>> {
+        // よくわからないが production では zprofile を読み込めていない.
+        // そのため PATH が不足しておりコマンドの実行に失敗することがある
         let output = Command::new(self.program)
             .args(self.args)
             .current_dir(self.dir)

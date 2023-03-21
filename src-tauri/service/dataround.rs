@@ -5,8 +5,7 @@ use dirs;
 pub struct Dataround {}
 impl Dataround {
     pub fn up(runcommand: Runcommand) -> String {
-        if let Ok(stdout) = runcommand.dir(dirs::home_dir().unwrap()).program("pwd").exec() {
-        // if let Ok(stdout) = runcommand.dir(dirs::home_dir().unwrap()).program("docker").args(vec!["run", "--name", "snowtrail-redis", "-p", "6380:6379", "-d", "redis"]).exec() {
+        if let Ok(stdout) = runcommand.dir(dirs::home_dir().unwrap()).program("docker").args(vec!["run", "--name", "snowtrail-redis", "-p", "6380:6379", "-d", "redis"]).exec() {
                 stdout.to_string()
         } else {
             "".to_string()
