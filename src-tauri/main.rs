@@ -18,6 +18,7 @@ fn main() {
             gitHistories,
             upData,
             statusData,
+            pushGitHistoriesToEvent,
             downData,
             putEvent,
         ])

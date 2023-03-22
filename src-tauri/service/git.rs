@@ -4,13 +4,13 @@ use crate::repository::command::Runcommand;
 use crate::repository::repository::RepositoryTrait;
 
 #[derive(Debug, Serialize, PartialEq)]
-struct GitHistory {
-    hash: String,
+pub struct GitHistory {
+    pub hash: String,
 }
 
 #[derive(Debug, Serialize, PartialEq)]
 pub struct GitHistories {
-    items: Vec<GitHistory>,
+    pub items: Vec<GitHistory>,
 }
 impl GitHistories {
     pub fn new() -> Self {

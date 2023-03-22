@@ -1,11 +1,12 @@
 import { MouseEventHandler } from 'react'
-import { useGitHistoriesLazy, useGreetLazy } from '@/commands/main'
+import { useGitHistoriesLazy, useGreetLazy, usePushGitHistoriesToEventLazy } from '@/commands/main'
 import { useTheme, css } from '@emotion/react'
 
 export const Board = () => {
   const theme = useTheme()
   const { data: gitHistories, invoke: invokeGitHistories } = useGitHistoriesLazy()
   const { data: greetData, invoke: invokeGreet } = useGreetLazy()
+  const { invoke: invokePushGitHistoriesToEvent } = usePushGitHistoriesToEventLazy()
 
   const handleGitHistories: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()
@@ -14,6 +15,10 @@ export const Board = () => {
   const handleGreet: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault()
     invokeGreet({ name: 'aaa' })
+  }
+  const hanldePushGitHistoriesToEvent: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault()
+    invokePushGitHistoriesToEvent({})
   }
 
   const styles = {
@@ -30,6 +35,7 @@ export const Board = () => {
       {greetData}
       <button onClick={handleGitHistories}>gitHistories</button>
       <button onClick={handleGreet}>greet</button>
+      <button onClick={hanldePushGitHistoriesToEvent}>pushGitHistoriesToEvent</button>
     </div>
   )
 }

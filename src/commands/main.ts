@@ -12,6 +12,11 @@ export const {
   useGitHistoriesLazy,
 } = queriesInit<{}, GitHistoriesResponse>('gitHistories')
 
+export const {
+  usePushGitHistoriesToEventQuery,
+  usePushGitHistoriesToEventLazy,
+} = queriesInit<{}, {}>('pushGitHistoriesToEvent')
+
 // feed
 type MessageItem = {
   title: string;
