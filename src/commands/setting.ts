@@ -19,3 +19,8 @@ export const {
   usePutEventQuery,
   usePutEventLazy,
 } = queriesInit<{}, string>('putEvent')
+
+export const {
+  useListEventsQuery,
+  useListEventsLazy,
+} = queriesInit<{}, string[]>('listEvents')

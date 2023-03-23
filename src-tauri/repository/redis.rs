@@ -23,6 +23,23 @@ impl Redis {
         Ok(())
     }
 
+    pub fn list(self, key: &str) -> Result<Vec<String>, Box<dyn Error>> {
+        let client = Client::open("redis://localhost:6380/")?;
+        let res = client.get_connection();
+        if let Err(b) = res {
+            println!("{:?}", b);
+        } else {
+            let mut con = res.unwrap();
+            let a = con.keys::<String, Vec<String>>(key.to_string());
+            if let Err(a) = a {
+                println!("{:?}", a);
+            } else {
+                return Ok(a.unwrap());
+            }
+        }
+        Ok(vec![])
+    }
+
 }
 
 impl RepositoryTrait<()> for Redis {

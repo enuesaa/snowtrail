@@ -21,6 +21,7 @@ fn main() {
             pushGitHistoriesToEvent,
             downData,
             putEvent,
+            listEvents,
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();

@@ -23,4 +23,13 @@ impl Event {
         let key = self.name.clone();
         let _ = redis.create(&key, &serde_json::to_string(&self).unwrap());
     }
+
+    pub fn list() -> Vec<String> {
+        let redis = Redis::new();
+        let keys = redis.list("*");
+        if let Ok(keys) = keys {
+            return keys;
+        };
+        vec![]
+    }
 }
