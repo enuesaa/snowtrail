@@ -1,14 +1,8 @@
 # snowtrail-app
-App for managing posts you read or you should read.
+EventHub.
 
-## Motivation
-- I want to read blog posts what I would feel good to read.  
-- I want to read so many posts.  
-
-## Todo
-- histories
-
-## 
-- イメージはイベントハブ
-- visualize git commit count
-- read article count
+## flow
+1. Configure Projects directory.
+2. Add Event Subscriber Scripts.
+3. Create Event Rule.
+4. Publish Your Events.
