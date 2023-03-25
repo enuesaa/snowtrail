@@ -1,5 +1,4 @@
-mod feed;
-mod setting;
+mod data;
 mod greet;
 mod git;
 mod event;
@@ -7,5 +6,5 @@ mod event;
 pub use feed::feed;
 pub use greet::greet;
 pub use git::{gitHistories, pushGitHistoriesToEvent};
-pub use setting::{upData, downData, statusData};
+pub use data::{upData, downData, statusData};
 pub use event::{putEvent, listEvents};

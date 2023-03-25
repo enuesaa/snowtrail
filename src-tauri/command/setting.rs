@@ -1,19 +1,10 @@
-use crate::service::dataround::Dataround;
 
-#[tauri::command]
-#[allow(non_snake_case)]
-pub fn upData() -> String {
-    Dataround::up()
+pub struct Workspace {
+    dir: String,
+    auto_add_new_project: bool,
 }
+#[tauri::command]
+pub fn get_workspace() -> Workspace {}
+#[tauri::command]
+pub fn set_workspace(workspace: Workspace) {}
 
-#[tauri::command]
-#[allow(non_snake_case)]
-pub fn statusData() -> bool {
-    Dataround::is_started()
-}
-
-#[tauri::command]
-#[allow(non_snake_case)]
-pub fn downData() {
-    Dataround::down();
-}
