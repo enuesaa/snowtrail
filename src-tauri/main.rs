@@ -18,7 +18,8 @@ fn main() {
             git_histories, push_git_histories_to_event,
             put_event, list_events,
             get_workspace, set_workspace,
-            list_projects, get_project, create_project, delete_project
+            list_projects, get_project, create_project, delete_project,
+            create_subscribe, publish_event,
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();
