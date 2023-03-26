@@ -3,24 +3,24 @@ import { queriesInit } from '@/commands/use'
 export const {
   useUpDataQuery,
   useUpDataLazy,
-} = queriesInit<{}, string>('upData')
+} = queriesInit<{}, string>('up_data')
 
 export const {
   useStatusDataQuery,
   useStatusDataLazy,
-} = queriesInit<{}, boolean>('statusData')
+} = queriesInit<{}, boolean>('status_data')
 
 export const {
   useDownDataQuery,
   useDownDataLazy,
-} = queriesInit<{}, string>('downData')
+} = queriesInit<{}, string>('down_data')
 
 export const {
   usePutEventQuery,
   usePutEventLazy,
-} = queriesInit<{}, string>('putEvent')
+} = queriesInit<{}, string>('put_event')
 
 export const {
   useListEventsQuery,
   useListEventsLazy,
-} = queriesInit<{}, string[]>('listEvents')
+} = queriesInit<{}, string[]>('list_events')

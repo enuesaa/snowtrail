@@ -1,14 +1,12 @@
 use crate::service::event::Event;
 
 #[tauri::command]
-#[allow(non_snake_case)]
-pub fn putEvent() {
+pub fn put_event() {
     let event = Event::new("bb");
     event.create();
 }
 
 #[tauri::command]
-#[allow(non_snake_case)]
-pub fn listEvents() -> Vec<String> {
+pub fn list_events() -> Vec<String> {
     Event::list()
 }

@@ -1,5 +1,6 @@
 import { MouseEventHandler } from 'react'
-import { useGitHistoriesLazy, useGreetLazy, usePushGitHistoriesToEventLazy } from '@/commands/main'
+import { useGitHistoriesLazy, usePushGitHistoriesToEventLazy } from '@/commands/git'
+import { useGreetLazy } from '@/commands/greet'
 import { useTheme, css } from '@emotion/react'
 
 export const Board = () => {

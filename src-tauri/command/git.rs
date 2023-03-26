@@ -3,14 +3,12 @@ use crate::repository::command::Runcommand;
 use crate::service::event::Event;
 
 #[tauri::command]
-#[allow(non_snake_case)]
-pub fn gitHistories() -> GitHistories {
+pub fn git_histories() -> GitHistories {
     GitHistories::fetch(Runcommand::new())
 }
 
 #[tauri::command]
-#[allow(non_snake_case)]
-pub fn pushGitHistoriesToEvent() {
+pub fn push_git_histories_to_event() {
     let historis = GitHistories::fetch(Runcommand::new());
     historis.items.iter().for_each(|h| {
         let event = Event::new(&h.hash);

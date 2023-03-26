@@ -1,4 +1,4 @@
-import { usePutEventLazy, useListEventsQuery } from '@/commands/setting'
+import { usePutEventLazy, useListEventsQuery } from '@/commands/data'
 import { useTheme } from '@emotion/react'
 import { MouseEventHandler } from 'react'
 

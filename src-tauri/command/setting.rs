@@ -1,10 +1,10 @@
 
-pub struct Workspace {
-    dir: String,
-    auto_add_new_project: bool,
-}
-#[tauri::command]
-pub fn get_workspace() -> Workspace {}
-#[tauri::command]
-pub fn set_workspace(workspace: Workspace) {}
+// pub struct Workspace {
+//     dir: String,
+//     auto_add_new_project: bool,
+// }
+// #[tauri::command]
+// pub fn get_workspace() -> Workspace {}
+// #[tauri::command]
+// pub fn set_workspace(workspace: Workspace) {}
 

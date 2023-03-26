@@ -1,19 +1,16 @@
 use crate::service::dataround::Dataround;
 
 #[tauri::command]
-#[allow(non_snake_case)]
-pub fn upData() -> String {
+pub fn up_data() -> String {
     Dataround::up()
 }
 
 #[tauri::command]
-#[allow(non_snake_case)]
-pub fn statusData() -> bool {
+pub fn status_data() -> bool {
     Dataround::is_started()
 }
 
 #[tauri::command]
-#[allow(non_snake_case)]
-pub fn downData() {
+pub fn down_data() {
     Dataround::down();
 }

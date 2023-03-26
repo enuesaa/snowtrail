@@ -1,4 +1,4 @@
-import { useUpDataLazy, useDownDataLazy, useStatusDataQuery } from '@/commands/setting'
+import { useUpDataLazy, useDownDataLazy, useStatusDataQuery } from '@/commands/data'
 import { useTheme } from '@emotion/react'
 import { MouseEventHandler } from 'react'
 
