@@ -1,5 +1,5 @@
 struct Transformer {
-    runtime: EventRuntime, // this is also events, only ts node
+    script: EventScript, // this is also events, only tsnode
     value: Vec<EventValue>,
     meta: Vec<EventMeta>,
 }
@@ -15,30 +15,25 @@ enum EventStatus {
     success,
     error,
 }
-// docker で.. volume を共有
 enum EventRuntime {
     shell,
     tsnode,
-    createfile,
-    // rust,
-    // go,
+}
+struct EventScript {
+    runtime: EventRuntime,
+    script: String, // createfile
 }
 pub struct EventValue {
-    name: String,
-    value: String,
-}
-pub struct EventMeta {
     name: String,
     value: String,
 }
 pub struct Event {
     name: String,
     status: EventStatus,
-    runtime: EventRuntime,
+    script: EventScript, // 場合によっては配列に
     value: Vec<EventValue>, // like Note { name, dscription, project, save path }
-    meta: Vec<EventMeta>,
+    tags: Vec<String>,
 }
-
 
 // snowtrail event
 // subscribe
