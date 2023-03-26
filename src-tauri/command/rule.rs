@@ -1,32 +1,27 @@
-struct EventTemplate {
-    name: String,
-    status: EventStatus,
-    runtime: EventRuntime,
+struct Transformer {
+    runtime: EventRuntime, // this is also events, only ts node
     value: Vec<EventValue>,
     meta: Vec<EventMeta>,
 }
-struct PubsubRule {
-    method: String, // like eq
-    path: String,
-    value: String,
-}
-struct Pubsub {
+struct Subscribe {
     name: String,
     description: String,
-    rule: Vec<PubsubRule>,
-    trigger: EventTemplate,
+    rule: Vec<String>, // can subscribe snowtrail event
+    transformer: Transformer,
 }
 
 enum EventStatus {
-    processing,
-    end,
-    exception,
+    process,
+    success,
+    error,
 }
+// docker で.. volume を共有
 enum EventRuntime {
     shell,
+    tsnode,
     createfile,
-    python3,
-    wasm,
+    // rust,
+    // go,
 }
 pub struct EventValue {
     name: String,
@@ -43,3 +38,10 @@ pub struct Event {
     value: Vec<EventValue>, // like Note { name, dscription, project, save path }
     meta: Vec<EventMeta>,
 }
+
+
+// snowtrail event
+// subscribe
+// transform
+// publish event
+// subscribe ...
