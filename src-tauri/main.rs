@@ -21,6 +21,8 @@ fn main() {
             down_data,
             put_event,
             list_events,
+            get_workspace,
+            set_workspace,
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();
