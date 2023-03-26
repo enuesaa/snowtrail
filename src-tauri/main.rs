@@ -14,15 +14,11 @@ fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             greet,
-            git_histories,
-            up_data,
-            status_data,
-            push_git_histories_to_event,
-            down_data,
-            put_event,
-            list_events,
-            get_workspace,
-            set_workspace,
+            up_data, status_data, down_data,
+            git_histories, push_git_histories_to_event,
+            put_event, list_events,
+            get_workspace, set_workspace,
+            list_projects, get_project, create_project, delete_project
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();
