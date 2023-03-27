@@ -1,3 +1,5 @@
+use serde::{Serialize, Deserialize};
+
 #[derive(Debug, Serialize, Deserialize)]
 pub enum ScriptRuntime {
     Shell,
@@ -5,7 +7,7 @@ pub enum ScriptRuntime {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Script {
-    runtime: EventRuntime,
+    runtime: ScriptRuntime,
     script: String, // createfile
 }
 
