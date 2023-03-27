@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { css, useTheme } from '@emotion/react'
 import { IoMdSnow } from 'react-icons/io'
 import { MdOutlineSettings, MdSnowboarding } from 'react-icons/md'
+import { FaSnowplow } from 'react-icons/fa'
 
 export const Header = () => {
   const theme = useTheme()
@@ -45,6 +46,9 @@ export const Header = () => {
       </div>
       <Link href='/publisher' css={styles.settinglink}>
         <MdSnowboarding />
+      </Link>
+      <Link href='/workspace' css={styles.settinglink}>
+        <FaSnowplow />
       </Link>
       <Link href='/setting' css={styles.settinglink}>
         <MdOutlineSettings />
