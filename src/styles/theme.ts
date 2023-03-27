@@ -1,22 +1,26 @@
-import { Theme } from '@emotion/react'
+import { type Theme } from '@emotion/react'
 
 export const baseTheme: Theme = {
-  form: {
-    'input': {},
-    'textarea':{},
+  input: {
+    outline: 'none',
+    appearance: 'none',
+    border: 'none',
+    display: 'block',
   },
-  button: {},
+  button: {
+    outline: 'none',
+    appearance: 'none',
+    border: 'none',
+    display: 'block',
+  },
   box: {
+    padding: '10px',
     width: '100%',
-    padding: '10px',
   },
-  innerbox: {
-    width: '98%',
-    margin: '10px auto',
+  outerbox: {
     padding: '10px',
+    margin: '10px',
   },
-  card: {},
-  link: {},
   linkCard: {
     display: 'inline-block',
     padding: '10px 20px',
@@ -27,7 +31,7 @@ export const baseTheme: Theme = {
     borderRadius: '10px',
   },
   heading: {
-    width: '100%',
+    // width: '100%',
     display: 'block',
     fontWeight: '600',
     padding: '10px',

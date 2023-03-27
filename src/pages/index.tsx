@@ -1,12 +1,13 @@
-import Link from 'next/link'
 import { Header } from '@/components/common/Header'
+import { TopProjectDashboard } from '@/components/project/TopProjectDashboard'
+import { TopEventDashboard } from '@/components/event/TopEventDashboard'
 
 export default function () {
   return (
     <>
       <Header />
-      <Link href={'/setting'} style={{ color: '#fafafa' }}>setting</Link>
-      <Link href={'/projects/aa'} style={{ color: '#fafafa' }}>projects</Link>
+      <TopProjectDashboard />
+      <TopEventDashboard />
     </>
   )
 }
