@@ -9,6 +9,7 @@ pub enum ScriptRuntime {
 pub struct Script {
     runtime: ScriptRuntime,
     script: String, // createfile
+    project_id: String,
 }
 
 #[tauri::command]
