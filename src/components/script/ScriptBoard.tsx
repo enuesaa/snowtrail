@@ -1,9 +1,8 @@
 import { PageTitle } from '@/components/common/PageTitle'
+import { ScriptBoardItem } from '@/components/script/ScriptBoardItem'
 import { css, useTheme } from '@emotion/react'
-import { ProjectEvents } from '@/components/project/ProjectEvents'
-import { ScriptBoard } from '@/components/script/ScriptBoard'
 
-export const ProjectDetail = () => {
+export const ScriptBoard = () => {
   const theme = useTheme()
 
   const styles = {
@@ -16,9 +15,8 @@ export const ProjectDetail = () => {
 
   return (
     <section css={styles.main}>
-      <PageTitle title='Project aa' />
-      <ScriptBoard />
-      <ProjectEvents />
+      <PageTitle title='Script' />
+      <ScriptBoardItem id='aa' title='aa' />
     </section>
   )
 }
