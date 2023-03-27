@@ -10,7 +10,7 @@ pub struct Subscribe {
     name: String,
     description: String,
     rule: Vec<String>, // can subscribe snowtrail event
-    script_name: String,
+    script_id: String,
     mapping: Vec<Mapping>,
 }
 

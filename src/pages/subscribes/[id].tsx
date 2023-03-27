@@ -1,5 +1,6 @@
 import { Header } from '@/components/common/Header'
 import { useRouter } from 'next/router'
+import { SubscribeDetail } from '@/components/subscribe/SubscribeDetail'
 
 export default function () {
   const router = useRouter()
@@ -11,7 +12,7 @@ export default function () {
   return (
     <>
       <Header />
-      {id}
+      <SubscribeDetail />
     </>
   )
 }
