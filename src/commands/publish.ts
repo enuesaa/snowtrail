@@ -11,4 +11,4 @@ export type EventPublishRequest = {
 export const {
   useEventPublishQuery,
   useEventPublishLazy,
-} = queriesInit<EventPublishRequest, {}>('event_publish')
+} = queriesInit<{event: EventPublishRequest}, {}>('event_publish')
