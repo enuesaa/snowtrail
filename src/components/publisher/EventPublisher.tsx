@@ -1,7 +1,7 @@
 import { css, useTheme } from '@emotion/react'
 import { PageTitle } from '@/components/common/PageTitle'
-import { useEventPublishLazy } from '@/commands/publish'
-import { MouseEventHandler } from 'react'
+import { useEventPublishLazy } from '@/commands/event'
+import { FormEventHandler } from 'react'
 
 export const EventPublisher = () => {
   const theme = useTheme()
@@ -33,22 +33,26 @@ export const EventPublisher = () => {
 
   const { invoke } = useEventPublishLazy()
 
-  const handlePublish: MouseEventHandler<HTMLButtonElement> = (e) => {
+  const handlePublish: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
-    invoke({ event: { name: 'aa', value: [] }})
+    const formElms = e.currentTarget.elements
+    const name = (formElms.namedItem('eventName') as HTMLInputElement).value ?? ''
+    const key = (formElms.namedItem('valueKey') as HTMLInputElement).value ?? ''
+    const value = (formElms.namedItem('valueValue') as HTMLInputElement).value ?? ''
+    invoke({ event: { name, value: [{ name: key, value }] }})
   }
 
   return (
     <section css={styles.main}>
       <PageTitle title='EventPublisher' />
-      <form css={styles.form}>
+      <form css={styles.form} onSubmit={handlePublish}>
         <label htmlFor='eventName'>eventName</label>
         <input type='text' name='eventName' />
         <label htmlFor='valueKey'>key</label>
         <input type='text' name='valueKey' />
         <label htmlFor='valueValue'>value</label>
         <input type='text' name='valueValue' />
-        <button onClick={handlePublish}>publish</button>
+        <button type='submit'>publish</button>
       </form>
     </section>
   )

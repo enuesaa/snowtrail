@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-use crate::service::oldevnt::Event;
+use crate::service::event::Event;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EventPublishValue {
@@ -13,7 +13,7 @@ pub struct EventPublishRequest {
 }
 #[tauri::command]
 pub fn event_publish(event: EventPublishRequest) {
-    println!("{:?}", event);
-    let event = Event::new("bb");
-    event.create();
+    Event::new(&event.name)
+        .set_value(&event.value.first().unwrap().name, &event.value.first().unwrap().value)
+        .create();
 }
