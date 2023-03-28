@@ -1,6 +1,6 @@
 use std::error::Error;
 use crate::repository::repository::RepositoryTrait;
-use redis::{Client, Commands};
+use redis::{Client, Commands, JsonCommands};
 
 pub struct Redis {}
 impl Redis {

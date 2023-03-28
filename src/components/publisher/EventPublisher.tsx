@@ -44,8 +44,7 @@ export const EventPublisher = () => {
     setValueIds(valueIds.filter(v => v !== id));
   }
 
-  const handlePublish: FormEventHandler<HTMLButtonElement> = (e) => {
-    console.log('aa')
+  const handlePublish: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
     const formElms = e.currentTarget.elements
     const name = (formElms.namedItem('eventName') as HTMLInputElement).value ?? ''
@@ -55,14 +54,13 @@ export const EventPublisher = () => {
       const v = (formElms.namedItem(`value${vid}value`) as HTMLInputElement).value ?? ''
       value.push({ name: k, value: v });
     })
-    console.log(value)
     invoke({ event: { name, value }})
   }
 
   return (
     <section css={styles.main}>
       <PageTitle title='EventPublisher' />
-      <form css={styles.form}>
+      <form css={styles.form} onSubmit={handlePublish}>
         <label htmlFor='eventName'>eventName</label>
         <input type='text' name='eventName' />
         <div>
@@ -80,7 +78,7 @@ export const EventPublisher = () => {
         </div>
 
         <button onClick={handleAddValue}><FaPlus /></button>
-        <button onSubmit={handlePublish}>publish</button>
+        <button type='submit'>publish</button>
       </form>
     </section>
   )
