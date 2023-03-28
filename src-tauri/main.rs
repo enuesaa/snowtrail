@@ -14,11 +14,12 @@ fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             dataround_up, dataround_status, dataround_down,
+            event_publish,
             git_histories, push_git_histories_to_event,
             put_event, list_events,
             get_workspace, set_workspace,
             list_projects, get_project, create_project, delete_project,
-            create_subscribe, publish_event,
+            create_subscribe,
         ])
         .setup(|app| {
             let window = app.get_window("main").unwrap();

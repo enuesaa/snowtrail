@@ -1,6 +1,6 @@
 use crate::service::git::GitHistories;
 use crate::repository::command::Runcommand;
-use crate::service::event::Event;
+use crate::service::oldevnt::Event;
 
 #[tauri::command]
 pub fn git_histories() -> GitHistories {

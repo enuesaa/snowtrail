@@ -1,6 +1,6 @@
 mod dataround;
 mod git;
-mod event;
+mod publish;
 mod eventstat;
 mod workspace;
 mod project;
@@ -9,7 +9,7 @@ mod script;
 
 pub use git::{git_histories, push_git_histories_to_event};
 pub use dataround::{dataround_up, dataround_status, dataround_down};
-pub use event::{publish_event};
+pub use publish::{event_publish};
 pub use subscribe::{create_subscribe};
 pub use script::{create_script};
 pub use eventstat::{put_event, list_events};

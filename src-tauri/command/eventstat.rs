@@ -1,4 +1,4 @@
-use crate::service::event::Event;
+use crate::service::oldevnt::Event;
 
 #[deprecated]
 #[tauri::command]
