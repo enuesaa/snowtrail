@@ -1,5 +1,4 @@
-mod data;
-mod greet;
+mod dataround;
 mod git;
 mod event;
 mod eventstat;
@@ -8,9 +7,8 @@ mod project;
 mod subscribe;
 mod script;
 
-pub use greet::{greet};
 pub use git::{git_histories, push_git_histories_to_event};
-pub use data::{up_data, status_data, down_data};
+pub use dataround::{dataround_up, dataround_status, dataround_down};
 pub use event::{publish_event};
 pub use subscribe::{create_subscribe};
 pub use script::{create_script};

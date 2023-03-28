@@ -1,16 +1,16 @@
 use crate::service::dataround::Dataround;
 
 #[tauri::command]
-pub fn up_data() -> String {
+pub fn dataround_up() -> String {
     Dataround::up()
 }
 
 #[tauri::command]
-pub fn status_data() -> bool {
+pub fn dataround_status() -> bool {
     Dataround::is_started()
 }
 
 #[tauri::command]
-pub fn down_data() {
+pub fn dataround_down() {
     Dataround::down();
 }

@@ -13,8 +13,7 @@ use tauri::Manager;
 fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
-            greet,
-            up_data, status_data, down_data,
+            dataround_up, dataround_status, dataround_down,
             git_histories, push_git_histories_to_event,
             put_event, list_events,
             get_workspace, set_workspace,

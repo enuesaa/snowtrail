@@ -4,7 +4,7 @@ pub struct Dataround {}
 impl Dataround {
     pub fn up() -> String {
         let port = Port { container: "6379/tcp".to_string(), host: "6380".to_string() };
-        let container = Container::new("snowtrail-redis", "redis", vec![port]);
+        let container = Container::new("snowtrail-redis", "redis/redis-stack", vec![port]);
         container.create().start();
         "snowtrail-redis".to_string()
     }
