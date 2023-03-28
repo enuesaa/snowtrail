@@ -38,13 +38,13 @@ impl Event {
 
     pub fn create(self) {
         let redis = Redis::new();
-        let key = self.name.clone();
+        let key = format!("event:{}", self.name.clone());
         let _ = redis.create(&key, &serde_json::to_string(&self).unwrap());
     }
 
     pub fn list() -> Vec<String> {
         let redis = Redis::new();
-        let keys = redis.list("*");
+        let keys = redis.list("event:*");
         if let Ok(keys) = keys {
             return keys;
         };
