@@ -11,8 +11,8 @@ pub enum EventStatus {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EventValue {
-    name: String,
-    value: String,
+    pub name: String,
+    pub value: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Event {
@@ -22,18 +22,13 @@ pub struct Event {
     tags: Vec<String>,
 }
 impl Event {
-    pub fn new(name: &str) -> Self {
+    pub fn new(name: &str, value: Vec<EventValue>) -> Self {
         Event {
             name: name.to_string(),
             status: EventStatus::Process,
-            value: vec![],
+            value,
             tags: vec![]
         }
-    }
-
-    pub fn set_value(mut self, key: &str, value: &str) -> Self {
-        self.value.push(EventValue { name: key.to_string(), value: value.to_string() });
-        self
     }
 
     pub fn create(self) {

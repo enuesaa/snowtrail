@@ -1,10 +1,13 @@
 import { css, useTheme } from '@emotion/react'
 import { PageTitle } from '@/components/common/PageTitle'
 import { useEventPublishLazy } from '@/commands/event'
-import { FormEventHandler } from 'react'
+import { useState, FormEventHandler, MouseEventHandler } from 'react'
+import { FaPlus, FaMinus } from 'react-icons/fa'
+import { nanoid } from 'nanoid'
 
 export const EventPublisher = () => {
   const theme = useTheme()
+  const [valueIds, setValueIds] = useState<string[]>([])
 
   const styles = {
     main: css({
@@ -33,26 +36,51 @@ export const EventPublisher = () => {
 
   const { invoke } = useEventPublishLazy()
 
-  const handlePublish: FormEventHandler<HTMLFormElement> = (e) => {
+  const handleAddValue: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault()
+    setValueIds([...valueIds, nanoid()])
+  }
+  const removeValue = (id: string) => {
+    setValueIds(valueIds.filter(v => v !== id));
+  }
+
+  const handlePublish: FormEventHandler<HTMLButtonElement> = (e) => {
+    console.log('aa')
     e.preventDefault()
     const formElms = e.currentTarget.elements
     const name = (formElms.namedItem('eventName') as HTMLInputElement).value ?? ''
-    const key = (formElms.namedItem('valueKey') as HTMLInputElement).value ?? ''
-    const value = (formElms.namedItem('valueValue') as HTMLInputElement).value ?? ''
-    invoke({ event: { name, value: [{ name: key, value }] }})
+    const value: {name: string, value: string}[] = [];
+    valueIds.map(vid => {
+      const k = (formElms.namedItem(`value${vid}key`) as HTMLInputElement).value ?? ''
+      const v = (formElms.namedItem(`value${vid}value`) as HTMLInputElement).value ?? ''
+      value.push({ name: k, value: v });
+    })
+    console.log(value)
+    invoke({ event: { name, value }})
   }
 
   return (
     <section css={styles.main}>
       <PageTitle title='EventPublisher' />
-      <form css={styles.form} onSubmit={handlePublish}>
+      <form css={styles.form}>
         <label htmlFor='eventName'>eventName</label>
         <input type='text' name='eventName' />
-        <label htmlFor='valueKey'>key</label>
-        <input type='text' name='valueKey' />
-        <label htmlFor='valueValue'>value</label>
-        <input type='text' name='valueValue' />
-        <button type='submit'>publish</button>
+        <div>
+          {valueIds.map(vid => {
+            return (
+              <div key={vid}>
+                <label htmlFor={`value${vid}key`}>key</label>
+                <input type='text' name={`value${vid}key`}></input>
+                <label htmlFor={`value${vid}value`}>value</label>
+                <input type='text' name={`value${vid}value`} />
+                <button onClick={e => { e.preventDefault(); removeValue(vid) }}><FaMinus /></button>
+              </div>
+            )
+          })}
+        </div>
+
+        <button onClick={handleAddValue}><FaPlus /></button>
+        <button onSubmit={handlePublish}>publish</button>
       </form>
     </section>
   )
