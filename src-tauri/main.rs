@@ -3,7 +3,6 @@ pub mod service;
 pub mod repository;
 
 use command::*;
-use std::env;
 
 #[cfg(target_os = "macos")]
 #[macro_use]
@@ -16,7 +15,7 @@ fn main() {
             dataround_up, dataround_status, dataround_down,
             event_publish,
             git_histories, push_git_histories_to_event,
-            put_event, list_events,
+            list_events,
             get_workspace, set_workspace,
             list_projects, get_project, create_project, delete_project,
             create_subscribe,

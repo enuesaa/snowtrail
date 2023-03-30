@@ -10,11 +10,6 @@ export const EventPublisher = () => {
   const [valueIds, setValueIds] = useState<string[]>([])
 
   const styles = {
-    main: css({
-      margin: '20px',
-      padding: '0 10px 10px 10px',
-      color: theme.color.main,
-    }),
     form: css({
       'input': { 
         ...theme.input,
@@ -58,7 +53,7 @@ export const EventPublisher = () => {
   }
 
   return (
-    <section css={styles.main}>
+    <section>
       <PageTitle title='EventPublisher' />
       <form css={styles.form} onSubmit={handlePublish}>
         <label htmlFor='eventName'>eventName</label>

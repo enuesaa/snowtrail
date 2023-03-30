@@ -5,11 +5,6 @@ export const SubscribeDetail = () => {
   const theme = useTheme()
 
   const styles = {
-    main: css({
-      margin: '20px',
-      padding: '0 10px 10px 10px',
-      color: theme.color.main,
-    }),
     form: css({
       'input': theme.input,
       'button': theme.input,
@@ -17,7 +12,7 @@ export const SubscribeDetail = () => {
   }
 
   return (
-    <section css={styles.main}>
+    <section>
       <PageTitle title='Subscribe aa' />
       <form css={styles.form}>
         <input type='text' defaultValue={'name'} />

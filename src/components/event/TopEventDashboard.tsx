@@ -6,11 +6,6 @@ export const TopEventDashboard = () => {
   const theme = useTheme()
 
   const styles = {
-    main: css({
-      margin: '20px',
-      padding: '0 10px 10px 10px',
-      color: theme.color.main,
-    }),
     list: css({
       listStyleType: 'none',
       padding: '0',
@@ -18,7 +13,7 @@ export const TopEventDashboard = () => {
   }
 
   return (
-    <section css={styles.main}>
+    <section>
       <PageTitle title='Events' />
       <ul css={styles.list}>
         <TopEventDashboardItem title='aa' id='aa' />

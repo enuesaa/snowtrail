@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { ScriptDetail } from '@/components/script/ScriptDetail'
 import { Main } from '@/components/common/Main'
 
-export default function () {
+export default function Page() {
   const router = useRouter()
   const { id } = router.query
   if (typeof id !== 'string') {
