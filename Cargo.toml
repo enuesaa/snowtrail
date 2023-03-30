@@ -21,6 +21,7 @@ objc = "0.2.7"
 dirs = "5.0.0"
 redis = { version = "0.22.3", features = ["json"] }
 rs-docker = "0.0.60"
+rocksdb = "0.20.1"
 
 [features]
 default = ["custom-protocol"]
