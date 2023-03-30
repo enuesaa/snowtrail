@@ -19,7 +19,7 @@ reqwest = { version = "0.11.15", features = ["json"] }
 tokio = { version = "1.26.0", features = ["full"] }
 objc = "0.2.7"
 dirs = "5.0.0"
-redis = "0.22.3"
+redis = { version = "0.22.3", features = ["json"] }
 rs-docker = "0.0.60"
 
 [features]

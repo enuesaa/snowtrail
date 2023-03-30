@@ -2285,6 +2285,8 @@ dependencies = [
  "itoa 1.0.6",
  "percent-encoding",
  "ryu",
+ "serde",
+ "serde_json",
  "sha1_smol",
  "url",
 ]
