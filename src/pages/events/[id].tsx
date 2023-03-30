@@ -1,5 +1,6 @@
 import { Header } from '@/components/common/Header'
 import { useRouter } from 'next/router'
+import { Main } from '@/components/common/Main'
 
 export default function () {
   const router = useRouter()
@@ -11,7 +12,9 @@ export default function () {
   return (
     <>
       <Header />
-      {id}
+      <Main>
+        {id}
+      </Main>
     </>
   )
 }

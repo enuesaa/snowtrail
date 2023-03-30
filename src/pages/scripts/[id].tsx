@@ -1,6 +1,7 @@
 import { Header } from '@/components/common/Header'
 import { useRouter } from 'next/router'
 import { ScriptDetail } from '@/components/script/ScriptDetail'
+import { Main } from '@/components/common/Main'
 
 export default function () {
   const router = useRouter()
@@ -12,7 +13,9 @@ export default function () {
   return (
     <>
       <Header />
-      <ScriptDetail />
+      <Main>
+        <ScriptDetail />
+      </Main>
     </>
   )
 }
