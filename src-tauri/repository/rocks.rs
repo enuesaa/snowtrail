@@ -44,7 +44,11 @@ impl RocksRepository {
         let db = RocksRepository::connect();
         let cf = db.cf_handle(cfname).unwrap();
 
-        let _ = db.put_cf(cf, key.as_bytes(), val.as_bytes());
+        if let Err(err) = db.put_cf(cf, key.as_bytes(), val.as_bytes()) {
+            println!("{:?}", err);
+        } else {
+            println!("ok");
+        }
     }
 
     pub fn delete(self, cfname: &str, key: &str) {
@@ -57,16 +61,17 @@ impl RocksRepository {
     pub fn list(self, cfname: &str) -> Vec<Kv> {
         let db = RocksRepository::connect();
         let cf = db.cf_handle(cfname).unwrap();
-        let mut iter = db.iterator_cf(cf, IteratorMode::Start);
-    
+        let iter = db.iterator_cf(cf, IteratorMode::Start);
         let mut kvs: Vec<Kv> = vec![];
         for item in iter {
+            println!("a"); 
             let (key, value) = item.unwrap();
             kvs.push(Kv {
                 key: String::from_utf8(Vec::from(key)).unwrap(),
                 value: String::from_utf8(Vec::from(value)).unwrap(),
             });
         };
+        println!("{:?}", kvs); 
 
         kvs
     }

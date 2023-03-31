@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-use crate::service::event::{Event, EventValue};
+use crate::service::event::{Event, EventService};
 use crate::repository::rocks::RocksRepository;
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -13,18 +13,20 @@ pub struct EventPublishRequest {
     value: Vec<EventPublishValue>, // like Note { name, dscription, project, save path }
 }
 #[tauri::command]
-pub fn event_publish(event: EventPublishRequest) {
-    let value = event.value.iter().map(|v| {
-        EventValue { name: v.name.clone(), value: v.value.clone() }
-    }).collect();
-    // Event::new(&event.name, value)
-    //     .create();
+pub fn event_publish(req: EventPublishRequest) {
+    let mut event = Event::new(&req.name);
+    req.value.iter().for_each(|v| {
+        event.kv(&v.name, &v.value);
+    });
 
-    let rocks = Rocks {};
-    // rocks.set(&event.name, "{}");
-    // let res = rocks.get(&event.name);
-    // println!("{:?}", res);
+    let rocks = RocksRepository {};
+    EventService::create(rocks, event);
+}
 
-    let res = rocks.list(&event.name, None);
+
+#[tauri::command]
+pub fn event_list() {
+    let rocks = RocksRepository {};
+    let res = EventService::list(rocks);
     println!("{:?}", res);
 }
