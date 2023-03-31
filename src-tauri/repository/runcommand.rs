@@ -2,7 +2,6 @@ use std::path::PathBuf;
 use std::process::{Command, Stdio};
 use std::env;
 use std::error::Error;
-use crate::repository::repository::RepositoryTrait;
 
 #[derive(Clone)]
 pub struct Runcommand {
@@ -30,10 +29,8 @@ impl Runcommand {
         self.dir = dir;
         self
     }
-}
 
-impl RepositoryTrait<String> for Runcommand {
-    fn exec(self) -> Result<String, Box<dyn Error>> {
+    pub fn exec(self) -> Result<String, Box<dyn Error>> {
         let output = Command::new(self.program)
             .args(self.args)
             .current_dir(self.dir)

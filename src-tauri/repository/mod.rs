@@ -1,4 +1,3 @@
-pub mod repository;
-pub mod command;
+pub mod runcommand;
 pub mod docker;
 pub mod rocks;

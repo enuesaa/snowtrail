@@ -1,3 +1,2 @@
-pub mod dataround;
-pub mod git;
+pub mod githistories;
 pub mod feed;

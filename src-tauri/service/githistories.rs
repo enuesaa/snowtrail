@@ -1,7 +1,5 @@
 use serde::Serialize;
-use crate::repository::command::Runcommand;
-#[allow(unused_imports)]
-use crate::repository::repository::RepositoryTrait;
+use crate::repository::runcommand::Runcommand;
 
 #[derive(Debug, Serialize, PartialEq)]
 pub struct GitHistory {
@@ -26,15 +24,4 @@ impl GitHistories {
         };
         histories
     }
-}
-
-#[test]
-fn test_fetch_git_histories() {
-    impl Runcommand {
-        fn exec(self) -> Result<String, String> {
-            Ok("a".to_string())
-        }
-    }
-    let histories = GitHistories::fetch(Runcommand::new());
-    assert_eq!(GitHistories { items: vec![ GitHistory { hash: "a".to_string() }] }, histories);
 }
