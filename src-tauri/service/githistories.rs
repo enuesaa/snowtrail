@@ -1,11 +1,13 @@
 use serde::Serialize;
 use crate::repository::runcommand::Runcommand;
 
+#[deprecated]
 #[derive(Debug, Serialize, PartialEq)]
 pub struct GitHistory {
     pub hash: String,
 }
 
+#[deprecated]
 #[derive(Debug, Serialize, PartialEq)]
 pub struct GitHistories {
     pub items: Vec<GitHistory>,

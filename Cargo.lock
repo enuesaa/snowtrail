@@ -63,19 +63,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "atom_syndication"
-version = "0.12.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "91a85f2ee28cbd1ecf91288460f6dc74661fd99b4e9a559836a667ccf63aa38c"
-dependencies = [
- "chrono",
- "derive_builder",
- "diligent-date-parser",
- "never",
- "quick-xml 0.27.1",
-]
-
-[[package]]
 name = "autocfg"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -293,16 +280,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
-name = "chrono"
-version = "0.4.24"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4e3c5919066adf22df73762e50cffcde3a758f2a848b113b586d1f86728b673b"
-dependencies = [
- "num-integer",
- "num-traits",
-]
-
-[[package]]
 name = "clang-sys"
 version = "1.6.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -497,18 +474,8 @@ version = "0.13.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a01d95850c592940db9b8194bc39f4bc0e89dee5c4265e4b1807c34a9aba453c"
 dependencies = [
- "darling_core 0.13.4",
- "darling_macro 0.13.4",
-]
-
-[[package]]
-name = "darling"
-version = "0.14.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7b750cb3417fd1b327431a470f388520309479ab0bf5e323505daf0290cd3850"
-dependencies = [
- "darling_core 0.14.4",
- "darling_macro 0.14.4",
+ "darling_core",
+ "darling_macro",
 ]
 
 [[package]]
@@ -526,69 +493,13 @@ dependencies = [
 ]
 
 [[package]]
-name = "darling_core"
-version = "0.14.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "109c1ca6e6b7f82cc233a97004ea8ed7ca123a9af07a8230878fcfda9b158bf0"
-dependencies = [
- "fnv",
- "ident_case",
- "proc-macro2",
- "quote",
- "strsim",
- "syn 1.0.109",
-]
-
-[[package]]
 name = "darling_macro"
 version = "0.13.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9c972679f83bdf9c42bd905396b6c3588a843a17f0f16dfcfa3e2c5d57441835"
 dependencies = [
- "darling_core 0.13.4",
+ "darling_core",
  "quote",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "darling_macro"
-version = "0.14.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a4aab4dbc9f7611d8b55048a3a16d2d010c2c8334e46304b40ac1cc14bf3b48e"
-dependencies = [
- "darling_core 0.14.4",
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "derive_builder"
-version = "0.12.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8d67778784b508018359cbc8696edb3db78160bab2c2a28ba7f56ef6932997f8"
-dependencies = [
- "derive_builder_macro",
-]
-
-[[package]]
-name = "derive_builder_core"
-version = "0.12.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c11bdc11a0c47bc7d37d582b5285da6849c96681023680b906673c5707af7b0f"
-dependencies = [
- "darling 0.14.4",
- "proc-macro2",
- "quote",
- "syn 1.0.109",
-]
-
-[[package]]
-name = "derive_builder_macro"
-version = "0.12.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ebcda35c7a396850a55ffeac740804b40ffec779b98fffbb1738f4033f0ee79e"
-dependencies = [
- "derive_builder_core",
  "syn 1.0.109",
 ]
 
@@ -613,15 +524,6 @@ checksum = "8168378f4e5023e7218c89c891c0fd8ecdb5e5e4f18cb78f38cf245dd021e76f"
 dependencies = [
  "block-buffer",
  "crypto-common",
-]
-
-[[package]]
-name = "diligent-date-parser"
-version = "0.1.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f6cf7fe294274a222363f84bcb63cdea762979a0443b4cf1f4f8fd17c86b1182"
-dependencies = [
- "chrono",
 ]
 
 [[package]]
@@ -1800,12 +1702,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "never"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c96aba5aa877601bb3f6dd6a63a969e1f82e60646e81e71b14496995e9853c91"
-
-[[package]]
 name = "new_debug_unreachable"
 version = "1.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2220,7 +2116,7 @@ dependencies = [
  "base64 0.21.0",
  "indexmap",
  "line-wrap",
- "quick-xml 0.28.1",
+ "quick-xml",
  "serde",
  "time",
 ]
@@ -2296,16 +2192,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1d0e1ae9e836cc3beddd63db0df682593d7e2d3d891ae8c9083d2113e1744224"
 dependencies = [
  "unicode-ident",
-]
-
-[[package]]
-name = "quick-xml"
-version = "0.27.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ffc053f057dd768a56f62cd7e434c42c831d296968997e9ac1f76ea7c2d14c41"
-dependencies = [
- "encoding_rs",
- "memchr",
 ]
 
 [[package]]
@@ -2414,22 +2300,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4f851a03551ceefd30132e447f07f96cb7011d6b658374f3aed847333adb5559"
 
 [[package]]
-name = "redis"
-version = "0.22.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "aa8455fa3621f6b41c514946de66ea0531f57ca017b2e6c7cc368035ea5b46df"
-dependencies = [
- "combine",
- "itoa 1.0.6",
- "percent-encoding",
- "ryu",
- "serde",
- "serde_json",
- "sha1_smol",
- "url",
-]
-
-[[package]]
 name = "redox_syscall"
 version = "0.2.16"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2535,18 +2405,6 @@ dependencies = [
  "serde_derive",
  "serde_json",
  "tokio",
-]
-
-[[package]]
-name = "rss"
-version = "2.0.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "14816ec8b4e58b34a36adba66dcadd3e1e221dcb0fb2fd83e7c5129ea1a72458"
-dependencies = [
- "atom_syndication",
- "derive_builder",
- "never",
- "quick-xml 0.27.1",
 ]
 
 [[package]]
@@ -2748,7 +2606,7 @@ version = "1.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e182d6ec6f05393cc0e5ed1bf81ad6db3a8feedf8ee515ecdd369809bcce8082"
 dependencies = [
- "darling 0.13.4",
+ "darling",
  "proc-macro2",
  "quote",
  "syn 1.0.109",
@@ -2785,12 +2643,6 @@ dependencies = [
  "nodrop",
  "stable_deref_trait",
 ]
-
-[[package]]
-name = "sha1_smol"
-version = "1.0.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ae1a47186c03a32177042e55dbc5fd5aee900b8e0069a8d70fba96a9375cd012"
 
 [[package]]
 name = "sha2"
@@ -2864,11 +2716,9 @@ version = "0.1.0"
 dependencies = [
  "dirs",
  "objc",
- "redis",
  "reqwest",
  "rocksdb",
  "rs-docker",
- "rss",
  "serde",
  "serde_json",
  "tauri",

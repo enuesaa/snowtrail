@@ -1,5 +1,4 @@
-use rocksdb::{DB, Options, SingleThreaded, DBWithThreadMode, IteratorMode};
-// use std::convert::From;
+use rocksdb::{DB, Options, SingleThreaded, DBWithThreadMode, IteratorMode, ColumnFamily};
 
 #[derive(Debug)]
 pub struct Kv {
@@ -7,24 +6,29 @@ pub struct Kv {
     pub value: String,
 }
 
-pub struct Rocks {}
-impl Rocks {
+pub struct RocksRepository {}
+impl RocksRepository {
     pub fn new() -> Self {
-        Rocks {}
+        RocksRepository {}
     }
 
-    fn connect(self, cfs: Vec<&str>) -> DBWithThreadMode<SingleThreaded> {
+    pub fn cfs() -> Vec<String> {
+        // need to write here ?
+        vec!["event".to_string()]
+    }
+
+    pub fn connect() -> DBWithThreadMode<SingleThreaded> {
         let mut opts = Options::default();
         opts.create_if_missing(true);
         opts.create_missing_column_families(true);
-        DB::open_cf(&opts, "rocksdb", cfs).unwrap()
+        DB::open_cf(&opts, "rocksdb", RocksRepository::cfs()).unwrap()
     }
 
-    pub fn get(self, key: &str) -> Kv {
-        let db = self.connect(vec!["event"]);
-        let eventcf = db.cf_handle("event").unwrap();
-        let res = db.get_cf(&eventcf, key.as_bytes());
-        if let Ok(Some(value)) = res {
+    pub fn get(self, cfname: &str, key: &str) -> Kv {
+        let db = RocksRepository::connect();
+        let cf = db.cf_handle(cfname).unwrap();
+
+        if let Ok(Some(value)) = db.get_cf(&cf, key.as_bytes()) {
             return Kv {
                 key: String::from(key),
                 value: String::from_utf8(value).unwrap(),
@@ -32,55 +36,38 @@ impl Rocks {
         };
         return Kv {
             key: String::from(key),
-            value: String::from(""),
+            value: String::from("{}"),
         };
     }
 
-    pub fn set(self, key: &str, val: &str) {
-        let db = self.connect(vec!["event"]);
-        let eventcf = db.cf_handle("event").unwrap();
-        let _ = db.put_cf(
-            eventcf,
-            key.as_bytes(),
-            val.as_bytes()
-        );
+    pub fn put(self, cfname: &str, key: &str, val: &str) {
+        let db = RocksRepository::connect();
+        let cf = db.cf_handle(cfname).unwrap();
+
+        let _ = db.put_cf(cf, key.as_bytes(), val.as_bytes());
     }
 
-    pub fn list(self, prefix: &str, limit: Option<u8>) -> Vec<Kv> {
-        let limit = match limit {
-            Some(l) => l,
-            None => 10,
-        };
-        let db = self.connect(vec!["aa", "event"]);
-        let eventcf = db.cf_handle("event").unwrap();
-        let mut iter = db.iterator_cf(eventcf, IteratorMode::Start);
-        // iter.seek(prefix.to_string().as_bytes());
+    pub fn delete(self, cfname: &str, key: &str) {
+        let db = RocksRepository::connect();
+        let cf = db.cf_handle(cfname).unwrap();
 
+        let _ = db.delete_cf(cf, key.as_bytes());
+    }
+
+    pub fn list(self, cfname: &str) -> Vec<Kv> {
+        let db = RocksRepository::connect();
+        let cf = db.cf_handle(cfname).unwrap();
+        let mut iter = db.iterator_cf(cf, IteratorMode::Start);
+    
         let mut kvs: Vec<Kv> = vec![];
         for item in iter {
             let (key, value) = item.unwrap();
-            let key = Vec::from(key);
-            let value = Vec::from(value);
             kvs.push(Kv {
-                key: String::from_utf8(key).unwrap(),
-                value: String::from_utf8(value).unwrap(),
+                key: String::from_utf8(Vec::from(key)).unwrap(),
+                value: String::from_utf8(Vec::from(value)).unwrap(),
             });
-        }
-    
-        // let mut i: u8 = 0;
-        // while iter.valid() {
-        //     let key = Vec::from(iter.key().unwrap());
-        //     let value = Vec::from(iter.value().unwrap());
-        //     kvs.push(Kv {
-        //         key: String::from_utf8(key).unwrap(),
-        //         value: String::from_utf8(value).unwrap(),
-        //     });
-        //     iter.next();
-        //     i += 1;
-        //     if i >= limit {
-        //         break;
-        //     }
-        // };
+        };
+
         kvs
     }
 }
