@@ -2,21 +2,16 @@ pub mod command;
 pub mod service;
 pub mod repository;
 
-use command::*;
-
 #[cfg(target_os = "macos")]
 #[macro_use]
 extern crate objc;
 use tauri::Manager;
 
 fn main() {
-    tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![
-            event_publish,
-            get_workspace, set_workspace,
-            list_projects, get_project, create_project, delete_project,
-            create_subscribe,
-        ])
+    let app = tauri::Builder::default();
+    let app = command::inject_commands(app);
+
+    app
         .setup(|app| {
             let window = app.get_window("main").unwrap();
             window.with_webview(|webview| {
