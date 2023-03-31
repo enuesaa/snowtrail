@@ -1,4 +1,4 @@
-use rocksdb::{DB, Options, SingleThreaded, DBWithThreadMode, IteratorMode, ColumnFamily};
+use rocksdb::{DB, Options, SingleThreaded, DBWithThreadMode, IteratorMode};
 
 #[derive(Debug)]
 pub struct Kv {
@@ -44,11 +44,7 @@ impl RocksRepository {
         let db = RocksRepository::connect();
         let cf = db.cf_handle(cfname).unwrap();
 
-        if let Err(err) = db.put_cf(cf, key.as_bytes(), val.as_bytes()) {
-            println!("{:?}", err);
-        } else {
-            println!("ok");
-        }
+        let _ = db.put_cf(cf, key.as_bytes(), val.as_bytes());
     }
 
     pub fn delete(self, cfname: &str, key: &str) {
@@ -64,14 +60,12 @@ impl RocksRepository {
         let iter = db.iterator_cf(cf, IteratorMode::Start);
         let mut kvs: Vec<Kv> = vec![];
         for item in iter {
-            println!("a"); 
             let (key, value) = item.unwrap();
             kvs.push(Kv {
                 key: String::from_utf8(Vec::from(key)).unwrap(),
                 value: String::from_utf8(Vec::from(value)).unwrap(),
             });
         };
-        println!("{:?}", kvs); 
 
         kvs
     }

@@ -16,4 +16,4 @@ export const {
 export const {
   useEventListQuery,
   useEventListLazy,
-} = queriesInit<{}, {}>('event_list')
+} = queriesInit<{}, EventPublishRequest[]>('event_list')

@@ -1,9 +1,12 @@
 import { PageTitle } from '@/components/common/PageTitle'
 import { css, useTheme } from '@emotion/react'
 import { TopEventDashboardItem } from '@/components/event/TopEventDashboardItem'
+import { useEventListQuery } from '@/commands/event'
 
 export const TopEventDashboard = () => {
   const theme = useTheme()
+
+  const events = useEventListQuery({})
 
   const styles = {
     list: css({
@@ -16,7 +19,11 @@ export const TopEventDashboard = () => {
     <section>
       <PageTitle title='Events' />
       <ul css={styles.list}>
-        <TopEventDashboardItem title='aa' id='aa' />
+        {
+          events?.map((v, i) => (
+            <TopEventDashboardItem title={v.name} id={v.name} key={i} />
+          ))
+        }
       </ul>
     </section>
   )

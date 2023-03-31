@@ -1,6 +1,6 @@
 import { css, useTheme } from '@emotion/react'
 import { PageTitle } from '@/components/common/PageTitle'
-import { useEventPublishLazy, useEventListQuery } from '@/commands/event'
+import { useEventPublishLazy } from '@/commands/event'
 import { useState, FormEventHandler, MouseEventHandler } from 'react'
 import { FaPlus, FaMinus } from 'react-icons/fa'
 import { nanoid } from 'nanoid'
@@ -8,7 +8,6 @@ import { nanoid } from 'nanoid'
 export const EventPublisher = () => {
   const theme = useTheme()
   const [valueIds, setValueIds] = useState<string[]>([])
-  const _ = useEventListQuery({})
 
   const styles = {
     form: css({

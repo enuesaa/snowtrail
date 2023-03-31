@@ -25,8 +25,15 @@ pub fn event_publish(req: EventPublishRequest) {
 
 
 #[tauri::command]
-pub fn event_list() {
+pub fn event_list() -> Vec<EventPublishRequest> {
     let rocks = RocksRepository {};
-    let res = EventService::list(rocks);
-    println!("{:?}", res);
+    let events = EventService::list(rocks);
+    let mut ret = vec![];
+    for event in events {
+        let value: Vec<EventPublishValue> = event.kvs.iter().map(|v| {
+            return EventPublishValue { name: v.name.clone(), value: v.value.clone() }
+        }).collect();
+        ret.push(EventPublishRequest { name: event.name, value });
+    };
+    ret
 }
