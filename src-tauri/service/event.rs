@@ -1,5 +1,4 @@
 use serde::{Serialize, Deserialize};
-use crate::repository::redis::Redis;
 use serde_json;
 
 #[derive(Debug, Serialize, Deserialize)]

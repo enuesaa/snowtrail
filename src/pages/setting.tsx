@@ -1,5 +1,4 @@
 import { Header } from '@/components/common/Header'
-import { Databoard } from '@/components/setting/Databoard'
 import { Main } from '@/components/common/Main'
 
 export default function Page() {
@@ -7,7 +6,6 @@ export default function Page() {
     <>
       <Header />
       <Main>
-        <Databoard />
       </Main>
     </>
   )
