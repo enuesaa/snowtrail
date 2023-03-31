@@ -54,19 +54,44 @@ impl RocksRepository {
         let _ = db.delete_cf(cf, key.as_bytes());
     }
 
-    pub fn list(self, cfname: &str) -> Vec<Kv> {
+    pub fn list(self, cfname: &str, prefix: &str, limit: u8) -> Vec<Kv> {
         let db = RocksRepository::connect();
         let cf = db.cf_handle(cfname).unwrap();
-        let iter = db.iterator_cf(cf, IteratorMode::Start);
+        let mut iter = db.raw_iterator_cf(cf);
+        iter.seek(prefix.to_string().as_bytes());
+
         let mut kvs: Vec<Kv> = vec![];
-        for item in iter {
-            let (key, value) = item.unwrap();
+        let mut i: u8 = 0;
+        while iter.valid() {
+            let (key, value) =iter.item().unwrap();
             kvs.push(Kv {
                 key: String::from_utf8(Vec::from(key)).unwrap(),
                 value: String::from_utf8(Vec::from(value)).unwrap(),
             });
+            iter.next();
+            i += 1;
+            if i >= limit {
+                break;
+            }
         };
+        kvs
+    }
 
+    pub fn list_all(self, cfname: &str, prefix: &str) -> Vec<Kv> {
+        let db = RocksRepository::connect();
+        let cf = db.cf_handle(cfname).unwrap();
+        let mut iter = db.raw_iterator_cf(cf);
+        iter.seek(prefix.to_string().as_bytes());
+
+        let mut kvs: Vec<Kv> = vec![];
+        while iter.valid() {
+            let (key, value) =iter.item().unwrap();
+            kvs.push(Kv {
+                key: String::from_utf8(Vec::from(key)).unwrap(),
+                value: String::from_utf8(Vec::from(value)).unwrap(),
+            });
+            iter.next();
+        };
         kvs
     }
 }

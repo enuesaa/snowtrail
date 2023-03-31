@@ -31,7 +31,7 @@ impl Event {
 pub struct EventService {}
 impl EventService {
     pub fn list(rocks: RocksRepository) -> Vec<Event> {
-        let kvs = rocks.list("event");
+        let kvs = rocks.list("event", "", 100);
         let mut list: Vec<Event> = vec![];
         for kv in kvs {
             list.push(serde_json::from_str(&kv.value).unwrap());
