@@ -13,7 +13,7 @@ export const ScriptBoardItem = ({ title, id }: Props) => {
   }
 
   return (
-    <Link href={`/scripts/${id}`} css={styles.card}>
+    <Link href={`/script/items/${id}`} css={styles.card}>
       {title}
     </Link>
   )

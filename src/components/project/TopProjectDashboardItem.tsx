@@ -13,7 +13,7 @@ export const TopProjectDashboardItem = ({ title, id }: Props) => {
   }
 
   return (
-    <Link href={`/projects/${id}`} css={styles.card}>
+    <Link href={`/project/items/${id}`} css={styles.card}>
       {title}
     </Link>
   )

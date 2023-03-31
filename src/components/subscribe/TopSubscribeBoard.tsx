@@ -1,11 +1,12 @@
 import { PageTitle } from '@/components/common/PageTitle'
-import { TopSubscribeBoardItem } from '@/components/subscribe/TopSubscribeBoardItem'
+import Link from 'next/link'
 
 export const TopSubscribeBoard = () => {
   return (
     <section>
-      <PageTitle title='Subscribe' />
-      <TopSubscribeBoardItem id='aa' title='aa' />
+      <Link href='/subscribe/configure'>
+        <PageTitle title='Subscribe' />
+      </Link>
     </section>
   )
 }

@@ -5,7 +5,7 @@ type Props = {
   title: string;
   id: string;
 }
-export const TopSubscribeBoardItem = ({ title, id }: Props) => {
+export const SubscribeBoardItem = ({ title, id }: Props) => {
   const theme = useTheme()
 
   const styles = {
@@ -13,7 +13,7 @@ export const TopSubscribeBoardItem = ({ title, id }: Props) => {
   }
 
   return (
-    <Link href={`/subscribes/${id}`} css={styles.card}>
+    <Link href={`/subscribe/items/${id}`} css={styles.card}>
       {title}
     </Link>
   )
