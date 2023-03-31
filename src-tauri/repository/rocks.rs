@@ -1,4 +1,5 @@
-use rocksdb::{DB, SingleThreaded, DBWithThreadMode};
+use rocksdb::{DB, Options, SingleThreaded, DBWithThreadMode, IteratorMode};
+// use std::convert::From;
 
 #[derive(Debug)]
 pub struct Kv {
@@ -12,12 +13,17 @@ impl Rocks {
         Rocks {}
     }
 
-    fn connect(self) -> DBWithThreadMode<SingleThreaded> {
-        DB::open_default("rocksdb").unwrap()
+    fn connect(self, cfs: Vec<&str>) -> DBWithThreadMode<SingleThreaded> {
+        let mut opts = Options::default();
+        opts.create_if_missing(true);
+        opts.create_missing_column_families(true);
+        DB::open_cf(&opts, "rocksdb", cfs).unwrap()
     }
 
     pub fn get(self, key: &str) -> Kv {
-        let res = self.connect().get(key.as_bytes());
+        let db = self.connect(vec!["event"]);
+        let eventcf = db.cf_handle("event").unwrap();
+        let res = db.get_cf(&eventcf, key.as_bytes());
         if let Ok(Some(value)) = res {
             return Kv {
                 key: String::from(key),
@@ -31,7 +37,10 @@ impl Rocks {
     }
 
     pub fn set(self, key: &str, val: &str) {
-        let _ = self.connect().put(
+        let db = self.connect(vec!["event"]);
+        let eventcf = db.cf_handle("event").unwrap();
+        let _ = db.put_cf(
+            eventcf,
             key.as_bytes(),
             val.as_bytes()
         );
@@ -42,25 +51,36 @@ impl Rocks {
             Some(l) => l,
             None => 10,
         };
-        let db = self.connect();
-        let mut iter = db.raw_iterator();
-        iter.seek(prefix.to_string().as_bytes());
+        let db = self.connect(vec!["aa", "event"]);
+        let eventcf = db.cf_handle("event").unwrap();
+        let mut iter = db.iterator_cf(eventcf, IteratorMode::Start);
+        // iter.seek(prefix.to_string().as_bytes());
 
         let mut kvs: Vec<Kv> = vec![];
-        let mut i: u8 = 0;
-        while iter.valid() {
-            let key = Vec::from(iter.key().unwrap());
-            let value = Vec::from(iter.value().unwrap());
+        for item in iter {
+            let (key, value) = item.unwrap();
+            let key = Vec::from(key);
+            let value = Vec::from(value);
             kvs.push(Kv {
                 key: String::from_utf8(key).unwrap(),
                 value: String::from_utf8(value).unwrap(),
             });
-            iter.next();
-            i += 1;
-            if i >= limit {
-                break;
-            }
-        };
+        }
+    
+        // let mut i: u8 = 0;
+        // while iter.valid() {
+        //     let key = Vec::from(iter.key().unwrap());
+        //     let value = Vec::from(iter.value().unwrap());
+        //     kvs.push(Kv {
+        //         key: String::from_utf8(key).unwrap(),
+        //         value: String::from_utf8(value).unwrap(),
+        //     });
+        //     iter.next();
+        //     i += 1;
+        //     if i >= limit {
+        //         break;
+        //     }
+        // };
         kvs
     }
 }

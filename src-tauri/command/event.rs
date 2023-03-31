@@ -23,6 +23,8 @@ pub fn event_publish(event: EventPublishRequest) {
 
     let rocks = Rocks {};
     // rocks.set(&event.name, "{}");
+    // let res = rocks.get(&event.name);
+    // println!("{:?}", res);
 
     let res = rocks.list(&event.name, None);
     println!("{:?}", res);
