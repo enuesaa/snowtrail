@@ -1,5 +1,6 @@
 use rocksdb::{DB, SingleThreaded, DBWithThreadMode};
 
+#[derive(Debug)]
 pub struct Kv {
     pub key: String,
     pub value: String,
