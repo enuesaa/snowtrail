@@ -24,7 +24,17 @@ export const Header = () => {
         verticalAlign: 'text-top',
       },
     }),
-    settinglink: css({
+    textlink: css({
+      display: 'block',
+      color: theme.color.main,
+      flex: '0 0 35px',
+      margin: '0 20px 0 0',
+      padding: '2px',
+      textAlign: 'center',
+      fontSize: theme.fontSize.large,
+      fontWeight: '600',
+    }),
+    iconlink: css({
       display: 'block',
       color: theme.color.main,
       flex: '0 0 35px',
@@ -34,7 +44,7 @@ export const Header = () => {
       'svg': {
         verticalAlign: 'middle',
       },
-    })
+    }),
   }
 
   return (
@@ -44,13 +54,19 @@ export const Header = () => {
           <IoMdSnow />snowtrail
         </Link>
       </div>
-      <Link href='/publisher' css={styles.settinglink}>
+      <Link href='/project/configure' css={styles.textlink}>
+        Project
+      </Link>
+      <Link href='/subscribe/configure' css={styles.textlink}>
+        Subscribe
+      </Link>
+      <Link href='/script/configure' css={styles.textlink}>
+        Script
+      </Link>
+      <Link href='/publisher' css={styles.iconlink}>
         <MdSnowboarding />
       </Link>
-      <Link href='/workspace' css={styles.settinglink}>
-        <FaSnowplow />
-      </Link>
-      <Link href='/setting' css={styles.settinglink}>
+      <Link href='/setting' css={styles.iconlink}>
         <MdOutlineSettings />
       </Link>
     </header>
