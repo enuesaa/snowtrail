@@ -1,4 +1,4 @@
-use rocksdb::{DB, Options, SingleThreaded, DBWithThreadMode, IteratorMode};
+use rocksdb::{DB, Options, SingleThreaded, DBWithThreadMode};
 
 #[derive(Debug, Clone)]
 pub struct Kv {

@@ -12,7 +12,7 @@ pub fn list_projects() -> Vec<Project> {
 
 #[tauri::command]
 pub fn get_project(name: String) -> Project {
-    Project { name: "".to_string(), path: "".to_string() }
+    Project { name: name, path: "".to_string() }
 }
 
 #[tauri::command]
