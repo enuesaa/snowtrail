@@ -1,19 +1,19 @@
 import { queriesInit } from '@/commands/use'
 
-export type EventPublishValue = {
+export type EventPublishKvSchema = {
   name: string;
   value: string;
 }
-export type EventPublishRequest = {
+export type EventPublishSchema = {
   name: string;
-  value: EventPublishValue[],
+  kvs: EventPublishKvSchema[],
 }
 export const {
   useEventPublishQuery,
   useEventPublishLazy,
-} = queriesInit<{data: EventPublishRequest}, {}>('event_publish')
+} = queriesInit<{data: EventPublishSchema}, {}>('event_publish')
 
 export const {
   useEventListQuery,
   useEventListLazy,
-} = queriesInit<{}, EventPublishRequest[]>('event_list')
+} = queriesInit<{}, EventPublishSchema[]>('event_list')

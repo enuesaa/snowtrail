@@ -13,7 +13,7 @@ type FormDataKv = {
 }
 type FormData = {
   name: string;
-  value: FormDataKv[];
+  kvs: FormDataKv[];
 }
 export const EventPublisher = () => {
   const theme = useTheme()
@@ -50,6 +50,9 @@ export const EventPublisher = () => {
 
   const { register, handleSubmit } = useForm<FormData>()
   const handlePublish = handleSubmit((data) => {
+    if (data.kvs === undefined) {
+      data.kvs = []
+    }
     invoke({ data })
   })
 
@@ -57,13 +60,12 @@ export const EventPublisher = () => {
     <section>
       <PageTitle title='EventPublisher' />
       <form css={styles.form} onSubmit={handlePublish}>
-        <label htmlFor='eventName'>eventName</label>
         <TextInput label='name' regist={register('name')} />
         {valueIds.map((vid, i) => {
           return (
             <div key={vid}>
-              <TextInput label='name' regist={register(`value.${i}.name`)} />
-              <TextInput label='value' regist={register(`value.${i}.value`)} />
+              <TextInput label='name' regist={register(`kvs.${i}.name`)} />
+              <TextInput label='value' regist={register(`kvs.${i}.value`)} />
               <button onClick={e => { e.preventDefault(); removeValue(vid) }}><FaMinus /></button>
             </div>
           )
