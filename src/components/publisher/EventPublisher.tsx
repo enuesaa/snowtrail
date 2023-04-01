@@ -50,7 +50,7 @@ export const EventPublisher = () => {
 
   const { register, handleSubmit } = useForm<FormData>()
   const handlePublish = handleSubmit((data) => {
-    invoke({ req: data })
+    invoke({ data })
   })
 
   return (

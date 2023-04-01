@@ -1,22 +1,22 @@
 use serde::{Serialize, Deserialize};
 
 #[derive(Serialize, Deserialize, Debug)]
-pub struct Project {
+pub struct ProjectSchema {
     name: String,
     path: String,
 }
 #[tauri::command]
-pub fn list_projects() -> Vec<Project> {
+pub fn list_projects() -> Vec<ProjectSchema> {
     vec![]
 }
 
 #[tauri::command]
-pub fn get_project(name: String) -> Project {
-    Project { name: name, path: "".to_string() }
+pub fn get_project(name: String) -> ProjectSchema {
+    ProjectSchema { name: name, path: "".to_string() }
 }
 
 #[tauri::command]
-pub fn create_project(project: Project) {
+pub fn create_project(project: ProjectSchema) {
     println!("{:?}", project);
 }
 

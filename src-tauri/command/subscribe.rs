@@ -1,20 +1,20 @@
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Mapping {
+pub struct SubscribeMappingSchema {
     path: String,
     expression: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Subscribe {
+pub struct SubscribeSchema {
     name: String,
     description: String,
     rule: Vec<String>, // can subscribe snowtrail event
     script_id: String,
-    mapping: Vec<Mapping>,
+    mapping: Vec<SubscribeMappingSchema>,
 }
 
 #[tauri::command]
-pub fn create_subscribe(subscribe: Subscribe) {
+pub fn create_subscribe(subscribe: SubscribeSchema) {
     println!("{:?}", subscribe);
 }

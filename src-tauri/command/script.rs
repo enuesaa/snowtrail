@@ -2,13 +2,13 @@ use serde::{Serialize, Deserialize};
 use crate::repository::runcommand::Runcommand;
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct ScriptRequest {
+pub struct ScriptSchema {
     command: String, // createfile
     workdir: Option<String>,
 }
 
 #[tauri::command]
-pub fn create_script(req: ScriptRequest) {
+pub fn create_script(req: ScriptSchema) {
     println!("{:?}", req);
 }
 

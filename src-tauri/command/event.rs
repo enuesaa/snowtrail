@@ -3,19 +3,19 @@ use crate::service::event::{Event, EventService};
 use crate::repository::rocks::RocksRepository;
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct EventPublishValue {
+pub struct EventPublishKvSchema {
     name: String,
     value: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct EventPublishRequest {
+pub struct EventPublishSchema {
     name: String,
-    value: Vec<EventPublishValue>, // like Note { name, dscription, project, save path }
+    kvs: Vec<EventPublishKvSchema>, // like Note { name, dscription, project, save path }
 }
 #[tauri::command]
-pub fn event_publish(req: EventPublishRequest) -> String {
-    let mut event = Event::new(&req.name);
-    req.value.iter().for_each(|v| {
+pub fn event_publish(data: EventPublishSchema) -> String {
+    let mut event = Event::new(&data.name);
+    data.kvs.iter().for_each(|v| {
         event.kv(&v.name, &v.value);
     });
 
@@ -26,15 +26,15 @@ pub fn event_publish(req: EventPublishRequest) -> String {
 
 
 #[tauri::command]
-pub fn event_list() -> Vec<EventPublishRequest> {
+pub fn event_list() -> Vec<EventPublishSchema> {
     let rocks = RocksRepository {};
     let events = EventService::list(rocks);
     let mut ret = vec![];
     for event in events {
-        let value: Vec<EventPublishValue> = event.kvs.iter().map(|v| {
-            return EventPublishValue { name: v.name.clone(), value: v.value.clone() }
+        let value: Vec<EventPublishKvSchema> = event.kvs.iter().map(|v| {
+            return EventPublishKvSchema { name: v.name.clone(), value: v.value.clone() }
         }).collect();
-        ret.push(EventPublishRequest { name: event.name, value });
+        ret.push(EventPublishSchema { name: event.name, kvs: value });
     };
     ret
 }
