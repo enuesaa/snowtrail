@@ -3,12 +3,12 @@ use serde_json;
 use crate::repository::rocks::RocksRepository;
 use uuid::Uuid;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct EventKv {
     pub name: String,
     pub value: String,
 }
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Event {
     pub name: String,
     pub kvs: Vec<EventKv>, // like Note { name, dscription, project, save path }
@@ -46,11 +46,12 @@ impl EventService {
 
     pub fn create(rocks: RocksRepository, event: Event) {
         let id = &Uuid::new_v4().to_string();
-        rocks.put("event", id, &serde_json::to_string(&event).unwrap())
+        EventService::trigger(rocks.clone(), event.clone());
+        rocks.put("event", id, &serde_json::to_string(&event).unwrap());
     }
 
-    pub fn update(rocks: RocksRepository, id: &str, event: Event) {
-        rocks.put("event", id, &serde_json::to_string(&event).unwrap())
+    pub fn trigger(rocks: RocksRepository, event: Event) {
+        // 
     }
 
     pub fn delete(rocks: RocksRepository, id: &str) {

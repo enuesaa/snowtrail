@@ -1,18 +1,18 @@
 use serde::{Serialize, Deserialize};
 
 #[derive(Debug, Serialize, Deserialize)]
-pub enum ScriptRuntime {
+pub enum ScriptRequestRuntime {
     Shell,
     Tsnode,
 }
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Script {
-    runtime: ScriptRuntime,
+pub struct ScriptRequest {
+    runtime: ScriptRequestRuntime,
     script: String, // createfile
-    project_id: String,
+    workdir: Option<String>,
 }
 
 #[tauri::command]
-pub fn create_script(script: Script) {
-    println!("{:?}", script);
+pub fn create_script(req: ScriptRequest) {
+    println!("{:?}", req);
 }

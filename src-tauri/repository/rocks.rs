@@ -1,11 +1,12 @@
 use rocksdb::{DB, Options, SingleThreaded, DBWithThreadMode, IteratorMode};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Kv {
     pub key: String,
     pub value: String,
 }
 
+#[derive(Clone)]
 pub struct RocksRepository {}
 impl RocksRepository {
     pub fn new() -> Self {
