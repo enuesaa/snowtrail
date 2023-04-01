@@ -13,14 +13,15 @@ pub struct EventPublishRequest {
     value: Vec<EventPublishValue>, // like Note { name, dscription, project, save path }
 }
 #[tauri::command]
-pub fn event_publish(req: EventPublishRequest) {
+pub fn event_publish(req: EventPublishRequest) -> String {
     let mut event = Event::new(&req.name);
     req.value.iter().for_each(|v| {
         event.kv(&v.name, &v.value);
     });
 
     let rocks = RocksRepository {};
-    EventService::create(rocks, event);
+    let id = EventService::publish(rocks, event);
+    id
 }
 
 

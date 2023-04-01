@@ -44,13 +44,19 @@ impl EventService {
         serde_json::from_str(&res.value).unwrap()
     }
 
-    pub fn create(rocks: RocksRepository, event: Event) {
-        let id = &Uuid::new_v4().to_string();
-        EventService::trigger(rocks.clone(), event.clone());
-        rocks.put("event", id, &serde_json::to_string(&event).unwrap());
+    pub fn publish(rocks: RocksRepository, event: Event) -> String {
+        let id = EventService::create(rocks.clone(), event.clone());
+        EventService::trigger(rocks, &id);
+        id
     }
 
-    pub fn trigger(rocks: RocksRepository, event: Event) {
+    pub fn create(rocks: RocksRepository, event: Event) -> String {
+        let id = Uuid::new_v4().to_string();
+        rocks.put("event", &id, &serde_json::to_string(&event).unwrap());
+        id
+    }
+
+    pub fn trigger(rocks: RocksRepository, id: &str) {
         // 
     }
 
