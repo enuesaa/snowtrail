@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { css, useTheme } from '@emotion/react'
 import { IoMdSnow } from 'react-icons/io'
 import { MdOutlineSettings, MdSnowboarding } from 'react-icons/md'
-import { FaSnowplow } from 'react-icons/fa'
 
 export const Header = () => {
   const theme = useTheme()

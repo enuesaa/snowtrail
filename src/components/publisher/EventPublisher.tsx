@@ -4,7 +4,17 @@ import { useEventPublishLazy } from '@/commands/event'
 import { useState, FormEventHandler, MouseEventHandler } from 'react'
 import { FaPlus, FaMinus } from 'react-icons/fa'
 import { nanoid } from 'nanoid'
+import { useForm } from 'react-hook-form'
+import { TextInput } from '@/components/common/TextInput'
 
+type FormDataKv = {
+  name: string;
+  value: string;
+}
+type FormData = {
+  name: string;
+  value: FormDataKv[];
+}
 export const EventPublisher = () => {
   const theme = useTheme()
   const [valueIds, setValueIds] = useState<string[]>([])
@@ -30,7 +40,6 @@ export const EventPublisher = () => {
   }
 
   const { invoke } = useEventPublishLazy()
-
   const handleAddValue: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault()
     setValueIds([...valueIds, nanoid()])
@@ -39,39 +48,26 @@ export const EventPublisher = () => {
     setValueIds(valueIds.filter(v => v !== id));
   }
 
-  const handlePublish: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault()
-    const formElms = e.currentTarget.elements
-    const name = (formElms.namedItem('eventName') as HTMLInputElement).value ?? ''
-    const value: {name: string, value: string}[] = [];
-    valueIds.map(vid => {
-      const k = (formElms.namedItem(`value${vid}key`) as HTMLInputElement).value ?? ''
-      const v = (formElms.namedItem(`value${vid}value`) as HTMLInputElement).value ?? ''
-      value.push({ name: k, value: v });
-    })
-    invoke({ req: { name, value }})
-  }
+  const { register, handleSubmit } = useForm<FormData>()
+  const handlePublish = handleSubmit((data) => {
+    invoke({ req: data })
+  })
 
   return (
     <section>
       <PageTitle title='EventPublisher' />
       <form css={styles.form} onSubmit={handlePublish}>
         <label htmlFor='eventName'>eventName</label>
-        <input type='text' name='eventName' />
-        <div>
-          {valueIds.map(vid => {
-            return (
-              <div key={vid}>
-                <label htmlFor={`value${vid}key`}>key</label>
-                <input type='text' name={`value${vid}key`}></input>
-                <label htmlFor={`value${vid}value`}>value</label>
-                <input type='text' name={`value${vid}value`} />
-                <button onClick={e => { e.preventDefault(); removeValue(vid) }}><FaMinus /></button>
-              </div>
-            )
-          })}
-        </div>
-
+        <TextInput label='name' regist={register('name')} />
+        {valueIds.map((vid, i) => {
+          return (
+            <div key={vid}>
+              <TextInput label='name' regist={register(`value.${i}.name`)} />
+              <TextInput label='value' regist={register(`value.${i}.value`)} />
+              <button onClick={e => { e.preventDefault(); removeValue(vid) }}><FaMinus /></button>
+            </div>
+          )
+        })}
         <button onClick={handleAddValue}><FaPlus /></button>
         <button type='submit'>publish</button>
       </form>

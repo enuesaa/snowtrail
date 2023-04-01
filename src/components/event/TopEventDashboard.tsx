@@ -1,13 +1,10 @@
 import { PageTitle } from '@/components/common/PageTitle'
-import { css, useTheme } from '@emotion/react'
+import { css } from '@emotion/react'
 import { TopEventDashboardItem } from '@/components/event/TopEventDashboardItem'
 import { useEventListQuery } from '@/commands/event'
 
 export const TopEventDashboard = () => {
-  const theme = useTheme()
-
   const events = useEventListQuery({})
-
   const styles = {
     list: css({
       listStyleType: 'none',
