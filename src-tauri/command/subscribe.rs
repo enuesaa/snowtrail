@@ -3,7 +3,7 @@ use serde::{Serialize, Deserialize};
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Mapping {
     path: String,
-    from: String,
+    expression: String,
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Subscribe {
