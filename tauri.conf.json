@@ -11,13 +11,7 @@
   },
   "tauri": {
     "allowlist": {
-      "all": true,
-      "shell": {
-        "all": true,
-        "execute": true,
-        "sidecar": true,
-        "open": true
-      }
+      "all": true
     },
     "bundle": {
       "active": true,
@@ -37,7 +31,8 @@
         "exceptionDomain": "",
         "frameworks": [],
         "providerShortName": null,
-        "signingIdentity": null
+        "signingIdentity": null,
+        "minimumSystemVersion": "13.0"
       },
       "resources": [],
       "shortDescription": "",
