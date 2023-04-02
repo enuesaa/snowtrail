@@ -1,25 +1,49 @@
-import { useGetWorkspaceQuery } from '@/commands/workspace'
+import { useGetWorkspaceQuery, useSetWorkspaceLazy } from '@/commands/workspace'
 import { PageTitle } from '@/components/common/PageTitle'
+import { useForm } from 'react-hook-form'
+import { TextInput } from '@/components/common/TextInput'
 import { css, useTheme } from '@emotion/react'
 
+type FormData = {
+  dir: string;
+  auto_add_new_project: boolean;
+}
 export const WorkspaceBoard = () => {
   const theme = useTheme()
   const data = useGetWorkspaceQuery({})
-  console.log(data)
+  const { invoke: invokeSetWorkspace } = useSetWorkspaceLazy()
+  const { register, handleSubmit } = useForm<FormData>()
+
+  const handleSetSetting = handleSubmit((data) => {
+    invokeSetWorkspace({ data })
+  })
 
   const styles = {
     form: css({
-      'input': theme.input,
-      'button': theme.input,
+      'input': { 
+        ...theme.input,
+        background: 'rgba(255,255,255,0.1)',
+        padding: '5px 7px',
+        borderRadius: '5px',
+        color: theme.color.main,
+        margin: '5px 0 20px 0',
+        fontSize: theme.fontSize.large,
+      },
+      'button': {
+        ...theme.input,
+        background: 'rgna(0,0,0,0.1)',
+        padding: '5px',
+        borderRadius: '5px',
+      },
     }),
   }
 
   return (
     <section>
       <PageTitle title='workspace' />
-      <form css={styles.form}>
-        <input type='text' defaultValue={'dir'} />
-        <input type='text' defaultValue={'auto_add_new_project'} />
+      <form css={styles.form} onSubmit={handleSetSetting}>
+        <TextInput label='dir' regist={register('dir')} />
+        <TextInput label='auto_add_new_project' regist={register('auto_add_new_project')} />
         <button>save</button>
       </form>
     </section>

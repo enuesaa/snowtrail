@@ -1,7 +1,7 @@
 import { css, useTheme } from '@emotion/react'
 import { PageTitle } from '@/components/common/PageTitle'
 import { useEventPublishLazy } from '@/commands/event'
-import { useState, FormEventHandler, MouseEventHandler } from 'react'
+import { useState, MouseEventHandler } from 'react'
 import { FaPlus, FaMinus } from 'react-icons/fa'
 import { nanoid } from 'nanoid'
 import { useForm } from 'react-hook-form'
@@ -18,6 +18,22 @@ type FormData = {
 export const EventPublisher = () => {
   const theme = useTheme()
   const [valueIds, setValueIds] = useState<string[]>([])
+  const { invoke } = useEventPublishLazy()
+  const { register, handleSubmit } = useForm<FormData>()
+
+  const handleAddValue: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault()
+    setValueIds([...valueIds, nanoid()])
+  }
+  const removeValue = (id: string) => {
+    setValueIds(valueIds.filter(v => v !== id));
+  }
+  const handlePublish = handleSubmit((data) => {
+    if (data.kvs === undefined) {
+      data.kvs = []
+    }
+    invoke({ data })
+  })
 
   const styles = {
     form: css({
@@ -38,23 +54,6 @@ export const EventPublisher = () => {
       },
     }),
   }
-
-  const { invoke } = useEventPublishLazy()
-  const handleAddValue: MouseEventHandler<HTMLButtonElement> = (e) => {
-    e.preventDefault()
-    setValueIds([...valueIds, nanoid()])
-  }
-  const removeValue = (id: string) => {
-    setValueIds(valueIds.filter(v => v !== id));
-  }
-
-  const { register, handleSubmit } = useForm<FormData>()
-  const handlePublish = handleSubmit((data) => {
-    if (data.kvs === undefined) {
-      data.kvs = []
-    }
-    invoke({ data })
-  })
 
   return (
     <section>

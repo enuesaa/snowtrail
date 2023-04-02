@@ -14,9 +14,9 @@ pub fn create_script(req: ScriptSchema) {
 }
 
 #[tauri::command]
-pub fn run(req: String) -> String {
-    println!("{:?}", req);
-    let mut commands: Vec<&str> = req.split(" ").collect();
+pub fn run(run: String) -> String {
+    println!("{:?}", run);
+    let mut commands: Vec<&str> = run.split(" ").collect();
     commands.rotate_left(1);
     let command = commands.pop().unwrap();
     println!("{:?}", command);
