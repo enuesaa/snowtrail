@@ -3,7 +3,6 @@ mod workspace;
 mod project;
 mod subscribe;
 mod script;
-mod setting;
 
 use tauri::Builder;
 use tauri::Wry;
@@ -22,6 +21,5 @@ pub fn inject_commands(app: Builder<Wry>) -> Builder<Wry> {
             project::get_project,
             project::create_project,
             project::delete_project,
-            setting::status,
         ])
 }
