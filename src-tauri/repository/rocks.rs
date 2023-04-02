@@ -1,6 +1,7 @@
 use std::error::Error;
 
 use rocksdb::{DB, Options, SingleThreaded, DBWithThreadMode};
+use dirs::home_dir;
 
 #[derive(Debug, Clone)]
 pub struct Kv {
@@ -20,11 +21,17 @@ impl RocksRepository {
         vec!["event".to_string()]
     }
 
+    pub fn path() -> String {
+        let mut path = home_dir().unwrap();
+        path.push(".snowtrail/rocksdb");
+        path.to_str().unwrap().to_string()
+    }
+
     pub fn connect() -> DBWithThreadMode<SingleThreaded> {
         let mut opts = Options::default();
         opts.create_if_missing(true);
         opts.create_missing_column_families(true);
-        if let Err(err) = DB::open_cf(&opts, "rocksdb", RocksRepository::cfs()) {
+        if let Err(err) = DB::open_cf(&opts, RocksRepository::path(), RocksRepository::cfs()) {
             println!("{:?}", err);
             panic!("open failed because");
         };
@@ -35,7 +42,7 @@ impl RocksRepository {
         let mut opts = Options::default();
         opts.create_if_missing(true);
         opts.create_missing_column_families(true);
-        if let Err(err) = DB::open_cf(&opts, "rocksdb", RocksRepository::cfs()) {
+        if let Err(err) = DB::open_cf(&opts, RocksRepository::path(), RocksRepository::cfs()) {
             println!("{:?}", err);
             err.to_string()
         } else {
