@@ -5,10 +5,23 @@ pub mod repository;
 #[cfg(target_os = "macos")]
 #[macro_use]
 extern crate objc;
-use tauri::Manager;
+use tauri::{Manager, Builder, Wry};
+use repository::runcommand::Runcommand;
 
 fn main() {
-    let app = tauri::Builder::default();
+    initialize();
+
+    create_app()
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+
+fn initialize() {
+    Runcommand::initialize();
+}
+
+fn create_app() -> Builder<Wry> {
+    let app = Builder::default();
     let app = command::inject_commands(app);
 
     app
@@ -22,6 +35,4 @@ fn main() {
             })?;
             Ok(())
         })
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
 }

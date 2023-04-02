@@ -11,6 +11,10 @@ pub struct Runcommand {
 }
 
 impl Runcommand {
+    pub fn initialize() {
+        let _ = fix_path_env::fix();
+    }
+
     pub fn new() -> Self {
         Runcommand { program: "".to_string(), args: vec![], dir: env::current_dir().unwrap() }
     }
