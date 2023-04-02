@@ -1,4 +1,4 @@
-import { useGetWorkspaceQuery, useSetWorkspaceLazy } from '@/commands/workspace'
+import { useGetWorkspaceQuery, usePutWorkspaceLazy } from '@/commands/workspace'
 import { PageTitle } from '@/components/common/PageTitle'
 import { useForm } from 'react-hook-form'
 import { TextInput } from '@/components/common/TextInput'
@@ -11,11 +11,11 @@ type FormData = {
 export const WorkspaceBoard = () => {
   const theme = useTheme()
   const data = useGetWorkspaceQuery({})
-  const { invoke: invokeSetWorkspace } = useSetWorkspaceLazy()
+  const { invoke: invokePutWorkspace } = usePutWorkspaceLazy()
   const { register, handleSubmit } = useForm<FormData>()
 
-  const handleSetSetting = handleSubmit((data) => {
-    invokeSetWorkspace({ data })
+  const handlePutSetting = handleSubmit((data) => {
+    invokePutWorkspace({ data })
   })
 
   const styles = {
@@ -41,7 +41,7 @@ export const WorkspaceBoard = () => {
   return (
     <section>
       <PageTitle title='workspace' />
-      <form css={styles.form} onSubmit={handleSetSetting}>
+      <form css={styles.form} onSubmit={handlePutSetting}>
         <TextInput label='dir' regist={register('dir')} />
         <TextInput label='auto_add_new_project' regist={register('auto_add_new_project')} />
         <button>save</button>

@@ -6,6 +6,6 @@ export const {
 } = queriesInit<{}, {}>('get_workspace')
 
 export const {
-  useSetWorkspaceQuery,
-  useSetWorkspaceLazy,
-} = queriesInit<{}, {}>('set_workspace')
+  usePutWorkspaceQuery,
+  usePutWorkspaceLazy,
+} = queriesInit<{}, {}>('put_workspace')

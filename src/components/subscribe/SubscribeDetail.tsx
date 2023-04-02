@@ -9,7 +9,7 @@ type FormData = {
   rule: string;
   script_id: string;
   mapping_path: string;
-  mapping_from: string;
+  mapping_expression: string;
 }
 export const SubscribeDetail = () => {
   const theme = useTheme()
@@ -50,7 +50,7 @@ export const SubscribeDetail = () => {
         <TextInput label='rule' regist={register('rule')} />
         <TextInput label='script_id' regist={register('script_id')} />
         <TextInput label='mapping_path' regist={register('mapping_path')} />
-        <TextInput label='mapping_from' regist={register('mapping_from')} />
+        <TextInput label='mapping_expression' regist={register('mapping_expression')} />
         <button type='submit'>save</button>
       </form>
     </section>
