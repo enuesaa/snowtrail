@@ -1,5 +1,6 @@
 use serde::{Serialize, Deserialize};
 use crate::repository::runcommand::Runcommand;
+use dirs::home_dir;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ScriptSchema {
@@ -22,7 +23,8 @@ pub fn run(req: String) -> String {
     println!("{:?}", commands);
 
     let runcommand = Runcommand::new();
-    if let Ok(stdout) = runcommand.program(command).args(commands).exec() {
+    let homedir = home_dir().unwrap();
+    if let Ok(stdout) = runcommand.program(command).args(commands).dir(homedir).exec() {
         return stdout;
     };
     "".to_string()

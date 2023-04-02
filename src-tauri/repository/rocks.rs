@@ -1,5 +1,5 @@
 use std::error::Error;
-
+use std::env;
 use rocksdb::{DB, Options, SingleThreaded, DBWithThreadMode};
 use dirs::home_dir;
 
@@ -39,15 +39,20 @@ impl RocksRepository {
     }
 
     pub fn check_connect() -> String {
-        let mut opts = Options::default();
-        opts.create_if_missing(true);
-        opts.create_missing_column_families(true);
-        if let Err(err) = DB::open_cf(&opts, RocksRepository::path(), RocksRepository::cfs()) {
-            println!("{:?}", err);
-            err.to_string()
-        } else {
-            "ok".to_string()
-        }
+        // let mut opts = Options::default();
+        // opts.create_if_missing(true);
+        // opts.create_missing_column_families(true);
+        // if let Err(err) = DB::open_cf(&opts, RocksRepository::path(), RocksRepository::cfs()) {
+        //     println!("{:?}", err);
+        //     err.to_string()
+        // } else {
+        //     "ok".to_string()
+        // }
+        let mut ret = "".to_string();
+        for (key, value) in env::vars() {
+            ret = format!("{} {}: {}", ret, key, value);
+        };
+        ret
     }
 
     pub fn get(self, cfname: &str, key: &str) -> Kv {
