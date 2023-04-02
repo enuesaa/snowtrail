@@ -1,3 +1,5 @@
+use std::error::Error;
+
 use rocksdb::{DB, Options, SingleThreaded, DBWithThreadMode};
 
 #[derive(Debug, Clone)]
@@ -22,7 +24,23 @@ impl RocksRepository {
         let mut opts = Options::default();
         opts.create_if_missing(true);
         opts.create_missing_column_families(true);
+        if let Err(err) = DB::open_cf(&opts, "rocksdb", RocksRepository::cfs()) {
+            println!("{:?}", err);
+            panic!("open failed because");
+        };
         DB::open_cf(&opts, "rocksdb", RocksRepository::cfs()).unwrap()
+    }
+
+    pub fn check_connect() -> String {
+        let mut opts = Options::default();
+        opts.create_if_missing(true);
+        opts.create_missing_column_families(true);
+        if let Err(err) = DB::open_cf(&opts, "rocksdb", RocksRepository::cfs()) {
+            println!("{:?}", err);
+            err.to_string()
+        } else {
+            "ok".to_string()
+        }
     }
 
     pub fn get(self, cfname: &str, key: &str) -> Kv {
