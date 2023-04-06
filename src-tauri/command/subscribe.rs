@@ -17,4 +17,5 @@ pub struct SubscribeSchema {
 #[tauri::command]
 pub fn create_subscribe(data: SubscribeSchema) {
     println!("{:?}", data);
+    todo!();
 }
