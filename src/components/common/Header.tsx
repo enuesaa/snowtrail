@@ -4,7 +4,7 @@ import { IoMdSnow } from 'react-icons/io'
 import { MdOutlineSettings, MdSnowboarding } from 'react-icons/md'
 
 export const Header = () => {
-  const styles = useStyles(theme => ({
+  const styles = useStyles((theme) => ({
     top: theme().css({
       padding: '7px 0',
       boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.7)',
@@ -16,7 +16,7 @@ export const Header = () => {
       // fontSize: theme.fontSize.large,
       padding: '2px',
       flex: '1 0 auto',
-      'svg': {
+      svg: {
         margin: '0 5px',
         verticalAlign: 'text-top',
       },
@@ -38,7 +38,7 @@ export const Header = () => {
       margin: '0 20px 0 0',
       textAlign: 'center',
       // fontSize: theme.fontSize.large,
-      'svg': {
+      svg: {
         verticalAlign: 'middle',
       },
     }),
@@ -48,7 +48,8 @@ export const Header = () => {
     <header css={styles.top}>
       <div css={styles.title}>
         <Link href='/'>
-          <IoMdSnow />snowtrail
+          <IoMdSnow />
+          snowtrail
         </Link>
       </div>
       <Link href='/project/configure' css={styles.textlink}>

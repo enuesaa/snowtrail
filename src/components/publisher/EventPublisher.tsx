@@ -8,15 +8,14 @@ import { useForm } from 'react-hook-form'
 import { TextInput } from '@/components/common/TextInput'
 
 type FormDataKv = {
-  name: string;
-  value: string;
+  name: string
+  value: string
 }
 type FormData = {
-  name: string;
-  kvs: FormDataKv[];
+  name: string
+  kvs: FormDataKv[]
 }
 export const EventPublisher = () => {
-  
   const [valueIds, setValueIds] = useState<string[]>([])
   const { invoke } = useEventPublishLazy()
   const { register, handleSubmit } = useForm<FormData>()
@@ -26,7 +25,7 @@ export const EventPublisher = () => {
     setValueIds([...valueIds, nanoid()])
   }
   const removeValue = (id: string) => {
-    setValueIds(valueIds.filter(v => v !== id));
+    setValueIds(valueIds.filter((v) => v !== id))
   }
   const handlePublish = handleSubmit((data) => {
     if (data.kvs === undefined) {
@@ -35,9 +34,9 @@ export const EventPublisher = () => {
     invoke({ data })
   })
 
-  const styles = useStyles(theme => ({
+  const styles = useStyles((theme) => ({
     form: theme().css({
-      'input': { 
+      input: {
         // ...theme.input,
         background: 'rgba(255,255,255,0.1)',
         padding: '5px 7px',
@@ -46,7 +45,7 @@ export const EventPublisher = () => {
         margin: '5px 0 20px 0',
         // fontSize: theme.fontSize.large,
       },
-      'button': {
+      button: {
         // ...theme.input,
         background: 'rgna(0,0,0,0.1)',
         padding: '5px',
@@ -65,11 +64,20 @@ export const EventPublisher = () => {
             <div key={vid}>
               <TextInput label='name' regist={register(`kvs.${i}.name`)} />
               <TextInput label='value' regist={register(`kvs.${i}.value`)} />
-              <button onClick={e => { e.preventDefault(); removeValue(vid) }}><FaMinus /></button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  removeValue(vid)
+                }}
+              >
+                <FaMinus />
+              </button>
             </div>
           )
         })}
-        <button onClick={handleAddValue}><FaPlus /></button>
+        <button onClick={handleAddValue}>
+          <FaPlus />
+        </button>
         <button type='submit'>publish</button>
       </form>
     </section>

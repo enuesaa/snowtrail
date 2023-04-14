@@ -5,25 +5,26 @@ import { TextInput } from '@/components/common/TextInput'
 import { useStyles } from '@/styles/use'
 
 type FormData = {
-  name: string;
-  description: string;
-  rule: string;
-  script_id: string;
-  mapping_path: string;
-  mapping_expression: string;
+  name: string
+  description: string
+  rule: string
+  script_id: string
+  mapping_path: string
+  mapping_expression: string
 }
 export const ConfigureAdd = () => {
-  
   const { invoke } = useCreateSubscribeLazy()
   const { register, handleSubmit } = useForm<FormData>()
-  
+
   const handleCreateSubscribe = handleSubmit((data) => {
-    invoke({ data: { ...data, rule: [data.rule], mapping: [{path: data.mapping_path, expression: data.mapping_expression}] } })
+    invoke({
+      data: { ...data, rule: [data.rule], mapping: [{ path: data.mapping_path, expression: data.mapping_expression }] },
+    })
   })
 
-  const styles = useStyles(theme => ({
+  const styles = useStyles((theme) => ({
     form: theme().css({
-      'input': { 
+      input: {
         // ...theme.input,
         background: 'rgba(255,255,255,0.1)',
         padding: '5px 7px',
@@ -32,7 +33,7 @@ export const ConfigureAdd = () => {
         margin: '5px 0 20px 0',
         // fontSize: theme.fontSize.large,
       },
-      'button': {
+      button: {
         // ...theme.input,
         background: 'rgna(0,0,0,0.1)',
         padding: '5px',

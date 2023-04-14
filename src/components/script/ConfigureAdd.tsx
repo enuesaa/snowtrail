@@ -5,10 +5,9 @@ import { TextInput } from '@/components/common/TextInput'
 import { useStyles } from '@/styles/use'
 
 type FormData = {
-  run: string;
+  run: string
 }
 export const ConfigureAdd = () => {
-  
   const { data, invoke } = useRunLazy()
   const { register, handleSubmit } = useForm<FormData>()
 
@@ -16,9 +15,9 @@ export const ConfigureAdd = () => {
     invoke({ run: data.run })
   })
 
-  const styles = useStyles(theme => ({
+  const styles = useStyles((theme) => ({
     form: theme().css({
-      'input': { 
+      input: {
         // ...theme.input,
         background: 'rgba(255,255,255,0.1)',
         padding: '5px 7px',
@@ -27,7 +26,7 @@ export const ConfigureAdd = () => {
         margin: '5px 0 20px 0',
         // fontSize: theme.fontSize.large,
       },
-      'button': {
+      button: {
         // ...theme.input,
         background: 'rgna(0,0,0,0.1)',
         padding: '5px',

@@ -4,12 +4,12 @@ import { TextInput } from '@/components/common/TextInput'
 import { useStyles } from '@/styles/use'
 
 type FormData = {
-  name: string;
-  description: string;
-  rule: string;
-  script_id: string;
-  mapping_path: string;
-  mapping_expression: string;
+  name: string
+  description: string
+  rule: string
+  script_id: string
+  mapping_path: string
+  mapping_expression: string
 }
 export const SubscribeDetail = () => {
   // const { invoke: invokeSetWorkspace } = useSetWorkspaceLazy()
@@ -19,9 +19,9 @@ export const SubscribeDetail = () => {
     // invokeUpdateSubscribe({ data })
   })
 
-  const styles = useStyles(theme => ({
+  const styles = useStyles((theme) => ({
     form: theme().css({
-      'input': { 
+      input: {
         // ...theme.input,
         background: 'rgba(255,255,255,0.1)',
         padding: '5px 7px',
@@ -30,7 +30,7 @@ export const SubscribeDetail = () => {
         margin: '5px 0 20px 0',
         // fontSize: theme.fontSize.large,
       },
-      'button': {
+      button: {
         // ...theme.input,
         background: 'rgna(0,0,0,0.1)',
         padding: '5px',

@@ -6,7 +6,9 @@ export const Configure = () => {
   return (
     <section>
       <PageTitle title='Script' />
-      <Link href='/script/configure/add'><FaPlus /></Link>
+      <Link href='/script/configure/add'>
+        <FaPlus />
+      </Link>
     </section>
   )
 }
