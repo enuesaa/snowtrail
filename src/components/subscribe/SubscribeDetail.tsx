@@ -1,7 +1,7 @@
 import { PageTitle } from '@/components/common/PageTitle'
 import { useForm } from 'react-hook-form'
 import { TextInput } from '@/components/common/TextInput'
-import { css, useTheme } from '@emotion/react'
+import { useStyles } from '@/styles/use'
 
 type FormData = {
   name: string;
@@ -12,7 +12,6 @@ type FormData = {
   mapping_expression: string;
 }
 export const SubscribeDetail = () => {
-  const theme = useTheme()
   // const { invoke: invokeSetWorkspace } = useSetWorkspaceLazy()
   const { register, handleSubmit } = useForm<FormData>()
 
@@ -20,26 +19,25 @@ export const SubscribeDetail = () => {
     // invokeUpdateSubscribe({ data })
   })
 
-  const styles = {
-    form: css({
+  const styles = useStyles(theme => ({
+    form: theme().css({
       'input': { 
-        ...theme.input,
+        // ...theme.input,
         background: 'rgba(255,255,255,0.1)',
         padding: '5px 7px',
         borderRadius: '5px',
-        color: theme.color.main,
+        // color: theme.color.main,
         margin: '5px 0 20px 0',
-        fontSize: theme.fontSize.large,
+        // fontSize: theme.fontSize.large,
       },
       'button': {
-        ...theme.input,
+        // ...theme.input,
         background: 'rgna(0,0,0,0.1)',
         padding: '5px',
         borderRadius: '5px',
       },
     }),
-  }
-
+  }))
 
   return (
     <section>

@@ -1,4 +1,4 @@
-import { css, useTheme } from '@emotion/react'
+import { useStyles } from '@/styles/use'
 import Link from 'next/link'
 
 type Props = {
@@ -6,11 +6,9 @@ type Props = {
   id: string;
 }
 export const TopProjectDashboardItem = ({ title, id }: Props) => {
-  const theme = useTheme()
-
-  const styles = {
-    card: css(theme.linkCard),
-  }
+  const styles = useStyles(theme => ({
+    card: theme(),
+  }))
 
   return (
     <Link href={`/project/items/${id}`} css={styles.card}>

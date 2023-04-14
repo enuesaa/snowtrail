@@ -1,4 +1,4 @@
-import { css, useTheme } from '@emotion/react'
+import { useStyles } from '@/styles/use'
 import Link from 'next/link'
 
 type Props = {
@@ -6,10 +6,8 @@ type Props = {
   id: string,
 }
 export const TopEventDashboardItem = ({ title, id }: Props) => {
-  const theme = useTheme()
-
-  const styles = {
-    li: css({
+  const styles = useStyles(theme => ({
+    li: theme().css({
       padding: '10px',
       border: 'solid 1px rgba(255,255,255,0.2)',
       a: {
@@ -18,10 +16,10 @@ export const TopEventDashboardItem = ({ title, id }: Props) => {
         height: '100%',
       },
       '&:hover': {
-        background: theme.color.sub,
+        // background: theme.color.sub,
       },
     }),
-  }
+  }))
 
   return (
     <li css={styles.li}>

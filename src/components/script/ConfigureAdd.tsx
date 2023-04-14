@@ -2,13 +2,13 @@ import { PageTitle } from '@/components/common/PageTitle'
 import { useRunLazy } from '@/commands/script'
 import { useForm } from 'react-hook-form'
 import { TextInput } from '@/components/common/TextInput'
-import { css, useTheme } from '@emotion/react'
+import { useStyles } from '@/styles/use'
 
 type FormData = {
   run: string;
 }
 export const ConfigureAdd = () => {
-  const theme = useTheme()
+  
   const { data, invoke } = useRunLazy()
   const { register, handleSubmit } = useForm<FormData>()
 
@@ -16,25 +16,25 @@ export const ConfigureAdd = () => {
     invoke({ run: data.run })
   })
 
-  const styles = {
-    form: css({
+  const styles = useStyles(theme => ({
+    form: theme().css({
       'input': { 
-        ...theme.input,
+        // ...theme.input,
         background: 'rgba(255,255,255,0.1)',
         padding: '5px 7px',
         borderRadius: '5px',
-        color: theme.color.main,
+        // color: theme.color.main,
         margin: '5px 0 20px 0',
-        fontSize: theme.fontSize.large,
+        // fontSize: theme.fontSize.large,
       },
       'button': {
-        ...theme.input,
+        // ...theme.input,
         background: 'rgna(0,0,0,0.1)',
         padding: '5px',
         borderRadius: '5px',
       },
     }),
-  }
+  }))
 
   return (
     <section>
