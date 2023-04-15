@@ -9,7 +9,6 @@ export const Main = ({ children }: Props) => {
     main: theme({ surf: 'main' }).css({
       margin: '20px',
       padding: '0 10px 10px 10px',
-      // color: theme.color.main,
     }),
   }))
 
