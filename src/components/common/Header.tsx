@@ -13,7 +13,6 @@ export const Header = () => {
     title: theme().css({
       margin: '0 0 0 20px',
       color: '#fafafa',
-      // fontSize: theme.fontSize.large,
       padding: '2px',
       flex: '1 0 auto',
       svg: {
@@ -23,21 +22,17 @@ export const Header = () => {
     }),
     textlink: theme().css({
       display: 'block',
-      // color: theme.color.main,
       flex: '0 0 35px',
       margin: '0 20px 0 0',
       padding: '2px',
       textAlign: 'center',
-      // fontSize: theme.fontSize.large,
       fontWeight: '600',
     }),
     iconlink: theme().css({
       display: 'block',
-      // color: theme.color.main,
       flex: '0 0 35px',
       margin: '0 20px 0 0',
       textAlign: 'center',
-      // fontSize: theme.fontSize.large,
       svg: {
         verticalAlign: 'middle',
       },

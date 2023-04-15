@@ -15,9 +15,6 @@ export const TopEventDashboardItem = ({ title, id }: Props) => {
         width: '100%',
         height: '100%',
       },
-      '&:hover': {
-        // background: theme.color.sub,
-      },
     }),
   }))
 

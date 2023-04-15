@@ -16,7 +16,7 @@ impl RocksRepository {
 
     pub fn cfs() -> Vec<String> {
         // need to write here ?
-        vec!["event".to_string()]
+        vec!["event".to_string(), "workspace".to_string()]
     }
 
     pub fn path() -> String {
