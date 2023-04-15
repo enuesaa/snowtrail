@@ -1,24 +1,23 @@
 use std::path::PathBuf;
-use uuid::Uuid;
 use serde::{Serialize, Deserialize};
 use serde_json;
 use crate::repository::rocks::RocksRepository;
 
 #[derive(Serialize, Deserialize)]
 pub struct Project {
-    name: String,
-    workdir: String,
+    name: Option<String>,
+    workdir: Option<String>,
 }
 impl Project {
     pub fn new(name: String, workdir: String) -> Project {
-        Project { name, workdir }
+        Project { name: Some(name), workdir: Some(workdir) }
     }
     pub fn get_name(&self) -> String {
-        self.name.clone()
+        self.name.clone().unwrap_or("".to_string())
     }
 
     pub fn get_workdir(&self) -> PathBuf {
-        PathBuf::from(self.workdir.clone())
+        PathBuf::from(self.workdir.clone().unwrap_or("/".to_string()))
     }
 }
 
@@ -43,18 +42,16 @@ impl ProjectService {
         list
     }
 
-    pub fn get(&self, id: &str) -> Project {
-        let res = self.rocks().get("project", id);
+    pub fn get(&self, name: &str) -> Project {
+        let res = self.rocks().get("project", name);
         serde_json::from_str(&res.value).unwrap()
     }
 
-    pub fn create(&self, project: Project) -> String {
-        let id = Uuid::new_v4().to_string();
-        self.rocks().put("project", &id, &serde_json::to_string(&project).unwrap());
-        id
+    pub fn create(&self, project: Project) {
+        self.rocks().put("project", &project.name.clone().unwrap(), &serde_json::to_string(&project).unwrap());
     }
 
-    pub fn delete(&self, id: &str) {
-        self.rocks().delete("project", id);
+    pub fn delete(&self, name: &str) {
+        self.rocks().delete("project", name);
     }
 }

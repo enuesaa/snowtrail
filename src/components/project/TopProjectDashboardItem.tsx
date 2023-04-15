@@ -1,17 +1,12 @@
-import { useStyles } from '@/styles/use'
 import Link from 'next/link'
 
 type Props = {
   title: string
-  id: string
+  name: string
 }
-export const TopProjectDashboardItem = ({ title, id }: Props) => {
-  const styles = useStyles((theme) => ({
-    card: theme(),
-  }))
-
+export const TopProjectDashboardItem = ({ title, name }: Props) => {
   return (
-    <Link href={`/project/items/${id}`} css={styles.card}>
+    <Link href={`/project/items/${name}`}>
       {title}
     </Link>
   )

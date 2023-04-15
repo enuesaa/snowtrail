@@ -8,7 +8,7 @@ pub struct ProjectSchema {
     workdir: String,
 }
 #[tauri::command]
-pub fn list_projects() -> Vec<ProjectSchema> {
+pub fn project_list() -> Vec<ProjectSchema> {
     let project_srv = ProjectService::new(RocksRepository {});
     let projects = project_srv.list();
     projects.iter().map(|p| {
@@ -20,9 +20,9 @@ pub fn list_projects() -> Vec<ProjectSchema> {
 }
 
 #[tauri::command]
-pub fn get_project(id: String) -> ProjectSchema {
+pub fn project_get(name: String) -> ProjectSchema {
     let project_srv = ProjectService::new(RocksRepository {});
-    let project = project_srv.get(&id);
+    let project = project_srv.get(&name);
     ProjectSchema {
         name: project.get_name(),
         workdir: project.get_workdir().to_str().unwrap().to_string(),
@@ -30,13 +30,13 @@ pub fn get_project(id: String) -> ProjectSchema {
 }
 
 #[tauri::command]
-pub fn create_project(project: ProjectSchema) {
+pub fn project_create(data: ProjectSchema) {
     let project_srv = ProjectService::new(RocksRepository {});
-    project_srv.create(Project::new(project.name, project.workdir));
+    project_srv.create(Project::new(data.name, data.workdir));
 }
 
 #[tauri::command]
-pub fn delete_project(id: String) {
+pub fn project_delete(name: String) {
     let project_srv = ProjectService::new(RocksRepository {});
-    project_srv.delete(&id);
+    project_srv.delete(&name);
 }

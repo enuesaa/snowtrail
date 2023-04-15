@@ -1,12 +1,29 @@
 import { PageTitle } from '@/components/common/PageTitle'
 import { ProjectEvents } from '@/components/project/ProjectEvents'
+import { useProjectGetQuery } from '@/commands/poject'
+import { useProjectDeleteLazy } from '@/commands/poject'
+import { MouseEventHandler } from 'react'
 
-export const ProjectDetail = () => {
+type Props = {
+  name: string;
+}
+export const ProjectDetail = ({ name }: Props) => {
+  const project = useProjectGetQuery({ name })
+  const { invoke: invokeDeleteProject } = useProjectDeleteLazy()
+  if (project === null) {
+    return (<></>)
+  }
+  const handleDeleteProject: MouseEventHandler<HTMLButtonElement> = (e) => {
+    e.preventDefault()
+    invokeDeleteProject({ name })
+  }
+
   return (
     <section>
-      <PageTitle title='Project aa' />
+      <PageTitle title={project.name} />
       Subscribes
       <ProjectEvents />
+      <button onClick={handleDeleteProject}>delete</button>
     </section>
   )
 }

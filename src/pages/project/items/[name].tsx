@@ -5,8 +5,8 @@ import { Main } from '@/components/common/Main'
 
 export default function Page() {
   const router = useRouter()
-  const { id } = router.query
-  if (typeof id !== 'string') {
+  const { name } = router.query
+  if (typeof name !== 'string') {
     return <></>
   }
 
@@ -14,7 +14,7 @@ export default function Page() {
     <>
       <Header />
       <Main>
-        <ProjectDetail />
+        <ProjectDetail name={name} />
       </Main>
     </>
   )
