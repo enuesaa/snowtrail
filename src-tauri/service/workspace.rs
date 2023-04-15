@@ -19,25 +19,25 @@ impl WorkspaceService {
         WorkspaceService { rocks, workspace }
     }
 
-    pub fn get_path(self) -> Option<String> {
-        self.workspace.path
+    pub fn get_path(&self) -> Option<String> {
+        self.workspace.path.clone()
     }
 
-    pub fn update_path(mut self, path: Option<String>) {
+    pub fn update_path(&mut self, path: Option<String>) {
         self.workspace.path = path;
         self.save();
     }
 
-    pub fn get_auto_add_new_project(self) -> bool {
-        self.workspace.auto_add_new_project
+    pub fn get_auto_add_new_project(&self) -> bool {
+        self.workspace.auto_add_new_project.clone()
     }
 
-    pub fn update_auto_add_new_project(mut self, is: bool) {
+    pub fn update_auto_add_new_project(&mut self, is: bool) {
         self.workspace.auto_add_new_project = is;
         self.save();
     }
 
-    fn save(self) {
-        self.rocks.put("workspace", "main", &serde_json::to_string(&self.workspace).unwrap());
+    fn save(&self) {
+        self.rocks.clone().put("workspace", "main", &serde_json::to_string(&self.workspace).unwrap());
     }
 }
