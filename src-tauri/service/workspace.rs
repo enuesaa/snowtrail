@@ -5,7 +5,7 @@ use crate::repository::rocks::RocksRepository;
 #[derive(Serialize, Deserialize)]
 struct Workspace {
     path: Option<String>,
-    auto_add_new_project: bool,
+    auto_add_new_project: Option<bool>,
 }
 
 pub struct WorkspaceService {
@@ -29,11 +29,11 @@ impl WorkspaceService {
     }
 
     pub fn get_auto_add_new_project(&self) -> bool {
-        self.workspace.auto_add_new_project.clone()
+        self.workspace.auto_add_new_project.unwrap_or(false).clone()
     }
 
     pub fn update_auto_add_new_project(&mut self, is: bool) {
-        self.workspace.auto_add_new_project = is;
+        self.workspace.auto_add_new_project = Some(is);
         self.save();
     }
 

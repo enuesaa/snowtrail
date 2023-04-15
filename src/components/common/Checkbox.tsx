@@ -2,14 +2,14 @@ import { UseFormRegisterReturn } from 'react-hook-form'
 
 type Props = {
   label: string;
-  defaultValue?: string;
+  defaultChecked?: boolean;
   regist: UseFormRegisterReturn<string>;
 }
-export const TextInput = ({ label, regist, defaultValue }: Props) => {
+export const Checkbox = ({ label, regist, defaultChecked }: Props) => {
   return (
     <label>
       {label}
-      <input type='text' defaultValue={defaultValue ?? ''} {...regist} />
+      <input type='checkbox' defaultChecked={defaultChecked ?? false} {...regist} />
     </label>
   )
 }

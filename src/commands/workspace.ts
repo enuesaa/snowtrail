@@ -1,5 +1,10 @@
 import { queriesInit } from '@/commands/use'
 
-export const { useGetWorkspaceQuery, useGetWorkspaceLazy } = queriesInit<{}, {}>('get_workspace')
+type WorkspaceSchema = {
+  path: string,
+  auto_add_new_project: boolean,
+}
 
-export const { useSetWorkspaceQuery, useSetWorkspaceLazy } = queriesInit<{}, {}>('set_workspace')
+export const { useGetWorkspaceQuery, useGetWorkspaceLazy } = queriesInit<{}, WorkspaceSchema>('get_workspace')
+
+export const { useSetWorkspaceQuery, useSetWorkspaceLazy } = queriesInit<{ data: WorkspaceSchema }, {}>('set_workspace')
