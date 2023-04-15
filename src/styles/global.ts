@@ -1,9 +1,6 @@
 import { css } from '@emotion/react'
-import normalize from 'emotion-normalize'
 
 export const globalStyle = css`
-  ${normalize}
-
   html,
   body {
     padding: 0;
@@ -19,5 +16,20 @@ export const globalStyle = css`
   }
   body {
     background: #1a1a1a;
+  }
+
+  input {
+    color: inherit;
+    outline: none;
+    appearance: none;
+    border: none;
+    display: block;
+  }
+
+  button {
+    outline: none;
+    appearance: none;
+    border: none;
+    display: block;
   }
 `
