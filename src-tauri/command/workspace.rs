@@ -12,6 +12,6 @@ pub fn get_workspace() -> WorkspaceSchema {
 }
 
 #[tauri::command]
-pub fn put_workspace(data: WorkspaceSchema) {
+pub fn set_workspace(data: WorkspaceSchema) {
     println!("{:?}", data);
 }

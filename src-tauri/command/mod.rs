@@ -16,7 +16,7 @@ pub fn inject_commands(app: Builder<Wry>) -> Builder<Wry> {
             script::create_script,
             script::run,
             workspace::get_workspace,
-            workspace::put_workspace,
+            workspace::set_workspace,
             project::list_projects,
             project::get_project,
             project::create_project,
