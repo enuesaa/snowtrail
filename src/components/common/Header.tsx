@@ -5,7 +5,7 @@ import { MdOutlineSettings, MdSnowboarding } from 'react-icons/md'
 
 export const Header = () => {
   const styles = useStyles((theme) => ({
-    top: theme().css({
+    top: theme({ surf: 'main' }).css({
       padding: '7px 0',
       boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.7)',
       display: 'flex',

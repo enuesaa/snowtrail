@@ -4,7 +4,7 @@ export const baseTheme: Theme = {
   surf: {
     main: {
       color: '#fafafa',
-      background: '#222222',
+      background: '#1a1a1a',
     },
     sub: {
       color: '#fafafa',
