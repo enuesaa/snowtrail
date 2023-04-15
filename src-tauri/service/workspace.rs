@@ -19,6 +19,10 @@ impl WorkspaceService {
         WorkspaceService { rocks, workspace }
     }
 
+    fn rocks(&self) -> RocksRepository {
+        self.rocks.clone()
+    }
+
     pub fn get_path(&self) -> Option<String> {
         self.workspace.path.clone()
     }
@@ -38,6 +42,6 @@ impl WorkspaceService {
     }
 
     fn save(&self) {
-        self.rocks.clone().put("workspace", "main", &serde_json::to_string(&self.workspace).unwrap());
+        self.rocks().put("workspace", "main", &serde_json::to_string(&self.workspace).unwrap());
     }
 }
