@@ -4,8 +4,9 @@ use dirs::home_dir;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ScriptSchema {
-    command: String, // createfile
-    workdir: Option<String>,
+    name: String,
+    commands: Vec<String>, // createfile
+    project_id: String, // run command under this project
 }
 
 #[tauri::command]
@@ -15,16 +16,13 @@ pub fn create_script(req: ScriptSchema) {
 
 #[tauri::command]
 pub fn run(run: String) -> String {
-    println!("{:?}", run);
-    let mut commands: Vec<&str> = run.split(" ").collect();
-    commands.rotate_left(1);
-    let command = commands.pop().unwrap();
-    println!("{:?}", command);
-    println!("{:?}", commands);
+    let mut args: Vec<&str> = run.split(" ").collect();
+    args.rotate_left(1);
+    let command = args.pop().unwrap();
 
     let runcommand = Runcommand::new();
     let homedir = home_dir().unwrap();
-    if let Ok(stdout) = runcommand.program(command).args(commands).dir(homedir).exec() {
+    if let Ok(stdout) = runcommand.program(command).args(args).dir(homedir).exec() {
         return stdout;
     };
     "".to_string()
