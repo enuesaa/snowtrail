@@ -5,7 +5,7 @@ type Props = {
   title: string
   id: string
 }
-export const SubscribeBoardItem = ({ title, id }: Props) => {
+export const ListItem = ({ title, id }: Props) => {
   const styles = useStyles((theme) => ({
     card: theme(),
   }))

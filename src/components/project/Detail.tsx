@@ -1,6 +1,6 @@
 import { PageTitle } from '@/components/common/PageTitle'
-import { ProjectEvents } from '@/components/project/ProjectEvents'
-import { ProjectScripts } from '@/components/project/PorjectScripts'
+import { EventList } from '@/components/project/EventList'
+import { ScriptList } from '@/components/project/ScriptList'
 import { useProjectGetQuery } from '@/commands/poject'
 import { useProjectDeleteLazy } from '@/commands/poject'
 import { MouseEventHandler } from 'react'
@@ -8,7 +8,7 @@ import { MouseEventHandler } from 'react'
 type Props = {
   name: string;
 }
-export const ProjectDetail = ({ name }: Props) => {
+export const Detail = ({ name }: Props) => {
   const project = useProjectGetQuery({ name })
   const { invoke: invokeDeleteProject } = useProjectDeleteLazy()
   if (project === null) {
@@ -22,8 +22,8 @@ export const ProjectDetail = ({ name }: Props) => {
   return (
     <section>
       <PageTitle title={project.name} />
-      <ProjectScripts name={name} />
-      <ProjectEvents />
+      <ScriptList name={name} />
+      <EventList />
       <button onClick={handleDeleteProject}>delete</button>
     </section>
   )

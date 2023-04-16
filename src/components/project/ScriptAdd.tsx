@@ -11,7 +11,7 @@ type FormData = {
 type Props = {
   projectName: string;
 }
-export const ConfigureAdd = ({ projectName }: Props) => {
+export const ScriptAdd = ({ projectName }: Props) => {
   const { invoke: invokeCreateScript } = useScriptCreateLazy()
   const { register, handleSubmit } = useForm<FormData>()
 

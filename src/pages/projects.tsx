@@ -1,7 +1,7 @@
 import { Header } from '@/components/common/Header'
 import { Main } from '@/components/common/Main'
-import { Configure } from '@/components/project/Configure'
-import { ConfigureAdd } from '@/components/project/ConfigureAdd'
+import { List } from '@/components/project/List'
+import { Add } from '@/components/project/Add'
 import { useRouter } from 'next/router'
 
 export default function Page() {
@@ -12,7 +12,7 @@ export default function Page() {
     <>
       <Header />
       <Main>
-        {create === undefined ? <Configure /> : <ConfigureAdd />}
+        {create === undefined ? <List /> : <Add />}
       </Main>
     </>
   )

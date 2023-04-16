@@ -1,6 +1,6 @@
 import { PageTitle } from '@/components/common/PageTitle'
 
-export const ProjectEvents = () => {
+export const EventList = () => {
   return (
     <>
       <PageTitle title='Events' />

@@ -1,7 +1,7 @@
 import { Header } from '@/components/common/Header'
 import { Main } from '@/components/common/Main'
-import { Configure } from '@/components/script/Configure'
-import { ConfigureAdd } from '@/components/script/ConfigureAdd'
+import { ScriptList } from '@/components/project/ScriptList'
+import { ScriptAdd } from '@/components/project/ScriptAdd'
 import { useRouter } from 'next/router'
 
 export default function Page() {
@@ -15,8 +15,7 @@ export default function Page() {
     <>
       <Header />
       <Main>
-        {create === undefined ?  <Configure /> : <ConfigureAdd projectName={projectName} />}
-        <Configure />
+        {create === undefined ?  <ScriptList projectName={projectName} /> : <ScriptAdd projectName={projectName} />}
       </Main>
     </>
   )

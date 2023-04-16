@@ -12,7 +12,7 @@ type FormData = {
   mapping_path: string
   mapping_expression: string
 }
-export const ConfigureAdd = () => {
+export const Add = () => {
   const { invoke } = useCreateSubscribeLazy()
   const { register, handleSubmit } = useForm<FormData>()
 

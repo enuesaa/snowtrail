@@ -1,6 +1,6 @@
 import { Header } from '@/components/common/Header'
 import { useRouter } from 'next/router'
-import { ScriptDetail } from '@/components/script/ScriptDetail'
+import { ScriptDetail } from '@/components/project/ScriptDetail'
 import { Main } from '@/components/common/Main'
 
 export default function Page() {

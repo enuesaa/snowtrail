@@ -11,7 +11,7 @@ type FormData = {
   mapping_path: string
   mapping_expression: string
 }
-export const SubscribeDetail = () => {
+export const Detail = () => {
   // const { invoke: invokeSetWorkspace } = useSetWorkspaceLazy()
   const { register, handleSubmit } = useForm<FormData>()
 

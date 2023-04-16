@@ -1,7 +1,7 @@
 import { PageTitle } from '@/components/common/PageTitle'
 import Link from 'next/link'
 
-export const Configure = () => {
+export const List = () => {
   return (
     <section>
       <PageTitle title='Project' />

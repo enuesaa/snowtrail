@@ -1,20 +1,18 @@
 import { Header } from '@/components/common/Header'
-import { useRouter } from 'next/router'
-import { SubscribeDetail } from '@/components/subscribe/SubscribeDetail'
 import { Main } from '@/components/common/Main'
+import { List } from '@/components/subscribe/List'
+import { useRouter } from 'next/router'
+import { Add } from '@/components/subscribe/Add'
 
 export default function Page() {
   const router = useRouter()
-  const { id } = router.query
-  if (typeof id !== 'string') {
-    return <></>
-  }
+  const { create } = router.query
 
   return (
     <>
       <Header />
       <Main>
-        <SubscribeDetail />
+        {create === undefined ? <List /> : <Add />}
       </Main>
     </>
   )

@@ -3,10 +3,10 @@ import Link from 'next/link'
 import { useScriptListQuery } from '@/commands/script'
 
 type Props = {
-  name: string;
+  projectName: string;
 }
-export const ProjectScripts = ({ name }: Props) => {
-  const scripts = useScriptListQuery({ projectName: name }) ?? []
+export const ScriptList = ({ projectName }: Props) => {
+  const scripts = useScriptListQuery({ projectName }) ?? []
 
   return (
     <>

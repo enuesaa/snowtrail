@@ -1,6 +1,6 @@
 import { Header } from '@/components/common/Header'
 import { useRouter } from 'next/router'
-import { Detail } from '@/components/project/Detail'
+import { Detail } from '@/components/subscribe/Detail'
 import { Main } from '@/components/common/Main'
 
 export default function Page() {
@@ -14,7 +14,7 @@ export default function Page() {
     <>
       <Header />
       <Main>
-        <Detail name={name} />
+        <Detail />
       </Main>
     </>
   )

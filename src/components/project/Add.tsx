@@ -7,7 +7,7 @@ type FormData = {
   name: string;
   workdir: string;
 }
-export const ConfigureAdd = () => {
+export const Add = () => {
   const { invoke: invokeProjectCreate } = useProjectCreateLazy()
   const { register, handleSubmit } = useForm<FormData>()
 

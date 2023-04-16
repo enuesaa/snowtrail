@@ -20,7 +20,7 @@ export const TopEventDashboardItem = ({ title, id }: Props) => {
 
   return (
     <li css={styles.li}>
-      <Link href={`/event/items/${id}`}>{title}</Link>
+      <Link href={`/events/${id}`}>{title}</Link>
     </li>
   )
 }

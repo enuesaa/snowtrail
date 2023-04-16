@@ -50,13 +50,13 @@ export const Header = () => {
       <Link href='/projects' css={styles.textlink}>
         Project
       </Link>
-      <Link href='/subscribe/configure' css={styles.textlink}>
+      <Link href='/subscribes' css={styles.textlink}>
         Subscribe
       </Link>
       <Link href='/publisher' css={styles.iconlink}>
         <MdSnowboarding />
       </Link>
-      <Link href='/setting' css={styles.iconlink}>
+      <Link href='/settings' css={styles.iconlink}>
         <MdOutlineSettings />
       </Link>
     </header>
