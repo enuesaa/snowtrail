@@ -1,6 +1,8 @@
 use serde::{Serialize, Deserialize};
 use crate::repository::runcommand::Runcommand;
 use dirs::home_dir;
+use crate::repository::rocks::RocksRepository;
+use crate::service::script::{ScriptService, Script};
 
 use super::project::ProjectSchema;
 
@@ -12,23 +14,39 @@ pub struct ScriptSchema {
 }
 
 #[tauri::command]
-pub fn script_list(project_name: String) {
-    todo!()
+pub fn script_list(project_name: String) -> Vec<ScriptSchema> {
+    let script_srv = ScriptService::new(RocksRepository {});
+    let scripts = script_srv.list();
+    scripts.iter().map(|s| {
+        ScriptSchema {
+            name: "".to_string(),
+            commands: vec![],
+            project_name: "".to_string(),
+        }
+    }).collect()
 }
 
 #[tauri::command]
-pub fn script_get(name: String) {
-    todo!()
+pub fn script_get(name: String) -> ScriptSchema {
+    let script_srv = ScriptService::new(RocksRepository {});
+    let script = script_srv.get(&name);
+    ScriptSchema {
+        name: "".to_string(),
+        commands: vec![],
+        project_name: "".to_string(),
+    }
 }
 
 #[tauri::command]
 pub fn script_create(data: ProjectSchema) {
-    todo!()
+    let script_srv = ScriptService::new(RocksRepository {});
+    script_srv.create(Script::new(""));
 }
 
 #[tauri::command]
 pub fn script_delete(name: String) {
-    todo!()
+    let script_srv = ScriptService::new(RocksRepository {});
+    script_srv.delete(&name);
 }
 
 #[tauri::command]

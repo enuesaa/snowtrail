@@ -25,7 +25,7 @@ pub struct ProjectService {
     rocks: RocksRepository,
 }
 impl ProjectService {
-    pub fn new(rocks: RocksRepository) -> ProjectService {
+    pub fn new(rocks: RocksRepository) -> Self {
         ProjectService { rocks }
     }
 
