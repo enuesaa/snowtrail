@@ -1,18 +1,17 @@
+import { useProjectDeleteLazy, useProjectGetQuery } from '@/commands/poject'
 import { PageTitle } from '@/components/common/PageTitle'
 import { EventList } from '@/components/project/EventList'
 import { ScriptList } from '@/components/project/ScriptList'
-import { useProjectGetQuery } from '@/commands/poject'
-import { useProjectDeleteLazy } from '@/commands/poject'
 import { MouseEventHandler } from 'react'
 
 type Props = {
-  name: string;
+  name: string
 }
 export const Detail = ({ name }: Props) => {
   const project = useProjectGetQuery({ name })
   const { invoke: invokeDeleteProject } = useProjectDeleteLazy()
   if (project === null) {
-    return (<></>)
+    return <></>
   }
   const handleDeleteProject: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault()

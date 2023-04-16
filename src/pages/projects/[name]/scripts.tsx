@@ -1,7 +1,7 @@
 import { Header } from '@/components/common/Header'
 import { Main } from '@/components/common/Main'
-import { ScriptList } from '@/components/project/ScriptList'
 import { ScriptAdd } from '@/components/project/ScriptAdd'
+import { ScriptList } from '@/components/project/ScriptList'
 import { useRouter } from 'next/router'
 
 export default function Page() {
@@ -12,11 +12,6 @@ export default function Page() {
   }
 
   return (
-    <>
-      <Header />
-      <Main>
-        {create === undefined ?  <ScriptList projectName={projectName} /> : <ScriptAdd projectName={projectName} />}
-      </Main>
-    </>
+    <>{create === undefined ? <ScriptList projectName={projectName} /> : <ScriptAdd projectName={projectName} />}</>
   )
 }

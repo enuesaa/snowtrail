@@ -1,7 +1,7 @@
 import { Header } from '@/components/common/Header'
-import { useRouter } from 'next/router'
-import { Detail } from '@/components/subscribe/Detail'
 import { Main } from '@/components/common/Main'
+import { Detail } from '@/components/subscribe/Detail'
+import { useRouter } from 'next/router'
 
 export default function Page() {
   const router = useRouter()
@@ -12,10 +12,7 @@ export default function Page() {
 
   return (
     <>
-      <Header />
-      <Main>
-        <Detail />
-      </Main>
+      <Detail />
     </>
   )
 }

@@ -1,8 +1,8 @@
 import { queriesInit } from '@/commands/use'
 
 type WorkspaceSchema = {
-  path: string,
-  auto_add_new_project: boolean,
+  path: string
+  auto_add_new_project: boolean
 }
 
 export const { useGetWorkspaceQuery, useGetWorkspaceLazy } = queriesInit<{}, WorkspaceSchema>('get_workspace')

@@ -1,7 +1,7 @@
 import { PageTitle } from '@/components/common/PageTitle'
-import { useForm } from 'react-hook-form'
 import { TextInput } from '@/components/common/TextInput'
 import { useStyles } from '@/styles/use'
+import { useForm } from 'react-hook-form'
 
 type FormData = {
   name: string

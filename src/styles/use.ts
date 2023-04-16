@@ -1,4 +1,4 @@
-import { css, useTheme, type CSSObject, SerializedStyles, Theme } from '@emotion/react'
+import { SerializedStyles, Theme, css, useTheme, type CSSObject } from '@emotion/react'
 
 type ThemedStyleArgs = {
   [K in keyof Theme as Theme[K] extends CSSObject ? K : never]: keyof Theme[K]

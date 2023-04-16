@@ -1,9 +1,9 @@
+import { useScriptListQuery } from '@/commands/script'
 import { PageTitle } from '@/components/common/PageTitle'
 import Link from 'next/link'
-import { useScriptListQuery } from '@/commands/script'
 
 type Props = {
-  projectName: string;
+  projectName: string
 }
 export const ScriptList = ({ projectName }: Props) => {
   const scripts = useScriptListQuery({ projectName }) ?? []
@@ -11,7 +11,7 @@ export const ScriptList = ({ projectName }: Props) => {
   return (
     <>
       <PageTitle title='Scripts' />
-      {scripts.map((s,i) => (
+      {scripts.map((s, i) => (
         <div key={i}>{s.name}</div>
       ))}
       <Link href={`/projects/${name}/scripts?create`}>add</Link>

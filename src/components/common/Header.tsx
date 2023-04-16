@@ -1,5 +1,5 @@
-import Link from 'next/link'
 import { useStyles } from '@/styles/use'
+import Link from 'next/link'
 import { IoMdSnow } from 'react-icons/io'
 import { MdOutlineSettings, MdSnowboarding } from 'react-icons/md'
 

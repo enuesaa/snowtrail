@@ -18,7 +18,8 @@ export const globalStyle = css`
     background: #1a1a1a;
   }
 
-  input[type=text], textarea {
+  input[type='text'],
+  textarea {
     background: inherit;
     color: inherit;
     outline: none;

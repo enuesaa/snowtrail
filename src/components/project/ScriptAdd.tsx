@@ -1,15 +1,15 @@
-import { PageTitle } from '@/components/common/PageTitle'
 import { useScriptCreateLazy } from '@/commands/script'
-import { useForm } from 'react-hook-form'
+import { PageTitle } from '@/components/common/PageTitle'
 import { TextInput } from '@/components/common/TextInput'
 import { useStyles } from '@/styles/use'
+import { useForm } from 'react-hook-form'
 
 type FormData = {
-  name: string;
-  command: string;
+  name: string
+  command: string
 }
 type Props = {
-  projectName: string;
+  projectName: string
 }
 export const ScriptAdd = ({ projectName }: Props) => {
   const { invoke: invokeCreateScript } = useScriptCreateLazy()

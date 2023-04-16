@@ -5,9 +5,5 @@ type Props = {
   name: string
 }
 export const TopProjectDashboardItem = ({ title, name }: Props) => {
-  return (
-    <Link href={`/projects/${name}`}>
-      {title}
-    </Link>
-  )
+  return <Link href={`/projects/${name}`}>{title}</Link>
 }

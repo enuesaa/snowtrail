@@ -1,7 +1,7 @@
-import { PageTitle } from '@/components/common/PageTitle'
-import { useStyles } from '@/styles/use'
-import { TopEventDashboardItem } from '@/components/event/TopEventDashboardItem'
 import { useEventListQuery } from '@/commands/event'
+import { PageTitle } from '@/components/common/PageTitle'
+import { TopEventDashboardItem } from '@/components/event/TopEventDashboardItem'
+import { useStyles } from '@/styles/use'
 
 export const TopEventDashboard = () => {
   const styles = useStyles((theme) => ({

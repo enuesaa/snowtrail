@@ -1,17 +1,17 @@
-import { PageTitle } from '@/components/common/PageTitle'
-import { useForm } from 'react-hook-form'
-import { TextInput } from '@/components/common/TextInput'
 import { useProjectCreateLazy } from '@/commands/poject'
+import { PageTitle } from '@/components/common/PageTitle'
+import { TextInput } from '@/components/common/TextInput'
+import { useForm } from 'react-hook-form'
 
 type FormData = {
-  name: string;
-  workdir: string;
+  name: string
+  workdir: string
 }
 export const Add = () => {
   const { invoke: invokeProjectCreate } = useProjectCreateLazy()
   const { register, handleSubmit } = useForm<FormData>()
 
-  const hanldeCreateProject = handleSubmit(data => {
+  const hanldeCreateProject = handleSubmit((data) => {
     invokeProjectCreate({ data })
   })
 
@@ -26,4 +26,3 @@ export const Add = () => {
     </section>
   )
 }
-
