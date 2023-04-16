@@ -42,7 +42,7 @@ export const baseTheme: Theme = {
       borderRadius: '0',
       boxShadow: 'none',
     },
-    b: {
+    rounded: {
       border: 'none',
       borderRadius: '10px',
       boxShadow: 'none',
@@ -58,4 +58,22 @@ export const baseTheme: Theme = {
   //     background: 'rgba(0,0,0,0.1)'
   //   }
   // }
+  around: {
+    x1: {
+      padding: '5px',
+      margin: '5px',
+    },
+    x1tb: {
+      padding: '10px 0',
+      margin: '5px 0',
+    },
+    x2: {
+      padding: '10px',
+      margin: '5px',
+    },
+    x2tb: {
+      padding: '10px 0',
+      margin: '5px 0',
+    }
+  }
 }

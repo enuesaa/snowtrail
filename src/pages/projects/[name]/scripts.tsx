@@ -1,5 +1,3 @@
-import { Header } from '@/components/common/Header'
-import { Main } from '@/components/common/Main'
 import { ScriptAdd } from '@/components/project/ScriptAdd'
 import { ScriptList } from '@/components/project/ScriptList'
 import { useRouter } from 'next/router'

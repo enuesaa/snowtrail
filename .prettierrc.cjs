@@ -6,5 +6,4 @@ module.exports = {
   singleQuote: true,
   jsxSingleQuote: true,
   endOfLine: 'lf',
-  organizeImportsSkipDestructiveCodeActions: true,
 }

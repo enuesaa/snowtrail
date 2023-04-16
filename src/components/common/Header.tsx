@@ -5,7 +5,7 @@ import { MdOutlineSettings, MdSnowboarding } from 'react-icons/md'
 
 export const Header = () => {
   const styles = useStyles((theme) => ({
-    top: theme({ surf: 'main' }).css({
+    top: theme({ surf: 'main', size: 'x2' }).css({
       padding: '7px 0',
       boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.7)',
       display: 'flex',
@@ -47,9 +47,6 @@ export const Header = () => {
           snowtrail
         </Link>
       </div>
-      <Link href='/projects' css={styles.textlink}>
-        Project
-      </Link>
       <Link href='/subscribes' css={styles.textlink}>
         Subscribe
       </Link>

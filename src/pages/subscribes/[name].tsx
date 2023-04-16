@@ -1,5 +1,3 @@
-import { Header } from '@/components/common/Header'
-import { Main } from '@/components/common/Main'
 import { Detail } from '@/components/subscribe/Detail'
 import { useRouter } from 'next/router'
 

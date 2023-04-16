@@ -14,8 +14,14 @@ export type SizeDef = {
 }
 export type DecorateDef = {
   a: CSSObject
-  b: CSSObject
+  rounded: CSSObject
   shadow: CSSObject
+}
+export type AroundDef = {
+  x1: CSSObject
+  x1tb: CSSObject
+  x2: CSSObject
+  x2tb: CSSObject
 }
 
 declare module '@emotion/react' {
@@ -23,5 +29,6 @@ declare module '@emotion/react' {
     surf: SurfDef
     size: SizeDef
     decorate: DecorateDef
+    around: AroundDef
   }
 }
