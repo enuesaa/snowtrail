@@ -1,5 +1,5 @@
 import { useScriptListQuery } from '@/commands/script'
-import { PageTitle } from '@/components/common/PageTitle'
+import { PageSubTitle } from '@/components/common/PageSubTitle'
 import Link from 'next/link'
 
 type Props = {
@@ -10,7 +10,7 @@ export const ScriptList = ({ projectName }: Props) => {
 
   return (
     <>
-      <PageTitle title='Scripts' />
+      <PageSubTitle title='Scripts' />
       {scripts.map((s, i) => (
         <div key={i}>{s.name}</div>
       ))}

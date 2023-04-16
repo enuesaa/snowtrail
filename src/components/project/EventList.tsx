@@ -1,9 +1,9 @@
-import { PageTitle } from '@/components/common/PageTitle'
+import { PageSubTitle } from '@/components/common/PageSubTitle'
 
 export const EventList = () => {
   return (
     <>
-      <PageTitle title='Events' />
+      <PageSubTitle title='Events' />
     </>
   )
 }

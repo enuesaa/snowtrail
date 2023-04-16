@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 
 type Props = {
   title: string
-  children?: ReactNode,
+  children?: ReactNode
 }
 export const PageSubTitle = ({ title, children }: Props) => {
   const styles = useStyles((theme) => ({
@@ -16,9 +16,7 @@ export const PageSubTitle = ({ title, children }: Props) => {
 
   return (
     <div css={styles.main}>
-      <h3 css={styles.h3}>
-        {title}
-      </h3>
+      <h3 css={styles.h3}>{title}</h3>
       {children}
     </div>
   )

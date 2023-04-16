@@ -1,8 +1,9 @@
 import { useGetWorkspaceQuery, useSetWorkspaceLazy } from '@/commands/workspace'
 import { Checkbox } from '@/components/common/Checkbox'
-import { PageTitle } from '@/components/common/PageTitle'
+import { PageSubTitle } from '@/components/common/PageSubTitle'
 import { TextInput } from '@/components/common/TextInput'
 import { useForm } from 'react-hook-form'
+import { useStyles } from '@/styles/use'
 
 type FormData = {
   path: string
@@ -18,17 +19,25 @@ export const WorkspaceBoard = () => {
   }
 
   const handlePutSetting = handleSubmit((data) => {
-    console.log('a')
     invokePutWorkspace({ data })
   })
 
+  const styles = useStyles((theme) => ({
+    form: theme({ around: 'x1' }).css({
+      input: theme({ surf: 'sub', size: 'x1', around: 'x1' }).to(),
+      button: theme({ surf: 'reverse', size: 'x1', decorate: 'rounded', around: 'x2' }).css({
+        cursor: 'pointer',
+      }).to(),
+    }),
+  }))
+
   return (
     <section>
-      <PageTitle title='workspace' />
-      <form onSubmit={handlePutSetting}>
+      <PageSubTitle title='workspace' />
+      <form onSubmit={handlePutSetting} css={styles.form}>
         <TextInput label='path' regist={register('path')} defaultValue={data.path} />
         <Checkbox
-          label='auto_add_new_project'
+          label='auto add'
           defaultChecked={data.auto_add_new_project}
           regist={register('auto_add_new_project')}
         />
