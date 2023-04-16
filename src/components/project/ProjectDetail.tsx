@@ -1,5 +1,6 @@
 import { PageTitle } from '@/components/common/PageTitle'
 import { ProjectEvents } from '@/components/project/ProjectEvents'
+import { ProjectScripts } from '@/components/project/PorjectScripts'
 import { useProjectGetQuery } from '@/commands/poject'
 import { useProjectDeleteLazy } from '@/commands/poject'
 import { MouseEventHandler } from 'react'
@@ -21,7 +22,7 @@ export const ProjectDetail = ({ name }: Props) => {
   return (
     <section>
       <PageTitle title={project.name} />
-      Subscribes
+      <ProjectScripts />
       <ProjectEvents />
       <button onClick={handleDeleteProject}>delete</button>
     </section>

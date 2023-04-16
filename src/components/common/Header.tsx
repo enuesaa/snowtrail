@@ -53,9 +53,6 @@ export const Header = () => {
       <Link href='/subscribe/configure' css={styles.textlink}>
         Subscribe
       </Link>
-      <Link href='/script/configure' css={styles.textlink}>
-        Script
-      </Link>
       <Link href='/publisher' css={styles.iconlink}>
         <MdSnowboarding />
       </Link>

@@ -4,8 +4,6 @@ use dirs::home_dir;
 use crate::repository::rocks::RocksRepository;
 use crate::service::script::{ScriptService, Script};
 
-use super::project::ProjectSchema;
-
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ScriptSchema {
     name: String,
@@ -19,9 +17,9 @@ pub fn script_list(project_name: String) -> Vec<ScriptSchema> {
     let scripts = script_srv.list();
     scripts.iter().map(|s| {
         ScriptSchema {
-            name: "".to_string(),
-            commands: vec![],
-            project_name: "".to_string(),
+            name: s.get_name(),
+            commands: s.get_commands(),
+            project_name: s.get_project_name(),
         }
     }).collect()
 }
@@ -31,16 +29,16 @@ pub fn script_get(name: String) -> ScriptSchema {
     let script_srv = ScriptService::new(RocksRepository {});
     let script = script_srv.get(&name);
     ScriptSchema {
-        name: "".to_string(),
-        commands: vec![],
-        project_name: "".to_string(),
+        name: script.get_name(),
+        commands: script.get_commands(),
+        project_name: script.get_project_name(),
     }
 }
 
 #[tauri::command]
-pub fn script_create(data: ProjectSchema) {
+pub fn script_create(data: ScriptSchema) {
     let script_srv = ScriptService::new(RocksRepository {});
-    script_srv.create(Script::new(""));
+    script_srv.create(Script::new(data.name, data.commands, data.project_name));
 }
 
 #[tauri::command]

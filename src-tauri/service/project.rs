@@ -12,6 +12,7 @@ impl Project {
     pub fn new(name: String, workdir: String) -> Project {
         Project { name: Some(name), workdir: Some(workdir) }
     }
+
     pub fn get_name(&self) -> String {
         self.name.clone().unwrap_or("".to_string())
     }
@@ -48,7 +49,7 @@ impl ProjectService {
     }
 
     pub fn create(&self, project: Project) {
-        self.rocks().put("project", &project.name.clone().unwrap(), &serde_json::to_string(&project).unwrap());
+        self.rocks().put("project", &project.get_name(), &serde_json::to_string(&project).unwrap());
     }
 
     pub fn delete(&self, name: &str) {
