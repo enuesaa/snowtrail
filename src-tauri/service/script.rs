@@ -25,6 +25,27 @@ impl Script {
     }
 }
 
+#[derive(Serialize, Deserialize)]
+pub struct ProjectScript {
+    project_name: Option<String>,
+    script_names: Option<Vec<String>>,
+}
+impl ProjectScript {
+    pub fn new(project_name: String) -> Self {
+        ProjectScript { project_name: Some(project_name), script_names: Some(vec![]) }
+    }
+
+    pub fn add_script(&mut self, script_name: String) {
+        let mut script_names = self.script_names.clone().unwrap_or(vec![]);
+        script_names.push(script_name);
+        self.script_names = Some(script_names);
+    }
+
+    pub fn list_script_names(&self) -> Vec<String> {
+        self.script_names.clone().unwrap_or(vec![])
+    }
+}
+
 pub struct ScriptService {
     rocks: RocksRepository,
 }
@@ -46,6 +67,18 @@ impl ScriptService {
         list
     }
 
+    pub fn list_in_project(&self, project_name: String) -> Vec<Script> {
+        let res = self.rocks().get("project_script", &project_name);
+        let binding: ProjectScript = serde_json::from_str(&res.value).unwrap();
+        let names = binding.list_script_names();
+        let mut list: Vec<Script> = vec![];
+        for name in names {
+            let script = self.rocks().get("script", &name);
+            list.push(serde_json::from_str(&script.value).unwrap());
+        };
+        list
+    }
+
     pub fn get(&self, name: &str) -> Script {
         let res = self.rocks().get("script", name);
         serde_json::from_str(&res.value).unwrap()
@@ -53,6 +86,9 @@ impl ScriptService {
 
     pub fn create(&self, script: Script) {
         self.rocks().put("script", &script.get_name(), &serde_json::to_string(&script).unwrap());
+        let mut binding = ProjectScript::new(script.get_project_name());
+        binding.add_script(script.get_name());
+        self.rocks().put("project_script", &script.get_project_name(), &serde_json::to_string(&binding).unwrap());
     }
 
     pub fn delete(&self, name: &str) {

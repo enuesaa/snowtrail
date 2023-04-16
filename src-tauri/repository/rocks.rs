@@ -16,7 +16,13 @@ impl RocksRepository {
 
     pub fn cfs() -> Vec<String> {
         // need to write here ?
-        vec!["event".to_string(), "workspace".to_string(), "project".to_string(), "script".to_string()]
+        vec![
+            "event".to_string(),
+            "workspace".to_string(),
+            "project".to_string(),
+            "script".to_string(),
+            "project_script".to_string(),
+        ]
     }
 
     pub fn path() -> String {

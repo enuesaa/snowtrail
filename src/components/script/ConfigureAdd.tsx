@@ -1,18 +1,27 @@
 import { PageTitle } from '@/components/common/PageTitle'
-import { useRunLazy } from '@/commands/script'
+import { useScriptCreateLazy } from '@/commands/script'
 import { useForm } from 'react-hook-form'
 import { TextInput } from '@/components/common/TextInput'
 import { useStyles } from '@/styles/use'
 
 type FormData = {
-  run: string
+  name: string;
+  command: string;
 }
-export const ConfigureAdd = () => {
-  const { data, invoke } = useRunLazy()
+type Props = {
+  projectName: string;
+}
+export const ConfigureAdd = ({ projectName }: Props) => {
+  const { invoke: invokeCreateScript } = useScriptCreateLazy()
   const { register, handleSubmit } = useForm<FormData>()
 
   const handleInvoke = handleSubmit((data) => {
-    invoke({ run: data.run })
+    const req = {
+      name: data.name,
+      commands: [data.command],
+      project_name: projectName,
+    }
+    invokeCreateScript({ data: req })
   })
 
   const styles = useStyles((theme) => ({
@@ -34,10 +43,10 @@ export const ConfigureAdd = () => {
   return (
     <section>
       <PageTitle title='Script Add' />
-      {data?.toString() ?? ''}
       <form onSubmit={handleInvoke} css={styles.form}>
-        <TextInput label='' regist={register('run')} />
-        <button type='submit'>run</button>
+        <TextInput label='name' regist={register('name')} />
+        <TextInput label='command' regist={register('command')} />
+        <button type='submit'>save</button>
       </form>
     </section>
   )

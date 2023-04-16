@@ -14,7 +14,7 @@ pub struct ScriptSchema {
 #[tauri::command]
 pub fn script_list(project_name: String) -> Vec<ScriptSchema> {
     let script_srv = ScriptService::new(RocksRepository {});
-    let scripts = script_srv.list();
+    let scripts = script_srv.list_in_project(project_name);
     scripts.iter().map(|s| {
         ScriptSchema {
             name: s.get_name(),

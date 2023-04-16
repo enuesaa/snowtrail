@@ -22,7 +22,7 @@ export const ProjectDetail = ({ name }: Props) => {
   return (
     <section>
       <PageTitle title={project.name} />
-      <ProjectScripts />
+      <ProjectScripts name={name} />
       <ProjectEvents />
       <button onClick={handleDeleteProject}>delete</button>
     </section>
