@@ -6,7 +6,7 @@ type Props = {
 }
 export const TopProjectDashboardItem = ({ title, name }: Props) => {
   return (
-    <Link href={`/project/items/${name}`}>
+    <Link href={`/projects/${name}`}>
       {title}
     </Link>
   )

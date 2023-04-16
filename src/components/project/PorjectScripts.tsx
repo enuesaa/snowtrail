@@ -14,7 +14,7 @@ export const ProjectScripts = ({ name }: Props) => {
       {scripts.map((s,i) => (
         <div key={i}>{s.name}</div>
       ))}
-      <Link href={`/project/items/${name}/script/configure/add`}>add</Link>
+      <Link href={`/projects/${name}/scripts?create`}>add</Link>
     </>
   )
 }

@@ -5,7 +5,7 @@ export const Configure = () => {
   return (
     <section>
       <PageTitle title='Project' />
-      <Link href='/project/configure/add'>add</Link>
+      <Link href='/projects?create'>add</Link>
     </section>
   )
 }

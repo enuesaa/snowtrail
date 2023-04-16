@@ -5,8 +5,8 @@ import { Main } from '@/components/common/Main'
 
 export default function Page() {
   const router = useRouter()
-  const { name: projectName } = router.query
-  if (typeof projectName !== 'string') {
+  const { name: projectName, scriptName } = router.query
+  if (typeof projectName !== 'string' || typeof scriptName !== 'string') {
     return <></>
   }
 

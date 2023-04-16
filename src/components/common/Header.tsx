@@ -47,7 +47,7 @@ export const Header = () => {
           snowtrail
         </Link>
       </div>
-      <Link href='/project/configure' css={styles.textlink}>
+      <Link href='/projects' css={styles.textlink}>
         Project
       </Link>
       <Link href='/subscribe/configure' css={styles.textlink}>
