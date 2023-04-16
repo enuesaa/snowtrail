@@ -2,6 +2,7 @@ import { useProjectCreateLazy } from '@/commands/poject'
 import { PageTitle } from '@/components/common/PageTitle'
 import { TextInput } from '@/components/common/TextInput'
 import { useForm } from 'react-hook-form'
+import { useStyles } from '@/styles/use'
 
 type FormData = {
   name: string
@@ -15,10 +16,19 @@ export const Add = () => {
     invokeProjectCreate({ data })
   })
 
+  const styles = useStyles((theme) => ({
+    form: theme({ around: 'x1' }).css({
+      input: theme({ surf: 'sub', size: 'x1', around: 'x1' }).to(),
+      button: theme({ surf: 'reverse', size: 'x1', decorate: 'rounded', around: 'x2' }).css({
+        cursor: 'pointer',
+      }).to(),
+    }),
+  }))
+
   return (
     <section>
-      <PageTitle title='Project Add' />
-      <form onSubmit={hanldeCreateProject}>
+      <PageTitle title='Create New Project' />
+      <form onSubmit={hanldeCreateProject} css={styles.form}>
         <TextInput label='name' regist={register('name')} />
         <TextInput label='workdir' regist={register('workdir')} />
         <button type='submit'>save</button>

@@ -64,16 +64,16 @@ export const baseTheme: Theme = {
       margin: '5px',
     },
     x1tb: {
-      padding: '10px 0',
+      padding: '5px 0',
       margin: '5px 0',
     },
     x2: {
       padding: '10px',
-      margin: '5px',
+      margin: '10px',
     },
     x2tb: {
       padding: '10px 0',
-      margin: '5px 0',
+      margin: '10px 0',
     }
   }
 }

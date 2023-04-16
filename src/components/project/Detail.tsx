@@ -20,8 +20,8 @@ export const Detail = ({ name }: Props) => {
 
   return (
     <section>
-      <PageTitle title={project.name} />
-      <ScriptList name={name} />
+      <PageTitle title={`Project ${project.name}`} />
+      <ScriptList projectName={name} />
       <EventList />
       <button onClick={handleDeleteProject}>delete</button>
     </section>

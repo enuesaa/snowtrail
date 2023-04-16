@@ -5,10 +5,10 @@ type Props = {
   title: string
   children?: ReactNode,
 }
-export const PageTitle = ({ title, children }: Props) => {
+export const PageSubTitle = ({ title, children }: Props) => {
   const styles = useStyles((theme) => ({
     main: theme({ around: 'x2tb' }),
-    h2: theme({ size: 'x3' }).css({
+    h3: theme({ size: 'x2' }).css({
       display: 'inline-block',
       margin: '0 10px 0 0',
     }),
@@ -16,9 +16,9 @@ export const PageTitle = ({ title, children }: Props) => {
 
   return (
     <div css={styles.main}>
-      <h2 css={styles.h2}>
+      <h3 css={styles.h3}>
         {title}
-      </h2>
+      </h3>
       {children}
     </div>
   )
