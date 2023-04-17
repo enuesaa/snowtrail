@@ -42,17 +42,13 @@ export const EventPublisher = () => {
         borderRadius: '5px',
         margin: '5px 0 20px 0',
       },
-      button: {
-        background: 'rgna(0,0,0,0.1)',
-        padding: '5px',
-        borderRadius: '5px',
-      },
+      button: theme({ surf: 'reverse', decorate: 'rounded', around: 'x1' }).to(),
     }),
   }))
 
   return (
     <section>
-      <PageTitle title='EventPublisher' />
+      <PageTitle title='Event Publisher' />
       <form css={styles.form} onSubmit={handlePublish}>
         <TextInput label='name' regist={register('name')} />
         {valueIds.map((vid, i) => {
@@ -60,12 +56,7 @@ export const EventPublisher = () => {
             <div key={vid}>
               <TextInput label='name' regist={register(`kvs.${i}.name`)} />
               <TextInput label='value' regist={register(`kvs.${i}.value`)} />
-              <button
-                onClick={(e) => {
-                  e.preventDefault()
-                  removeValue(vid)
-                }}
-              >
+              <button onClick={(e) => {e.preventDefault(); removeValue(vid) }}>
                 <FaMinus />
               </button>
             </div>

@@ -11,7 +11,7 @@ export const ListItem = ({ title, id }: Props) => {
   }))
 
   return (
-    <Link href={`/subscribe/items/${id}`} css={styles.card}>
+    <Link href={`/subscribes/${id}`} css={styles.card}>
       {title}
     </Link>
   )
