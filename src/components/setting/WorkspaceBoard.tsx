@@ -2,8 +2,8 @@ import { useGetWorkspaceQuery, useSetWorkspaceLazy } from '@/commands/workspace'
 import { Checkbox } from '@/components/common/Checkbox'
 import { PageSubTitle } from '@/components/common/PageSubTitle'
 import { TextInput } from '@/components/common/TextInput'
-import { useForm } from 'react-hook-form'
 import { useStyles } from '@/styles/use'
+import { useForm } from 'react-hook-form'
 
 type FormData = {
   path: string
@@ -25,9 +25,11 @@ export const WorkspaceBoard = () => {
   const styles = useStyles((theme) => ({
     form: theme({ around: 'x1' }).css({
       input: theme({ surf: 'sub', size: 'x1', around: 'x1' }).to(),
-      button: theme({ surf: 'reverse', size: 'x1', decorate: 'rounded', around: 'x2' }).css({
-        cursor: 'pointer',
-      }).to(),
+      button: theme({ surf: 'reverse', size: 'x1', decorate: 'rounded', around: 'x2' })
+        .css({
+          cursor: 'pointer',
+        })
+        .to(),
     }),
   }))
 

@@ -56,7 +56,12 @@ export const EventPublisher = () => {
             <div key={vid}>
               <TextInput label='name' regist={register(`kvs.${i}.name`)} />
               <TextInput label='value' regist={register(`kvs.${i}.value`)} />
-              <button onClick={(e) => {e.preventDefault(); removeValue(vid) }}>
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  removeValue(vid)
+                }}
+              >
                 <FaMinus />
               </button>
             </div>

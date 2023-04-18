@@ -19,9 +19,11 @@ export const Add = () => {
   const styles = useStyles((theme) => ({
     form: theme({ around: 'x1' }).css({
       input: theme({ surf: 'sub', size: 'x1', around: 'x1' }).to(),
-      button: theme({ surf: 'reverse', size: 'x1', decorate: 'rounded', around: 'x2' }).css({
-        cursor: 'pointer',
-      }).to(),
+      button: theme({ surf: 'reverse', size: 'x1', decorate: 'rounded', around: 'x2' })
+        .css({
+          cursor: 'pointer',
+        })
+        .to(),
     }),
   }))
 
