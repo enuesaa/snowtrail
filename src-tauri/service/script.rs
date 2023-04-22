@@ -86,7 +86,8 @@ impl ScriptService {
 
     pub fn create(&self, script: Script) {
         self.rocks().put("script", &script.get_name(), &serde_json::to_string(&script).unwrap());
-        let mut binding = ProjectScript::new(script.get_project_name());
+        let res = self.rocks().get("project_script", &script.get_project_name());
+        let mut binding: ProjectScript = serde_json::from_str(&res.value).unwrap();
         binding.add_script(script.get_name());
         self.rocks().put("project_script", &script.get_project_name(), &serde_json::to_string(&binding).unwrap());
     }

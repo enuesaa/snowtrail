@@ -10,13 +10,14 @@ export const ScriptList = ({ projectName }: Props) => {
   const scripts = useScriptListQuery({ projectName }) ?? []
   const styles = useStyles((theme) => ({
     addLink: theme({ surf: 'sub', decorate: 'rounded', around: 'x2' }),
+    item: theme({ around: 'x2' }),
   }))
 
   return (
     <>
       <PageSubTitle title='Scripts' />
       {scripts.map((s, i) => (
-        <div key={i}>{s.name}</div>
+        <div key={i} css={styles.item}>{s.name}</div>
       ))}
       <Link href={`/projects/${projectName}/scripts?create`} css={styles.addLink}>
         add
