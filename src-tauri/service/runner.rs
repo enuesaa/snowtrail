@@ -1,12 +1,19 @@
+use crate::repository::rocks::RocksRepository;
 use crate::repository::runcommand::RuncommandRepository;
 use crate::service::script::Script;
+use crate::service::event::{Event, EventService};
 
 pub struct ScriptRunnerService {
+    rocks: RocksRepository,
     runcommand: RuncommandRepository,
 }
 impl ScriptRunnerService {
-    pub fn new(runcommand: RuncommandRepository) -> Self {
-        ScriptRunnerService { runcommand }
+    pub fn new(rocks: RocksRepository, runcommand: RuncommandRepository) -> Self {
+        ScriptRunnerService { rocks, runcommand }
+    }
+
+    fn rocks(&self) -> RocksRepository {
+        self.rocks.clone()
     }
 
     fn runcommand(&self) -> RuncommandRepository {
@@ -22,5 +29,9 @@ impl ScriptRunnerService {
         let runcommand = self.runcommand().program(command).args(args);
         let res = runcommand.exec();
         println!("{:?}", res);
+
+        let event = Event::new("snowtrail:command:run");
+        let id = EventService::publish(self.rocks(), event);
+        println!("{:?}", id);
     }
 }

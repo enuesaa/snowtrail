@@ -53,6 +53,9 @@ pub fn script_run(name: String) {
     let script_srv = ScriptService::new(RocksRepository {});
     let script = script_srv.get(&name);
     println!("{:?}", script);
-    let runner = ScriptRunnerService::new(RuncommandRepository::new());
+    let runner = ScriptRunnerService::new(
+        RocksRepository {},
+        RuncommandRepository::new()
+    );
     runner.run(script);
 }
