@@ -41,6 +41,12 @@ impl ProjectScript {
         self.script_names = Some(script_names);
     }
 
+    pub fn remove_script(&mut self, script_name: String) {
+        let mut script_names: Vec<String> = self.script_names.clone().unwrap_or(vec![]);
+        script_names = script_names.iter().filter(|&s| s != &script_name).cloned().collect();
+        self.script_names = Some(script_names);
+    }
+
     pub fn list_script_names(&self) -> Vec<String> {
         self.script_names.clone().unwrap_or(vec![])
     }
@@ -92,14 +98,11 @@ impl ScriptService {
         self.rocks().put("project_script", &script.get_project_name(), &serde_json::to_string(&binding).unwrap());
     }
 
-    pub fn delete(&self, name: &str) {
-        self.rocks().delete("script", name);
-    }
-
-    pub fn run(&self, name: &str) {
-        let res = self.rocks().get("script", name);
-        let script: Script = serde_json::from_str(&res.value).unwrap();
-        let commands = script.commands;
-
+    pub fn delete(&self, script: Script) {
+        self.rocks().delete("script", &script.get_name());
+        let res = self.rocks().get("project_script", &script.get_project_name());
+        let mut binding: ProjectScript = serde_json::from_str(&res.value).unwrap();
+        binding.remove_script(script.get_name());
+        self.rocks().put("project_script", &script.get_project_name(), &serde_json::to_string(&binding).unwrap());
     }
 }
