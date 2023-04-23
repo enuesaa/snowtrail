@@ -31,13 +31,14 @@ export const Dashboard = () => {
     main: theme({ around: 'x1tb' }),
   }))
   const events = useEventListQuery({})
+  console.log(events)
 
   return (
     <section css={styles.main}>
       <PageSubTitle title='Events' />
       <ul>
         {events?.map((v, i) => (
-          <Item title={v.name} id={v.name} key={i} />
+          <Item title={v.name} id={v.id ?? ''} key={i} />
         ))}
       </ul>
     </section>

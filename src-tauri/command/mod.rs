@@ -12,6 +12,7 @@ pub fn inject_commands(app: Builder<Wry>) -> Builder<Wry> {
         .invoke_handler(tauri::generate_handler![
             event::event_publish,
             event::event_list,
+            event::event_get,
             script::script_list,
             script::script_get,
             script::script_create,

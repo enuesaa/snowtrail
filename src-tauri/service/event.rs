@@ -10,13 +10,14 @@ pub struct EventKv {
 }
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Event {
+    pub id: Option<String>,
     pub name: String,
     pub kvs: Vec<EventKv>, // like Note { name, dscription, project, save path }
     pub tags: Vec<String>,
 }
 impl Event {
     pub fn new(name: &str) -> Self {
-        Event { name: name.to_string(), kvs: vec![], tags: vec![] }
+        Event { id: None, name: name.to_string(), kvs: vec![], tags: vec![] }
     }
 
     pub fn kv(&mut self, name: &str, value: &str) {
@@ -32,16 +33,21 @@ pub struct EventService {}
 impl EventService {
     pub fn list(rocks: RocksRepository) -> Vec<Event> {
         let kvs = rocks.list("event", "", 100);
+        println!("{:?}", kvs);
         let mut list: Vec<Event> = vec![];
         for kv in kvs {
-            list.push(serde_json::from_str(&kv.value).unwrap());
+            let mut event: Event = serde_json::from_str(&kv.value).unwrap();
+            event.id = Some(kv.key);
+            list.push(event);
         };
         list
     }
 
     pub fn get(rocks: RocksRepository, id: &str) -> Event {
         let res = rocks.get("event", id);
-        serde_json::from_str(&res.value).unwrap()
+        let mut event: Event = serde_json::from_str(&res.value).unwrap();
+        event.id = Some(res.key);
+        event
     }
 
     pub fn publish(rocks: RocksRepository, event: Event) -> String {

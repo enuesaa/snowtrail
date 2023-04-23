@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { Detail } from '@/components/event/Detail'
 
 export default function Page() {
   const router = useRouter()
@@ -7,5 +8,9 @@ export default function Page() {
     return <></>
   }
 
-  return <>{id}</>
+  return (
+    <>
+      <Detail id={id} />    
+    </>
+  )
 }

@@ -9,6 +9,7 @@ pub struct EventPublishKvSchema {
 }
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EventPublishSchema {
+    id: Option<String>,
     name: String,
     kvs: Vec<EventPublishKvSchema>, // like Note { name, dscription, project, save path }
 }
@@ -34,7 +35,19 @@ pub fn event_list() -> Vec<EventPublishSchema> {
         let value: Vec<EventPublishKvSchema> = event.kvs.iter().map(|v| {
             return EventPublishKvSchema { name: v.name.clone(), value: v.value.clone() }
         }).collect();
-        ret.push(EventPublishSchema { name: event.name, kvs: value });
+        ret.push(EventPublishSchema { id: event.id, name: event.name, kvs: value });
     };
     ret
+}
+
+#[tauri::command]
+pub fn event_get(id: String) -> EventPublishSchema {
+    println!("{:?}", id);
+    let rocks = RocksRepository {};
+    let event = EventService::get(rocks, &id);
+    let mut data = EventPublishSchema { id: event.id, name: event.name, kvs: vec![] };
+    data.kvs = event.kvs.iter().map(|v| {
+        return EventPublishKvSchema { name: v.name.clone(), value: v.value.clone() }
+    }).collect();
+    data
 }
