@@ -1,11 +1,11 @@
-import { TopEventDashboard } from '@/components/event/TopEventDashboard'
-import { TopProjectDashboard } from '@/components/project/TopProjectDashboard'
+import { Dashboard as EventDashboard } from '@/components/event/Dashboard'
+import { Dashboard as ProejctDashboard } from '@/components/project/Dashboard'
 
 export default function Page() {
   return (
     <>
-      <TopProjectDashboard />
-      <TopEventDashboard />
+      <ProejctDashboard />
+      <EventDashboard />
     </>
   )
 }

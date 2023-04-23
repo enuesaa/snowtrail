@@ -10,7 +10,7 @@ export default function Page() {
 
   return (
     <>
-      <ScriptDetail />
+      <ScriptDetail name={scriptName} />
     </>
   )
 }

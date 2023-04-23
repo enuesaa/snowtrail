@@ -1,20 +1,24 @@
 import { PageTitle } from '@/components/common/PageTitle'
-import { ListItem } from '@/components/subscribe/ListItem'
 import { useStyles } from '@/styles/use'
 import Link from 'next/link'
+import { FaPlus } from 'react-icons/fa'
 
 export const List = () => {
   const styles = useStyles((theme) => ({
-    addLink: theme({ surf: 'sub', decorate: 'rounded', around: 'x2' }),
+    addLink: theme({ size: 'x1' }),
+    item: theme({ surf: 'sub', decorate: 'rounded', around: 'x2' }),
   }))
 
   return (
     <section>
-      <PageTitle title='Subscribe' />
-      <Link href='/subscribes?create' css={styles.addLink}>
-        add
+      <PageTitle title='Subscribe'>
+        <Link href='/subscribes?create' css={styles.addLink}>
+          <FaPlus />
+        </Link>
+      </PageTitle>
+      <Link href={`/subscribes/aaa`} css={styles.item}>
+        aaa
       </Link>
-      <ListItem title='aaa' id='aaa' />
     </section>
   )
 }

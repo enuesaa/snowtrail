@@ -43,7 +43,7 @@ pub fn script_create(data: ScriptSchema) {
 
 #[tauri::command]
 pub fn script_delete(name: String) {
-    let script_srv = ScriptService::new(RocksRepository {});
+    let script_srv: ScriptService = ScriptService::new(RocksRepository {});
     script_srv.delete(&name);
 }
 

@@ -20,7 +20,7 @@ const Item = ({ title, name }: ItemProps) => {
   )
 }
 
-export const TopProjectDashboard = () => {
+export const Dashboard = () => {
   const projects = useProjectListQuery()
   if (projects === null) {
     return <></>

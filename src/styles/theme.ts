@@ -44,7 +44,7 @@ export const baseTheme: Theme = {
     },
     rounded: {
       border: 'none',
-      borderRadius: '10px',
+      borderRadius: '5px',
       boxShadow: 'none',
     },
     shadow: {

@@ -26,17 +26,7 @@ export const ScriptAdd = ({ projectName }: Props) => {
 
   const styles = useStyles((theme) => ({
     form: theme().css({
-      input: {
-        background: 'rgba(255,255,255,0.1)',
-        padding: '5px 7px',
-        borderRadius: '5px',
-        margin: '5px 0 20px 0',
-      },
-      button: {
-        background: 'rgna(0,0,0,0.1)',
-        padding: '5px',
-        borderRadius: '5px',
-      },
+      'input,button': theme({ surf: 'sub', around: 'x1', decorate: 'rounded' }).to(),
     }),
   }))
 

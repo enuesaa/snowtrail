@@ -9,8 +9,7 @@ type ItemProps = {
 }
 const Item = ({ title, id }: ItemProps) => {
   const styles = useStyles((theme) => ({
-    li: theme().css({
-      padding: '10px',
+    li: theme({ around: 'x1' }).css({
       border: 'solid 1px rgba(255,255,255,0.2)',
       a: {
         display: 'block',
@@ -27,20 +26,16 @@ const Item = ({ title, id }: ItemProps) => {
   )
 }
 
-export const TopEventDashboard = () => {
+export const Dashboard = () => {
   const styles = useStyles((theme) => ({
     main: theme({ around: 'x1tb' }),
-    list: theme().css({
-      listStyleType: 'none',
-      padding: '0',
-    }),
   }))
   const events = useEventListQuery({})
 
   return (
     <section css={styles.main}>
       <PageSubTitle title='Events' />
-      <ul css={styles.list}>
+      <ul>
         {events?.map((v, i) => (
           <Item title={v.name} id={v.name} key={i} />
         ))}

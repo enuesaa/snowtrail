@@ -2,6 +2,7 @@ import { useScriptListQuery } from '@/commands/script'
 import { PageSubTitle } from '@/components/common/PageSubTitle'
 import { useStyles } from '@/styles/use'
 import Link from 'next/link'
+import { FaPlus } from 'react-icons/fa'
 
 type Props = {
   projectName: string
@@ -9,19 +10,20 @@ type Props = {
 export const ScriptList = ({ projectName }: Props) => {
   const scripts = useScriptListQuery({ projectName }) ?? []
   const styles = useStyles((theme) => ({
-    addLink: theme({ surf: 'sub', decorate: 'rounded', around: 'x2' }),
-    item: theme({ around: 'x2' }),
+    addLink: theme({ size: 'x1' }),
+    item: theme({ surf: 'sub', decorate: 'rounded', around: 'x2' }),
   }))
 
   return (
     <>
-      <PageSubTitle title='Scripts' />
+      <PageSubTitle title='Scripts'>
+        <Link href={`/projects/${projectName}/scripts?create`} css={styles.addLink}>
+          <FaPlus />
+        </Link>
+      </PageSubTitle>
       {scripts.map((s, i) => (
-        <div key={i} css={styles.item}>{s.name}</div>
+        <Link href={`/projects/${projectName}/scripts/${s.name}`} css={styles.item} key={i}>{s.name}</Link>
       ))}
-      <Link href={`/projects/${projectName}/scripts?create`} css={styles.addLink}>
-        add
-      </Link>
     </>
   )
 }
