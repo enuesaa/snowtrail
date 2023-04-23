@@ -4,6 +4,16 @@ use crate::repository::rocks::RocksRepository;
 use uuid::Uuid;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
+pub struct Subscribe {
+    name: String
+}
+impl Subscribe {
+    pub fn new(name: &str) -> Self {
+        Subscribe { name: name.to_string() }
+    }
+}
+
+#[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct EventKv {
     pub name: String,
     pub value: String,
@@ -63,10 +73,28 @@ impl EventService {
     }
 
     pub fn trigger(rocks: RocksRepository, id: &str) {
-        // 
+        let res = rocks.get("event", id);
+        let mut event: Event = serde_json::from_str(&res.value).unwrap();
+        let subscribes = "";
     }
 
     pub fn delete(rocks: RocksRepository, id: &str) {
         rocks.delete("event", id);
+    }
+
+    pub fn list_subscribes() -> Vec<Subscribe> {
+        todo!()
+    }
+
+    pub fn get_subscribe(id: &str) -> Subscribe {
+        todo!()
+    }
+
+    pub fn create_subscribe(subscribe: Subscribe) -> String {
+        todo!()
+    }
+
+    pub fn delete_subscribe(id: &str) {
+        todo!()
     }
 }
