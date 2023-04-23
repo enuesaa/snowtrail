@@ -15,8 +15,8 @@ export const Detail = ({ id }: Props) => {
       <PageTitle title={`Event ${id}`} />
       <div>id: {id}</div>
       <div>name: {event.name}</div>
-      <div>kvs: {event.kvs.map(v => (
-        <div>{v.name}: {v.value}</div>
+      <div>kvs: {event.kvs.map((v,i) => (
+        <div key={i}>{v.name}: {v.value}</div>
       ))}</div>
     </>
   )

@@ -14,6 +14,7 @@ export type SizeDef = {
 }
 export type DecorateDef = {
   shadow: CSSObject;
+  rounded: CSSObject;
   card: CSSObject;
 }
 export type HoverDef = {

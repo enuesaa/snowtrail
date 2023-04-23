@@ -42,6 +42,11 @@ export const baseTheme: Theme = {
       borderRadius: '0',
       boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.7)',
     },
+    rounded: {
+      border: 'none',
+      borderRadius: '5px',
+      boxShadow: 'none',
+    },
     card: {
       border: 'solid 1px rgba(255,255,255,0.2)',
       borderRadius: '5px',

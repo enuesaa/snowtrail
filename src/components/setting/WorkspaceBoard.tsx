@@ -13,15 +13,6 @@ export const WorkspaceBoard = () => {
   const data = useGetWorkspaceQuery({})
   const { invoke: invokePutWorkspace } = useSetWorkspaceLazy()
   const { register, handleSubmit } = useForm<FormData>()
-
-  if (data === null) {
-    return <></>
-  }
-
-  const handlePutSetting = handleSubmit((data) => {
-    invokePutWorkspace({ data })
-  })
-
   const styles = useStyles((theme) => ({
     form: theme({ around: 'x1' }).css({
       input: theme({ surf: 'sub', size: 'x1', around: 'x1' }).to(),
@@ -32,6 +23,14 @@ export const WorkspaceBoard = () => {
         .to(),
     }),
   }))
+
+  if (data === null) {
+    return <></>
+  }
+
+  const handlePutSetting = handleSubmit((data) => {
+    invokePutWorkspace({ data })
+  })
 
   return (
     <section>

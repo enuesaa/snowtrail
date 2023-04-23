@@ -11,6 +11,9 @@ type Props = {
 export const Detail = ({ name }: Props) => {
   const project = useProjectGetQuery({ name })
   const { invoke: invokeDeleteProject } = useProjectDeleteLazy()
+  const styles = useStyles((theme) => ({
+    deleteBtn: theme({ surf: 'sub', size: 'x1', around: 'x2', decorate: 'rounded' }),
+  }))
   if (project === null) {
     return <></>
   }
@@ -18,10 +21,6 @@ export const Detail = ({ name }: Props) => {
     e.preventDefault()
     invokeDeleteProject({ name })
   }
-
-  const styles = useStyles((theme) => ({
-    deleteBtn: theme({ surf: 'sub', size: 'x1', around: 'x2', decorate: 'rounded' }),
-  }))
 
   return (
     <section>

@@ -5,7 +5,7 @@ export type EventPublishKvSchema = {
   value: string
 }
 export type EventPublishSchema = {
-  id: string | null;
+  id?: string | null;
   name: string
   kvs: EventPublishKvSchema[]
 }

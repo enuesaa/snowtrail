@@ -9,6 +9,9 @@ type Props = {
 export const ScriptDetail = ({ name }: Props) => {
   const script = useScriptGetQuery({ name })
   const { invoke: invokeDeleteScript } = useScriptDeleteLazy()
+  const styles = useStyles(theme => ({
+    deleteBtn: theme({ surf: 'reverse', size: 'x1', decorate: 'rounded', around: 'x1' }),
+  }))
   if (script === null) {
     return (<></>)
   }
@@ -16,9 +19,6 @@ export const ScriptDetail = ({ name }: Props) => {
     e.preventDefault()
     invokeDeleteScript({ name })
   }
-  const styles = useStyles(theme => ({
-    deleteBtn: theme({ surf: 'reverse', size: 'x1', decorate: 'rounded', around: 'x1' }),
-  }))
 
   return (
     <section>
