@@ -4,7 +4,7 @@ export const baseTheme: Theme = {
   surf: {
     main: {
       color: '#fafafa',
-      background: '#1a1a1a',
+      background: '#222222',
     },
     sub: {
       color: '#fafafa',
@@ -37,43 +37,47 @@ export const baseTheme: Theme = {
     },
   },
   decorate: {
-    a: {
-      border: 'none',
-      borderRadius: '0',
-      boxShadow: 'none',
-    },
-    rounded: {
-      border: 'none',
-      borderRadius: '5px',
-      boxShadow: 'none',
-    },
     shadow: {
       border: 'none',
       borderRadius: '0',
       boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.7)',
     },
+    card: {
+      border: 'solid 1px rgba(255,255,255,0.2)',
+      borderRadius: '5px',
+    }
   },
-  // hover: {
-  //   darken: {
-  //     background: 'rgba(0,0,0,0.1)'
-  //   }
-  // }
+  hover: {
+    shadow: {
+      '&:hover': {
+        boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.7)',
+      },
+    }
+  },
   around: {
     x1: {
-      padding: '5px',
-      margin: '5px',
+      padding: '3px',
+      margin: '3px',
     },
     x1tb: {
-      padding: '5px 0',
-      margin: '5px 0',
+      padding: '3px 0',
+      margin: '3px 0',
     },
     x2: {
-      padding: '10px',
-      margin: '10px',
+      padding: '6px',
+      margin: '6px',
     },
     x2tb: {
-      padding: '10px 0',
-      margin: '10px 0',
+      padding: '6px 0',
+      margin: '6px 0',
+    },
+    x3: {
+      padding: '9px',
+      margin: '9px',
+    },
+    x3tb: {
+      padding: '9px 0',
+      margin: '9px 0',
     },
   },
 }
