@@ -1,5 +1,4 @@
 import { ScriptAdd } from '@/components/project/ScriptAdd'
-import { ScriptList } from '@/components/project/ScriptList'
 import { useRouter } from 'next/router'
 
 export default function Page() {
@@ -10,6 +9,6 @@ export default function Page() {
   }
 
   return (
-    <>{create === undefined ? <ScriptList projectName={projectName} /> : <ScriptAdd projectName={projectName} />}</>
+    <>{create === undefined ? <></> : <ScriptAdd projectName={projectName} />}</>
   )
 }

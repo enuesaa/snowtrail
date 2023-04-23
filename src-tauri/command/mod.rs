@@ -18,7 +18,6 @@ pub fn inject_commands(app: Builder<Wry>) -> Builder<Wry> {
             script::script_create,
             script::script_delete,
             script::script_run,
-            script::run,
             subscribe::subscribe_list,
             subscribe::subscribe_get,
             subscribe::subscribe_create,

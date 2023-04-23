@@ -6,7 +6,7 @@ pub mod repository;
 #[macro_use]
 extern crate objc;
 use tauri::{Manager, Builder, Wry};
-use repository::runcommand::Runcommand;
+use repository::runcommand::RuncommandRepository;
 
 fn main() {
     initialize();
@@ -17,7 +17,7 @@ fn main() {
 }
 
 fn initialize() {
-    Runcommand::initialize();
+    RuncommandRepository::initialize();
 }
 
 fn create_app() -> Builder<Wry> {

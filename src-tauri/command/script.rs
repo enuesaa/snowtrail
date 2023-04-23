@@ -1,8 +1,8 @@
 use serde::{Serialize, Deserialize};
-use crate::repository::runcommand::Runcommand;
-use dirs::home_dir;
+use crate::repository::runcommand::RuncommandRepository;
 use crate::repository::rocks::RocksRepository;
 use crate::service::script::{ScriptService, Script};
+use crate::service::runner::ScriptRunnerService;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ScriptSchema {
@@ -49,19 +49,9 @@ pub fn script_delete(name: String) {
 
 #[tauri::command]
 pub fn script_run(name: String) {
-    todo!()
-}
-
-#[tauri::command]
-pub fn run(run: String) -> String {
-    let mut args: Vec<&str> = run.split(" ").collect();
-    args.rotate_left(1);
-    let command = args.pop().unwrap();
-
-    let runcommand = Runcommand::new();
-    let homedir = home_dir().unwrap();
-    if let Ok(stdout) = runcommand.program(command).args(args).dir(homedir).exec() {
-        return stdout;
-    };
-    "".to_string()
+    let script_srv = ScriptService::new(RocksRepository {});
+    let script = script_srv.get(&name);
+    println!("{:?}", script);
+    let runner = ScriptRunnerService::new(RuncommandRepository::new());
+    runner.run(script);
 }

@@ -13,6 +13,7 @@ export const ScriptList = ({ projectName }: Props) => {
     addLink: theme({ size: 'x1' }),
     item: theme({ surf: 'sub', decorate: 'rounded', around: 'x2' }),
   }))
+  console.log(scripts);
 
   return (
     <>

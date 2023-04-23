@@ -1,7 +1,5 @@
 import { queriesInit } from '@/commands/use'
 
-// export const { useRunQuery, useRunLazy } = queriesInit<{ run: string }, String>('run')
-
 export type Script = {
   name: string
   commands: string[]
@@ -15,3 +13,8 @@ export const { useScriptGetQuery, useScriptGetLazy } = queriesInit<{ name: strin
 export const { useScriptCreateQuery, useScriptCreateLazy } = queriesInit<{ data: Script }, void>('script_create')
 
 export const { useScriptDeleteQuery, useScriptDeleteLazy } = queriesInit<{ name: string }, void>('script_delete')
+
+export const {
+  useScriptRunQuery,
+  useScriptRunLazy,
+} = queriesInit<{ name: string }, void>('script_run')

@@ -4,19 +4,19 @@ use std::env;
 use std::error::Error;
 
 #[derive(Clone)]
-pub struct Runcommand {
+pub struct RuncommandRepository {
     program: String,
     args: Vec<String>,
     dir: PathBuf,
 }
 
-impl Runcommand {
+impl RuncommandRepository {
     pub fn initialize() {
         let _ = fix_path_env::fix();
     }
 
     pub fn new() -> Self {
-        Runcommand { program: "".to_string(), args: vec![], dir: env::current_dir().unwrap() }
+        RuncommandRepository { program: "".to_string(), args: vec![], dir: env::current_dir().unwrap() }
     }
 
     pub fn program(mut self, program: &str) -> Self {

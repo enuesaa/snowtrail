@@ -1,7 +1,7 @@
 use serde::{Serialize, Deserialize};
 use crate::repository::rocks::RocksRepository;
 
-#[derive(Serialize, Deserialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Script {
     name: Option<String>,
     commands: Option<Vec<String>>,
@@ -94,5 +94,12 @@ impl ScriptService {
 
     pub fn delete(&self, name: &str) {
         self.rocks().delete("script", name);
+    }
+
+    pub fn run(&self, name: &str) {
+        let res = self.rocks().get("script", name);
+        let script: Script = serde_json::from_str(&res.value).unwrap();
+        let commands = script.commands;
+
     }
 }
