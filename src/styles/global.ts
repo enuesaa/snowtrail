@@ -1,6 +1,9 @@
 import { css } from '@emotion/react'
+import normalize from 'emotion-normalize'
 
 export const globalStyle = css`
+  ${normalize}
+
   html,
   body {
     padding: 0;
@@ -15,7 +18,7 @@ export const globalStyle = css`
     box-sizing: border-box;
   }
   body {
-    background: #1a1a1a;
+    background: #222222;
   }
 
   input[type='text'],
@@ -33,5 +36,11 @@ export const globalStyle = css`
     appearance: none;
     border: none;
     display: block;
+    cursor: pointer;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-inline-start: 0;
   }
 `
