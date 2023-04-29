@@ -27,7 +27,7 @@ export const ScriptDetail = ({ name }: Props) => {
 
   return (
     <section>
-      <PageTitle title={`Script ${script.name}`} />
+      <PageTitle title={`{ projects }.${script.name}`} />
       <div>
         {script.commands}
       </div>

@@ -29,7 +29,7 @@ export const Add = () => {
 
   return (
     <section>
-      <PageTitle title='Create New Project' />
+      <PageTitle title='projects.{ new }' />
       <form onSubmit={hanldeCreateProject} css={styles.form}>
         <TextInput label='name' regist={register('name')} />
         <TextInput label='workdir' regist={register('workdir')} />
