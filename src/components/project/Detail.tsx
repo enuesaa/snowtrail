@@ -1,6 +1,5 @@
 import { useProjectDeleteLazy, useProjectGetQuery } from '@/commands/poject'
 import { PageTitle } from '@/components/common/PageTitle'
-import { EventList } from '@/components/project/EventList'
 import { ScriptList } from '@/components/project/ScriptList'
 import { useStyles } from '@/styles/use'
 import { MouseEventHandler } from 'react'
@@ -25,8 +24,8 @@ export const Detail = ({ name }: Props) => {
   return (
     <section>
       <PageTitle title={`Project ${project.name}`} />
+      Detail: NextJS App
       <ScriptList projectName={name} />
-      <EventList />
       <button onClick={handleDeleteProject} css={styles.deleteBtn}>
         delete
       </button>

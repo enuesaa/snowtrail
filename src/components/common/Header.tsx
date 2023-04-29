@@ -20,14 +20,6 @@ export const Header = () => {
         verticalAlign: 'text-top',
       },
     }),
-    textlink: theme().css({
-      display: 'block',
-      flex: '0 0 35px',
-      margin: '0 20px 0 0',
-      padding: '2px',
-      textAlign: 'center',
-      fontWeight: '600',
-    }),
     iconlink: theme().css({
       display: 'block',
       flex: '0 0 35px',
@@ -47,9 +39,6 @@ export const Header = () => {
           snowtrail
         </Link>
       </div>
-      <Link href='/subscribes' css={styles.textlink}>
-        Subscribe
-      </Link>
       <Link href='/publisher' css={styles.iconlink}>
         <MdSnowboarding />
       </Link>
