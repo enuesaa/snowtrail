@@ -1,6 +1,7 @@
 pub mod command;
 pub mod service;
 pub mod repository;
+pub mod usecase;
 
 #[cfg(target_os = "macos")]
 #[macro_use]
