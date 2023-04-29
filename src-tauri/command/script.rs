@@ -1,8 +1,6 @@
 use serde::{Serialize, Deserialize};
-use crate::repository::runcommand::RuncommandRepository;
-use crate::repository::rocks::RocksRepository;
-use crate::service::script::{ScriptService, Script};
-use crate::service::runner::ScriptRunnerService;
+use crate::service::script::Script;
+use crate::usecase::app::AppUsecase;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ScriptSchema {
@@ -13,8 +11,7 @@ pub struct ScriptSchema {
 
 #[tauri::command]
 pub fn script_list(project_name: String) -> Vec<ScriptSchema> {
-    let script_srv = ScriptService::new(RocksRepository {});
-    let scripts = script_srv.list_in_project(project_name);
+    let scripts = AppUsecase::new().list_scripts(project_name);
     scripts.iter().map(|s| {
         ScriptSchema {
             name: s.get_name(),
@@ -26,8 +23,7 @@ pub fn script_list(project_name: String) -> Vec<ScriptSchema> {
 
 #[tauri::command]
 pub fn script_get(name: String) -> ScriptSchema {
-    let script_srv = ScriptService::new(RocksRepository {});
-    let script = script_srv.get(&name);
+    let script = AppUsecase::new().get_script(&name);
     ScriptSchema {
         name: script.get_name(),
         commands: script.get_commands(),
@@ -37,25 +33,16 @@ pub fn script_get(name: String) -> ScriptSchema {
 
 #[tauri::command]
 pub fn script_create(data: ScriptSchema) {
-    let script_srv = ScriptService::new(RocksRepository {});
-    script_srv.create(Script::new(data.name, data.commands, data.project_name));
+    let script = Script::new(data.name, data.commands, data.project_name);
+    AppUsecase::new().create_script(script);
 }
 
 #[tauri::command]
 pub fn script_delete(name: String) {
-    let script_srv: ScriptService = ScriptService::new(RocksRepository {});
-    let script = script_srv.get(&name);
-    script_srv.delete(script);
+    AppUsecase::new().delete_script(&name);
 }
 
 #[tauri::command]
 pub fn script_run(name: String) {
-    let script_srv = ScriptService::new(RocksRepository {});
-    let script = script_srv.get(&name);
-    println!("{:?}", script);
-    let runner = ScriptRunnerService::new(
-        RocksRepository {},
-        RuncommandRepository::new()
-    );
-    runner.run(script);
+    AppUsecase::new().run_script(&name);
 }

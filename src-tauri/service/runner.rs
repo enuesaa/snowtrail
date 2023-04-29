@@ -31,7 +31,7 @@ impl ScriptRunnerService {
         println!("{:?}", res);
 
         let event = Event::new("snowtrail:command:run");
-        let id = EventService::publish(self.rocks(), event);
+        let id = EventService::create(self.rocks(), event);
         println!("{:?}", id);
     }
 }

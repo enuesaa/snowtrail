@@ -1,6 +1,6 @@
 use serde::{Serialize, Deserialize};
-use crate::repository::rocks::RocksRepository;
-use crate::service::project::{ProjectService, Project};
+use crate::service::project::Project;
+use crate::usecase::app::AppUsecase;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct ProjectSchema {
@@ -9,8 +9,7 @@ pub struct ProjectSchema {
 }
 #[tauri::command]
 pub fn project_list() -> Vec<ProjectSchema> {
-    let project_srv = ProjectService::new(RocksRepository {});
-    let projects = project_srv.list();
+    let projects = AppUsecase::new().list_projects();
     projects.iter().map(|p| {
         ProjectSchema {
             name: p.get_name(),
@@ -21,8 +20,7 @@ pub fn project_list() -> Vec<ProjectSchema> {
 
 #[tauri::command]
 pub fn project_get(name: String) -> ProjectSchema {
-    let project_srv = ProjectService::new(RocksRepository {});
-    let project = project_srv.get(&name);
+    let project = AppUsecase::new().get_project(&name);
     ProjectSchema {
         name: project.get_name(),
         workdir: project.get_workdir().to_str().unwrap().to_string(),
@@ -31,12 +29,10 @@ pub fn project_get(name: String) -> ProjectSchema {
 
 #[tauri::command]
 pub fn project_create(data: ProjectSchema) {
-    let project_srv = ProjectService::new(RocksRepository {});
-    project_srv.create(Project::new(data.name, data.workdir));
+    AppUsecase::new().create_project(Project::new(data.name, data.workdir));
 }
 
 #[tauri::command]
 pub fn project_delete(name: String) {
-    let project_srv = ProjectService::new(RocksRepository {});
-    project_srv.delete(&name);
+    AppUsecase::new().delete_project(&name);
 }

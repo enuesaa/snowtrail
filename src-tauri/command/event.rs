@@ -1,6 +1,6 @@
 use serde::{Serialize, Deserialize};
-use crate::service::event::{Event, EventService};
-use crate::repository::rocks::RocksRepository;
+use crate::service::event::Event;
+use crate::usecase::app::AppUsecase;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EventPublishKvSchema {
@@ -19,35 +19,29 @@ pub fn event_publish(data: EventPublishSchema) -> String {
     data.kvs.iter().for_each(|v| {
         event.kv(&v.name, &v.value);
     });
-
-    let rocks = RocksRepository {};
-    let id = EventService::publish(rocks, event);
-    id
+    AppUsecase::new().create_event(event)
 }
 
 
 #[tauri::command]
 pub fn event_list() -> Vec<EventPublishSchema> {
-    let rocks = RocksRepository {};
-    let events = EventService::list(rocks);
-    let mut ret = vec![];
-    for event in events {
-        let value: Vec<EventPublishKvSchema> = event.kvs.iter().map(|v| {
+    let events = AppUsecase::new().list_events();
+    events.iter().map(|e| {
+        let value: Vec<EventPublishKvSchema> = e.kvs.iter().map(|v| {
             return EventPublishKvSchema { name: v.name.clone(), value: v.value.clone() }
         }).collect();
-        ret.push(EventPublishSchema { id: event.id, name: event.name, kvs: value });
-    };
-    ret
+        EventPublishSchema { id: e.id.clone(), name: e.name.clone(), kvs: value }
+    }).collect()
 }
 
 #[tauri::command]
 pub fn event_get(id: String) -> EventPublishSchema {
-    println!("{:?}", id);
-    let rocks = RocksRepository {};
-    let event = EventService::get(rocks, &id);
-    let mut data = EventPublishSchema { id: event.id, name: event.name, kvs: vec![] };
-    data.kvs = event.kvs.iter().map(|v| {
-        return EventPublishKvSchema { name: v.name.clone(), value: v.value.clone() }
-    }).collect();
-    data
+    let event = AppUsecase::new().get_event(&id);
+    EventPublishSchema {
+        id: event.id,
+        name: event.name,
+        kvs: event.kvs.iter().map(|v| {
+            EventPublishKvSchema { name: v.name.clone(), value: v.value.clone() }
+        }).collect(),
+    }
 }
