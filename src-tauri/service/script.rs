@@ -1,5 +1,5 @@
 use serde::{Serialize, Deserialize};
-use crate::repository::rocks::RocksRepository;
+use crate::repository::{rocks::RocksRepository, runcommand::{self, RuncommandRepository}};
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Script {
@@ -54,14 +54,19 @@ impl ProjectScript {
 
 pub struct ScriptService {
     rocks: RocksRepository,
+    runcommand: RuncommandRepository,
 }
 impl ScriptService {
-    pub fn new(rocks: RocksRepository) -> Self {
-        ScriptService { rocks }
+    pub fn new(rocks: RocksRepository, runcommand: RuncommandRepository) -> Self {
+        ScriptService { rocks, runcommand }
     }
 
     fn rocks(&self) -> RocksRepository {
         self.rocks.clone()
+    }
+
+    fn runcommand(&self) -> RuncommandRepository {
+        self.runcommand.clone()
     }
 
     pub fn list(&self) -> Vec<Script> {
@@ -104,5 +109,17 @@ impl ScriptService {
         let mut binding: ProjectScript = serde_json::from_str(&res.value).unwrap();
         binding.remove_script(script.get_name());
         self.rocks().put("project_script", &script.get_project_name(), &serde_json::to_string(&binding).unwrap());
+    }
+
+    pub fn run(&self, name: &str) {
+        let script = self.get(name);
+        let commands = script.get_commands();
+        let mut args: Vec<&str> = commands[0].split(" ").collect();
+        println!("{:?}", args);
+        args.rotate_left(1);
+        let command = args.pop().unwrap();
+        let runcommand = self.runcommand().program(command).args(args);
+        let res = runcommand.exec();
+        println!("{:?}", res);
     }
 }

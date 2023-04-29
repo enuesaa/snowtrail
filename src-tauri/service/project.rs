@@ -36,11 +36,9 @@ impl ProjectService {
 
     pub fn list(&self) -> Vec<Project> {
         let kvs = self.rocks().list("project", "", 100);
-        let mut list: Vec<Project> = vec![];
-        for kv in kvs {
-            list.push(serde_json::from_str(&kv.value).unwrap());
-        };
-        list
+        kvs.iter().map(|kv| {
+            serde_json::from_str(&kv.value).unwrap()
+        }).collect()
     }
 
     pub fn get(&self, name: &str) -> Project {

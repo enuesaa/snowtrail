@@ -14,10 +14,20 @@ impl Subscribe {
     }
 }
 
-pub struct SubscribeService {}
+pub struct SubscribeService {
+    rocks: RocksRepository,
+}
 impl SubscribeService {
-    pub fn list(rocks: RocksRepository) -> Vec<Subscribe> {
-        let kvs = rocks.list("subscribe", "", 100);
+    pub fn new(rocks: RocksRepository) -> Self {
+        SubscribeService { rocks }
+    }
+
+    fn rocks(&self) -> RocksRepository {
+        self.rocks.clone()
+    }
+
+    pub fn list(&self) -> Vec<Subscribe> {
+        let kvs = self.rocks().list("subscribe", "", 100);
         let mut list: Vec<Subscribe> = vec![];
         for kv in kvs {
             let mut subscribe: Subscribe = serde_json::from_str(&kv.value).unwrap();
@@ -27,20 +37,20 @@ impl SubscribeService {
         list
     }
 
-    pub fn get(rocks: RocksRepository, id: &str) -> Subscribe {
-        let res = rocks.get("subscribe", id);
+    pub fn get(&self, id: &str) -> Subscribe {
+        let res = self.rocks().get("subscribe", id);
         let mut subscribe: Subscribe = serde_json::from_str(&res.value).unwrap();
         subscribe.id = Some(res.key);
         subscribe
     }
 
-    pub fn create(rocks: RocksRepository, subscribe: Subscribe) -> String {
+    pub fn create(&self, subscribe: Subscribe) -> String {
         let id = Uuid::new_v4().to_string();
-        rocks.put("subscribe", &id, &serde_json::to_string(&subscribe).unwrap());
+        self.rocks().put("subscribe", &id, &serde_json::to_string(&subscribe).unwrap());
         id
     }
 
-    pub fn delete(rocks: RocksRepository, id: &str) {
-        rocks.delete("subscribe", id);
+    pub fn delete(&self, id: &str) {
+        self.rocks().delete("subscribe", id);
     }
 }

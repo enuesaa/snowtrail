@@ -29,11 +29,20 @@ impl Event {
     }
 }
 
-pub struct EventService {}
+pub struct EventService {
+    rocks: RocksRepository,
+}
 impl EventService {
-    pub fn list(rocks: RocksRepository) -> Vec<Event> {
-        let kvs = rocks.list("event", "", 100);
-        println!("{:?}", kvs);
+    pub fn new(rocks: RocksRepository) -> Self {
+        EventService { rocks }
+    }
+
+    fn rocks(&self) -> RocksRepository {
+        self.rocks.clone()
+    }
+
+    pub fn list(&self) -> Vec<Event> {
+        let kvs = self.rocks().list("event", "", 100);
         let mut list: Vec<Event> = vec![];
         for kv in kvs {
             let mut event: Event = serde_json::from_str(&kv.value).unwrap();
@@ -43,20 +52,20 @@ impl EventService {
         list
     }
 
-    pub fn get(rocks: RocksRepository, id: &str) -> Event {
-        let res = rocks.get("event", id);
+    pub fn get(&self, id: &str) -> Event {
+        let res = self.rocks().get("event", id);
         let mut event: Event = serde_json::from_str(&res.value).unwrap();
         event.id = Some(res.key);
         event
     }
 
-    pub fn create(rocks: RocksRepository, event: Event) -> String {
+    pub fn create(&self, event: Event) -> String {
         let id = Uuid::new_v4().to_string();
-        rocks.put("event", &id, &serde_json::to_string(&event).unwrap());
+        self.rocks().put("event", &id, &serde_json::to_string(&event).unwrap());
         id
     }
 
-    pub fn delete(rocks: RocksRepository, id: &str) {
-        rocks.delete("event", id);
+    pub fn delete(&self, id: &str) {
+        self.rocks().delete("event", id);
     }
 }
