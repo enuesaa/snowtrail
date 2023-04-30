@@ -1,5 +1,7 @@
 use serde::{Serialize, Deserialize};
-use crate::repository::{rocks::RocksRepository, runcommand::{self, RuncommandRepository}};
+use crate::repository::{rocks::RocksRepository, runcommand::RuncommandRepository};
+use crate::service::withid::WithId;
+// use crate::service::crud::Crud;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Script {
@@ -22,6 +24,11 @@ impl Script {
 
     pub fn get_project_name(&self) -> String {
         self.project_name.clone().unwrap_or("".to_string())
+    }
+}
+impl WithId for Script {
+    fn set_id(&mut self, id: Option<String>) {
+        // self.id = id;
     }
 }
 
@@ -123,3 +130,14 @@ impl ScriptService {
         println!("{:?}", res);
     }
 }
+
+
+// impl Crud<Script> for ScriptService {
+//     fn rocks(&self) -> RocksRepository {
+//         self.rocks.clone()
+//     }
+
+//     fn cfname(&self) -> &str {
+//         "script"
+//     }
+// }

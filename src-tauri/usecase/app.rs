@@ -34,7 +34,7 @@ impl AppUsecase {
         ProjectService::new(self.rocks()).get(id)
     }
     
-    pub fn create_project(&self, project: Project) {
+    pub fn create_project(&self, project: Project) -> String {
         ProjectService::new(self.rocks()).create(project)
     }
 

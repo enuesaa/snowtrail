@@ -1,6 +1,7 @@
 use serde::{Serialize, Deserialize};
 use crate::repository::rocks::RocksRepository;
 use crate::service::crud::Crud;
+use crate::service::withid::WithId;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct EventKv {
@@ -27,6 +28,11 @@ impl Event {
         self.tags.push(name.to_string());
     }
 }
+impl WithId for Event {
+    fn set_id(&mut self, id: Option<String>) {
+        self.id = id;
+    }
+}
 
 pub struct EventService {
     rocks: RocksRepository,
@@ -41,7 +47,6 @@ impl Crud<Event> for EventService {
     fn rocks(&self) -> RocksRepository {
         self.rocks.clone()
     }
-
     fn cfname(&self) -> &str {
         "event"
     }
