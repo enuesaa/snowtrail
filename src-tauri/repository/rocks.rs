@@ -31,7 +31,7 @@ impl RocksRepository {
     }
 
     pub fn cfs() -> Vec<String> {
-        ["event", "workspace", "project", "script", "project_script"].iter().map(|s| s.to_string()).collect()
+        ["event", "workspace", "project", "script", "binding"].iter().map(|s| s.to_string()).collect()
     }
 
     pub fn path() -> String {

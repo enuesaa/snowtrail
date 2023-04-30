@@ -11,7 +11,7 @@ pub struct ScriptSchema {
 
 #[tauri::command]
 pub fn script_list(project_name: String) -> Vec<ScriptSchema> {
-    let scripts = AppUsecase::new().list_scripts(project_name);
+    let scripts = AppUsecase::new().list_scripts_in_project(project_name);
     scripts.iter().map(|s| {
         ScriptSchema {
             name: s.get_name(),

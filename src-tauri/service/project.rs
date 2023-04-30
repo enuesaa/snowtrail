@@ -6,12 +6,13 @@ use crate::service::withid::WithId;
 
 #[derive(Serialize, Deserialize)]
 pub struct Project {
+    id: Option<String>,
     name: Option<String>,
     workdir: Option<String>,
 }
 impl Project {
     pub fn new(name: String, workdir: String) -> Project {
-        Project { name: Some(name), workdir: Some(workdir) }
+        Project { id: None, name: Some(name), workdir: Some(workdir) }
     }
 
     pub fn get_name(&self) -> String {
@@ -24,7 +25,7 @@ impl Project {
 }
 impl WithId for Project {
     fn set_id(&mut self, id: Option<String>) {
-        // self.id = id;
+        self.id = id;
     }
 }
 

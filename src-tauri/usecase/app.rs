@@ -1,10 +1,11 @@
 use crate::repository::rocks::RocksRepository;
 use crate::repository::runcommand::RuncommandRepository;
 use crate::service::project::{Project, ProjectService};
-use crate::service::script::{Script, ScriptService};
+use crate::service::script::{Script, ScriptService, self};
 use crate::service::subscribe::{Subscribe, SubscribeService};
 use crate::service::event::{Event, EventService};
 use crate::service::crud::Crud;
+use crate::service::binding::BindingService;
 
 pub struct AppUsecase {
     rocks: RocksRepository,
@@ -42,21 +43,31 @@ impl AppUsecase {
         ProjectService::new(self.rocks()).delete(id)
     }
 
-    pub fn list_scripts(&self, project_name: String) -> Vec<Script> {
-        ScriptService::new(self.rocks(), self.runcommand()).list_in_project(project_name)
+    pub fn list_scripts(&self) -> Vec<Script> {
+        ScriptService::new(self.rocks(), self.runcommand()).list()
+    }
+
+    pub fn list_scripts_in_project(&self, project_name: String) -> Vec<Script> {
+        let binding = BindingService::new(self.rocks()).get(&format!("project-script-{}", project_name));
+        binding.list().iter().map(|id| {
+            ScriptService::new(self.rocks(), self.runcommand()).get(id)
+        }).collect()
     }
     
     pub fn get_script(&self, id: &str) -> Script {
         ScriptService::new(self.rocks(), self.runcommand()).get(id)
     }
     
-    pub fn create_script(&self, script: Script) {
-        ScriptService::new(self.rocks(), self.runcommand()).create(script)
+    pub fn create_script(&self, script: Script) -> String {
+        let id = ScriptService::new(self.rocks(), self.runcommand()).create(script.clone());
+        BindingService::new(self.rocks()).add(&format!("project-script-{}", script.get_project_name()), id.clone());
+        id
     }
 
     pub fn delete_script(&self, id: &str) {
         let script = ScriptService::new(self.rocks(), self.runcommand()).get(id);
-        ScriptService::new(self.rocks(), self.runcommand()).delete(script)
+        ScriptService::new(self.rocks(), self.runcommand()).delete(id);
+        BindingService::new(self.rocks()).add(&format!("project-script-{}", script.get_project_name()), id.to_string());
     }
 
     pub fn run_script(&self, id: &str) {
