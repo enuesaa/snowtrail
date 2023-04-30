@@ -5,17 +5,17 @@ import Link from 'next/link'
 import { FaPlus } from 'react-icons/fa'
 
 type ItemProps = {
-  title: string
+  id: string
   name: string
 }
-const Item = ({ title, name }: ItemProps) => {
+const Item = ({ id, name }: ItemProps) => {
   const styles = useStyles((theme) => ({
     link: theme({ surf: 'sub', size: 'x1', decorate: 'rounded', around: 'x2' }),
   }))
 
   return (
-    <Link href={`/projects/${name}`} css={styles.link}>
-      {title}
+    <Link href={`/projects/${id}`} css={styles.link}>
+      {name}
     </Link>
   )
 }
@@ -33,9 +33,9 @@ export const Dashboard = () => {
           <FaPlus />
         </Link>
       </PageSubTitle>
-      {projects.map((p) => (
-        <Item key={p.name} name={p.name} title={p.name} />
-      ))}
+      {projects.map(p => 
+        typeof p.id === 'string' ? <Item key={p.name} id={p.id} name={p.name} /> : <></>
+      )}
     </section>
   )
 }

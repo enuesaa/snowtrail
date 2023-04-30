@@ -27,10 +27,10 @@ pub fn event_publish(data: EventPublishSchema) -> String {
 pub fn event_list() -> Vec<EventPublishSchema> {
     let events = AppUsecase::new().list_events();
     events.iter().map(|e| {
-        let value: Vec<EventPublishKvSchema> = e.kvs.iter().map(|v| {
+        let value: Vec<EventPublishKvSchema> = e.get_kvs().iter().map(|v| {
             return EventPublishKvSchema { name: v.name.clone(), value: v.value.clone() }
         }).collect();
-        EventPublishSchema { id: e.id.clone(), name: e.name.clone(), kvs: value }
+        EventPublishSchema { id: e.get_id(), name: e.get_name(), kvs: value }
     }).collect()
 }
 
@@ -38,9 +38,9 @@ pub fn event_list() -> Vec<EventPublishSchema> {
 pub fn event_get(id: String) -> EventPublishSchema {
     let event = AppUsecase::new().get_event(&id);
     EventPublishSchema {
-        id: event.id,
-        name: event.name,
-        kvs: event.kvs.iter().map(|v| {
+        id: event.get_id(),
+        name: event.get_name(),
+        kvs: event.get_kvs().iter().map(|v| {
             EventPublishKvSchema { name: v.name.clone(), value: v.value.clone() }
         }).collect(),
     }

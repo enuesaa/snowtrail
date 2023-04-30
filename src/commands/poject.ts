@@ -1,8 +1,9 @@
 import { queriesInit } from '@/commands/use'
 
 export type Project = {
-  name: string
-  workdir: string
+  id?: string | null;
+  name: string;
+  workdir: string;
 }
 export const { useProjectListQuery, useProjectListLazy } = queriesInit<void, Project[]>('project_list')
 

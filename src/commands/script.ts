@@ -1,9 +1,10 @@
 import { queriesInit } from '@/commands/use'
 
 export type Script = {
-  name: string
-  commands: string[]
-  project_name: string
+  id?: string | null;
+  name: string;
+  commands: string[];
+  project_name: string;
 }
 
 export const { useScriptListQuery, useScriptListLazy } = queriesInit<{ projectName: string }, Script[]>('script_list')

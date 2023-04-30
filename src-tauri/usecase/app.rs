@@ -47,7 +47,7 @@ impl AppUsecase {
         ScriptService::new(self.rocks(), self.runcommand()).list()
     }
 
-    pub fn list_scripts_in_project(&self, project_name: String) -> Vec<Script> {
+    pub fn list_scripts_in_project(&self, project_name: &str) -> Vec<Script> {
         let binding = BindingService::new(self.rocks()).get(&format!("project-script-{}", project_name));
         binding.list().iter().map(|id| {
             ScriptService::new(self.rocks(), self.runcommand()).get(id)

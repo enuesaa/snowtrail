@@ -10,14 +10,30 @@ pub struct EventKv {
 }
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Event {
-    pub id: Option<String>,
-    pub name: String,
-    pub kvs: Vec<EventKv>, // like Note { name, dscription, project, save path }
-    pub tags: Vec<String>,
+    id: Option<String>,
+    name: String,
+    kvs: Vec<EventKv>, // like Note { name, dscription, project, save path }
+    tags: Vec<String>,
 }
 impl Event {
     pub fn new(name: &str) -> Self {
         Event { id: None, name: name.to_string(), kvs: vec![], tags: vec![] }
+    }
+
+    pub fn get_id(&self) -> Option<String> {
+        self.id.clone()
+    }
+    
+    pub fn get_name(&self) -> String {
+        self.name.clone()
+    }
+    
+    pub fn get_kvs(&self) -> Vec<EventKv> {
+        self.kvs.clone()
+    }
+
+    pub fn get_tags(&self) -> Vec<String> {
+        self.tags.clone()
     }
 
     pub fn kv(&mut self, name: &str, value: &str) {

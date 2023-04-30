@@ -5,11 +5,12 @@ export type SubscribeMapingSchema = {
   expression: string
 }
 export type SubscribeSchema = {
-  name: string
-  description: string
-  rule: string[]
-  script_id: string
-  mapping: SubscribeMapingSchema[]
+  id?: string | null;
+  name: string;
+  description: string;
+  rule: string[];
+  script_id: string;
+  mapping: SubscribeMapingSchema[];
 }
 
 export const { useCreateSubscribeQuery, useCreateSubscribeLazy } = queriesInit<{ data: SubscribeSchema }, {}>(

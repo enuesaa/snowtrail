@@ -4,6 +4,7 @@ use crate::usecase::app::AppUsecase;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SubscribeSchema {
+    id: Option<String>,
     name: String,
     matched: String,
     script_name: String,
@@ -13,14 +14,14 @@ pub struct SubscribeSchema {
 pub fn subscribe_list() -> Vec<SubscribeSchema> {
     let subscribes = AppUsecase::new().list_subscribes();
     subscribes.iter().map(|s| {
-        SubscribeSchema { name: s.name.clone(), matched: "".to_string(), script_name: "".to_string() }
+        SubscribeSchema { id: s.get_id(), name: s.get_name(), matched: "".to_string(), script_name: "".to_string() }
     }).collect()
 }
 
 #[tauri::command]
 pub fn subscribe_get(id: String) -> SubscribeSchema {
     let subscribe = AppUsecase::new().get_subscribe(&id);
-    SubscribeSchema { name: subscribe.name, matched: "".to_string(), script_name: "".to_string() }
+    SubscribeSchema { id: subscribe.get_id(), name: subscribe.get_name(), matched: "".to_string(), script_name: "".to_string() }
 }
 
 #[tauri::command]

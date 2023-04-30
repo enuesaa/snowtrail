@@ -15,6 +15,10 @@ impl Script {
         Script { id: None, name: Some(name), commands: Some(commands), project_name: Some(project_name) }
     }
 
+    pub fn get_id(&self) -> Option<String> {
+        self.id.clone()
+    }
+
     pub fn get_name(&self) -> String {
         self.name.clone().unwrap_or("".to_string())
     }
