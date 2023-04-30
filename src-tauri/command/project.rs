@@ -7,6 +7,7 @@ pub struct ProjectSchema {
     name: String,
     workdir: String,
 }
+
 #[tauri::command]
 pub fn project_list() -> Vec<ProjectSchema> {
     let projects = AppUsecase::new().list_projects();

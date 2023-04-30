@@ -1,10 +1,26 @@
-use rocksdb::{DB, Options, SingleThreaded, DBWithThreadMode};
+use rocksdb::{DB, Options, SingleThreaded, DBWithThreadMode, ColumnFamily};
 use dirs::home_dir;
 
 #[derive(Debug, Clone)]
-pub struct Kv {
+pub struct RocksKv {
     pub key: String,
     pub value: String,
+}
+impl From<&str> for RocksKv {
+    fn from(key: &str) -> Self {
+        RocksKv { key: key.to_string(), value: "{}".to_string() }
+    }
+}
+impl RocksKv {
+    pub fn key(mut self, key: Vec<u8>) -> Self {
+        self.key = String::from_utf8(key).unwrap();
+        self
+    }
+
+    pub fn value(mut self, value: Vec<u8>) -> Self {
+        self.value = String::from_utf8(value).unwrap();
+        self
+    }
 }
 
 #[derive(Clone)]
@@ -15,112 +31,94 @@ impl RocksRepository {
     }
 
     pub fn cfs() -> Vec<String> {
-        // need to write here ?
-        vec![
-            "event".to_string(),
-            "workspace".to_string(),
-            "project".to_string(),
-            "script".to_string(),
-            "project_script".to_string(),
-        ]
+        ["event", "workspace", "project", "script", "project_script"].iter().map(|s| s.to_string()).collect()
     }
 
     pub fn path() -> String {
-        let mut path = home_dir().unwrap();
-        path.push(".snowtrail/rocksdb");
+        let path = home_dir().unwrap().join(".snowtrail/rocksdb");
         path.to_str().unwrap().to_string()
     }
 
-    pub fn connect() -> DBWithThreadMode<SingleThreaded> {
-        let mut opts = Options::default();
+    pub fn options() -> Options {
+        let mut opts: Options = Options::default();
         opts.create_if_missing(true);
         opts.create_missing_column_families(true);
-        if let Err(err) = DB::open_cf(&opts, RocksRepository::path(), RocksRepository::cfs()) {
-            println!("{:?}", err);
-            panic!("open failed because");
-        };
-        DB::open_cf(&opts, "rocksdb", RocksRepository::cfs()).unwrap()
+        opts
     }
 
-    pub fn check_connect() -> String {
-        let mut opts = Options::default();
-        opts.create_if_missing(true);
-        opts.create_missing_column_families(true);
-        if let Err(err) = DB::open_cf(&opts, RocksRepository::path(), RocksRepository::cfs()) {
-            err.to_string()
-        } else {
-            "ok".to_string()
+    pub fn connect() -> DBWithThreadMode<SingleThreaded> {
+        match DB::open_cf(&Self::options(), &Self::path(), &Self::cfs()) {
+            Ok(db) => db,
+            Err(err) => panic!("Failed to open rocksdb because {message}", message = err),
         }
     }
 
-    pub fn get(self, cfname: &str, key: &str) -> Kv {
-        let db = RocksRepository::connect();
-        let cf = db.cf_handle(cfname).unwrap();
-
-        if let Ok(Some(value)) = db.get_cf(&cf, key.as_bytes()) {
-            return Kv {
-                key: String::from(key),
-                value: String::from_utf8(value).unwrap(),
-            };
-        };
-        return Kv {
-            key: String::from(key),
-            value: String::from("{}"),
-        };
+    pub fn check_connect() -> String {
+        match DB::open_cf(&Self::options(), &Self::path(), &Self::cfs()) {
+            Ok(db) => "ok".to_string(),
+            Err(err) => err.to_string(),
+        }
     }
 
-    pub fn put(self, cfname: &str, key: &str, val: &str) {
-        let db = RocksRepository::connect();
-        let cf = db.cf_handle(cfname).unwrap();
+    pub fn cf<'a>(db: &'a DBWithThreadMode<SingleThreaded>, cfname: &'a str) -> &'a ColumnFamily {
+        db.cf_handle(cfname).unwrap()
+    }
+
+    pub fn get(&self, cfname: &str, key: &str) -> RocksKv {
+        let db = Self::connect();
+        let cf = Self::cf(&db, cfname);
+
+        match db.get_cf(cf, key.as_bytes()) {
+            Ok(Some(value)) => RocksKv::from(key).value(value),
+            Ok(None) => RocksKv::from(key),
+            Err(err) => RocksKv::from(key),
+        }
+    }
+
+    pub fn put(&self, cfname: &str, key: &str, val: &str) {
+        let db = Self::connect();
+        let cf = Self::cf(&db, cfname);
 
         let _ = db.put_cf(cf, key.as_bytes(), val.as_bytes());
     }
 
-    pub fn delete(self, cfname: &str, key: &str) {
-        let db = RocksRepository::connect();
-        let cf = db.cf_handle(cfname).unwrap();
+    pub fn delete(&self, cfname: &str, key: &str) {
+        let db = Self::connect();
+        let cf = Self::cf(&db, cfname);
 
         let _ = db.delete_cf(cf, key.as_bytes());
     }
 
-    pub fn list(self, cfname: &str, prefix: &str, limit: u8) -> Vec<Kv> {
-        let db = RocksRepository::connect();
-        let cf = db.cf_handle(cfname).unwrap();
-        let mut iter = db.raw_iterator_cf(cf);
-        iter.seek(prefix.to_string().as_bytes());
+    pub fn list(&self, cfname: &str, prefix: &str, limit: usize) -> Vec<RocksKv> {
+        let db = Self::connect();
+        let cf = Self::cf(&db, cfname);
 
-        let mut kvs: Vec<Kv> = vec![];
-        let mut i: u8 = 0;
-        while iter.valid() {
-            let (key, value) =iter.item().unwrap();
-            kvs.push(Kv {
-                key: String::from_utf8(Vec::from(key)).unwrap(),
-                value: String::from_utf8(Vec::from(value)).unwrap(),
-            });
-            iter.next();
-            i += 1;
-            if i >= limit {
+        let mut ret: Vec<RocksKv> = vec![];
+        let mut cfiter = db.raw_iterator_cf(cf);
+        cfiter.seek(prefix.to_string().as_bytes());
+        while cfiter.valid() {
+            let (key, value) = cfiter.item().unwrap();
+            ret.push(RocksKv::from("").key(key.to_vec()).value(value.to_vec()));
+            if ret.iter().count() >= limit {
                 break;
-            }
+            };
+            cfiter.next();
         };
-        kvs
+        ret
     }
 
-    pub fn list_all(self, cfname: &str, prefix: &str) -> Vec<Kv> {
-        let db = RocksRepository::connect();
-        let cf = db.cf_handle(cfname).unwrap();
-        let mut iter = db.raw_iterator_cf(cf);
-        iter.seek(prefix.to_string().as_bytes());
+    pub fn list_all(&self, cfname: &str, prefix: &str) -> Vec<RocksKv> {
+        let db = Self::connect();
+        let cf = Self::cf(&db, cfname);
 
-        let mut kvs: Vec<Kv> = vec![];
-        while iter.valid() {
-            let (key, value) =iter.item().unwrap();
-            kvs.push(Kv {
-                key: String::from_utf8(Vec::from(key)).unwrap(),
-                value: String::from_utf8(Vec::from(value)).unwrap(),
-            });
-            iter.next();
+        let mut ret: Vec<RocksKv> = vec![];
+        let mut cfiter = db.raw_iterator_cf(cf);
+        cfiter.seek(prefix.to_string().as_bytes());
+        while cfiter.valid() {
+            let (key, value) = cfiter.item().unwrap();
+            ret.push(RocksKv::from("").key(key.to_vec()).value(value.to_vec()));
+            cfiter.next();
         };
-        kvs
+        ret
     }
 }

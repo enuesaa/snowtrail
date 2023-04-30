@@ -5,7 +5,7 @@ use crate::usecase::app::AppUsecase;
 #[derive(Debug, Serialize, Deserialize)]
 pub struct SubscribeSchema {
     name: String,
-    matched: String, // can subscribe event like 'snowtrail:log:{name}#publish' or 'app:event:{name}#publish'
+    matched: String,
     script_name: String,
 }
 

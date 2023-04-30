@@ -11,8 +11,9 @@ pub struct EventPublishKvSchema {
 pub struct EventPublishSchema {
     id: Option<String>,
     name: String,
-    kvs: Vec<EventPublishKvSchema>, // like Note { name, dscription, project, save path }
+    kvs: Vec<EventPublishKvSchema>,
 }
+
 #[tauri::command]
 pub fn event_publish(data: EventPublishSchema) -> String {
     let mut event = Event::new(&data.name);
@@ -21,7 +22,6 @@ pub fn event_publish(data: EventPublishSchema) -> String {
     });
     AppUsecase::new().create_event(event)
 }
-
 
 #[tauri::command]
 pub fn event_list() -> Vec<EventPublishSchema> {

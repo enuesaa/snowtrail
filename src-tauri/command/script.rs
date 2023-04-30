@@ -5,8 +5,8 @@ use crate::usecase::app::AppUsecase;
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ScriptSchema {
     name: String,
-    commands: Vec<String>, // createfile
-    project_name: String, // run command under this project
+    commands: Vec<String>,
+    project_name: String,
 }
 
 #[tauri::command]
