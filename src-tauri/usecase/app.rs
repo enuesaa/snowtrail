@@ -1,7 +1,7 @@
 use crate::repository::rocks::RocksRepository;
 use crate::repository::runcommand::RuncommandRepository;
 use crate::service::project::{Project, ProjectService};
-use crate::service::script::{Script, ScriptService, self};
+use crate::service::script::{Script, ScriptService};
 use crate::service::subscribe::{Subscribe, SubscribeService};
 use crate::service::event::{Event, EventService};
 use crate::service::crud::Crud;
@@ -47,8 +47,8 @@ impl AppUsecase {
         ScriptService::new(self.rocks(), self.runcommand()).list()
     }
 
-    pub fn list_scripts_in_project(&self, project_name: &str) -> Vec<Script> {
-        let binding = BindingService::new(self.rocks()).get(&format!("project-script-{}", project_name));
+    pub fn list_scripts_in_project(&self, project_id: &str) -> Vec<Script> {
+        let binding = BindingService::new(self.rocks()).get(&format!("project-script-{}", project_id));
         binding.list().iter().map(|id| {
             ScriptService::new(self.rocks(), self.runcommand()).get(id)
         }).collect()
@@ -60,20 +60,29 @@ impl AppUsecase {
     
     pub fn create_script(&self, script: Script) -> String {
         let id = ScriptService::new(self.rocks(), self.runcommand()).create(script.clone());
-        BindingService::new(self.rocks()).add(&format!("project-script-{}", script.get_project_name()), id.clone());
+        BindingService::new(self.rocks()).add(&format!("project-script-{}", script.get_project_id()), id.clone());
         id
     }
 
     pub fn delete_script(&self, id: &str) {
         let script = ScriptService::new(self.rocks(), self.runcommand()).get(id);
         ScriptService::new(self.rocks(), self.runcommand()).delete(id);
-        BindingService::new(self.rocks()).add(&format!("project-script-{}", script.get_project_name()), id.to_string());
+        BindingService::new(self.rocks()).add(&format!("project-script-{}", script.get_project_id()), id.to_string());
     }
 
     pub fn run_script(&self, id: &str) {
         ScriptService::new(self.rocks(), self.runcommand()).run(id);
-        let event = Event::new("snowtrail:command:run");
-        EventService::new(self.rocks()).create(event);
+        self.publish_event("snowtrail:command:run");
+    }
+
+    fn publish_event(&self, name: &str) -> String {
+        let event = Event::new(name);
+        let id = EventService::new(self.rocks()).create(event.clone());
+        let subscribes = SubscribeService::new(self.rocks()).list_triggered(event);
+        subscribes.iter().for_each(|s| {
+            self.publish_event("snowtrail:test:subscribe-triggered");
+        });
+        id
     }
 
     pub fn list_events(&self) -> Vec<Event> {
@@ -85,11 +94,7 @@ impl AppUsecase {
     }
 
     pub fn create_event(&self, event: Event) -> String {
-        // trigger event
-        let id = EventService::new(self.rocks()).create(event);
-        // publish
-        // trigger event
-        id
+        self.publish_event(&event.get_name())
     }
 
     pub fn delete_event(&self, id: &str) {

@@ -31,7 +31,6 @@ export const Dashboard = () => {
     main: theme({ around: 'x1tb' }),
   }))
   const events = useEventListQuery({})
-  console.log(events)
 
   return (
     <section css={styles.main}>

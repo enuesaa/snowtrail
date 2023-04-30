@@ -8,11 +8,11 @@ pub struct Script {
     id: Option<String>,
     name: Option<String>,
     commands: Option<Vec<String>>,
-    project_name: Option<String>,
+    project_id: Option<String>,
 }
 impl Script {
-    pub fn new(name: String, commands: Vec<String>, project_name: String) -> Self {
-        Script { id: None, name: Some(name), commands: Some(commands), project_name: Some(project_name) }
+    pub fn new(name: String, commands: Vec<String>, project_id: String) -> Self {
+        Script { id: None, name: Some(name), commands: Some(commands), project_id: Some(project_id) }
     }
 
     pub fn get_id(&self) -> Option<String> {
@@ -27,8 +27,8 @@ impl Script {
         self.commands.clone().unwrap_or(vec![])
     }
 
-    pub fn get_project_name(&self) -> String {
-        self.project_name.clone().unwrap_or("".to_string())
+    pub fn get_project_id(&self) -> String {
+        self.project_id.clone().unwrap_or("".to_string())
     }
 }
 impl WithId for Script {

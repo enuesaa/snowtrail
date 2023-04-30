@@ -5,25 +5,24 @@ import Link from 'next/link'
 import { FaPlus } from 'react-icons/fa'
 
 type Props = {
-  projectName: string
+  projectId: string
 }
-export const ScriptList = ({ projectName }: Props) => {
-  const scripts = useScriptListQuery({ projectName }) ?? []
+export const ScriptList = ({ projectId }: Props) => {
+  const scripts = useScriptListQuery({ projectId }) ?? []
   const styles = useStyles((theme) => ({
     addLink: theme({ size: 'x1' }),
     item: theme({ surf: 'sub', decorate: 'rounded', around: 'x2' }),
   }))
-  console.log(scripts);
 
   return (
     <>
       <PageSubTitle title='Scripts'>
-        <Link href={`/projects/${projectName}/scripts?create`} css={styles.addLink}>
+        <Link href={`/projects/${projectId}/scripts?create`} css={styles.addLink}>
           <FaPlus />
         </Link>
       </PageSubTitle>
       {scripts.map((s, i) => (
-        <Link href={`/projects/${projectName}/scripts/${s.name}`} css={styles.item} key={i}>{s.name}</Link>
+        <Link href={`/projects/${projectId}/scripts/${s.id}`} css={styles.item} key={i}>{s.name}</Link>
       ))}
     </>
   )

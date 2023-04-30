@@ -6,10 +6,10 @@ import { MouseEventHandler } from 'react'
 import { Dashboard as SubscribeDashboard } from '@/components/subscribe/Dashboard'
 
 type Props = {
-  name: string
+  id: string
 }
-export const Detail = ({ name }: Props) => {
-  const project = useProjectGetQuery({ name })
+export const Detail = ({ id }: Props) => {
+  const project = useProjectGetQuery({ id })
   const { invoke: invokeDeleteProject } = useProjectDeleteLazy()
   const styles = useStyles((theme) => ({
     deleteBtn: theme({ surf: 'sub', size: 'x1', around: 'x2', decorate: 'rounded' }),
@@ -19,14 +19,14 @@ export const Detail = ({ name }: Props) => {
   }
   const handleDeleteProject: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault()
-    invokeDeleteProject({ name })
+    invokeDeleteProject({ id })
   }
 
   return (
     <section>
       <PageTitle title={`${project.name}`} />
       Detail: NextJS App
-      <ScriptList projectName={name} />
+      <ScriptList projectId={id} />
       <SubscribeDashboard />
       <button onClick={handleDeleteProject} css={styles.deleteBtn}>
         delete

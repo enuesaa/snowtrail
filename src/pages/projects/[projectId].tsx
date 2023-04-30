@@ -3,14 +3,14 @@ import { useRouter } from 'next/router'
 
 export default function Page() {
   const router = useRouter()
-  const { name } = router.query
-  if (typeof name !== 'string') {
+  const { projectId } = router.query
+  if (typeof projectId !== 'string') {
     return <></>
   }
 
   return (
     <>
-      <Detail name={name} />
+      <Detail id={projectId} />
     </>
   )
 }

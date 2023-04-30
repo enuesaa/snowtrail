@@ -3,12 +3,12 @@ import { useRouter } from 'next/router'
 
 export default function Page() {
   const router = useRouter()
-  const { name: projectName, create } = router.query
-  if (typeof projectName !== 'string') {
+  const { projectId, create } = router.query
+  if (typeof projectId !== 'string') {
     return <></>
   }
 
   return (
-    <>{create === undefined ? <></> : <ScriptAdd projectName={projectName} />}</>
+    <>{create === undefined ? <></> : <ScriptAdd projectId={projectId} />}</>
   )
 }

@@ -3,14 +3,14 @@ import { useRouter } from 'next/router'
 
 export default function Page() {
   const router = useRouter()
-  const { name: projectName, scriptName } = router.query
-  if (typeof projectName !== 'string' || typeof scriptName !== 'string') {
+  const { projectId, scriptId } = router.query
+  if (typeof projectId !== 'string' || typeof scriptId !== 'string') {
     return <></>
   }
 
   return (
     <>
-      <ScriptDetail name={scriptName} />
+      <ScriptDetail id={scriptId} />
     </>
   )
 }

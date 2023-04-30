@@ -9,9 +9,9 @@ type FormData = {
   command: string
 }
 type Props = {
-  projectName: string
+  projectId: string
 }
-export const ScriptAdd = ({ projectName }: Props) => {
+export const ScriptAdd = ({ projectId }: Props) => {
   const { invoke: invokeCreateScript } = useScriptCreateLazy()
   const { register, handleSubmit } = useForm<FormData>()
 
@@ -19,7 +19,7 @@ export const ScriptAdd = ({ projectName }: Props) => {
     const req = {
       name: data.name,
       commands: [data.command],
-      project_name: projectName,
+      project_id: projectId,
     }
     invokeCreateScript({ data: req })
   })

@@ -7,21 +7,21 @@ pub struct SubscribeSchema {
     id: Option<String>,
     name: String,
     matched: String,
-    script_name: String,
+    script_id: String,
 }
 
 #[tauri::command]
 pub fn subscribe_list() -> Vec<SubscribeSchema> {
     let subscribes = AppUsecase::new().list_subscribes();
     subscribes.iter().map(|s| {
-        SubscribeSchema { id: s.get_id(), name: s.get_name(), matched: "".to_string(), script_name: "".to_string() }
+        SubscribeSchema { id: s.get_id(), name: s.get_name(), matched: "".to_string(), script_id: "".to_string() }
     }).collect()
 }
 
 #[tauri::command]
 pub fn subscribe_get(id: String) -> SubscribeSchema {
     let subscribe = AppUsecase::new().get_subscribe(&id);
-    SubscribeSchema { id: subscribe.get_id(), name: subscribe.get_name(), matched: "".to_string(), script_name: "".to_string() }
+    SubscribeSchema { id: subscribe.get_id(), name: subscribe.get_name(), matched: "".to_string(), script_id: "".to_string() }
 }
 
 #[tauri::command]

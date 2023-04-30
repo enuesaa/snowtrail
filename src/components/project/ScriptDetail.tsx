@@ -4,10 +4,10 @@ import { MouseEventHandler } from 'react'
 import { useStyles } from '@/styles/use';
 
 type Props = {
-  name: string;
+  id: string;
 }
-export const ScriptDetail = ({ name }: Props) => {
-  const script = useScriptGetQuery({ name })
+export const ScriptDetail = ({ id }: Props) => {
+  const script = useScriptGetQuery({ id })
   const { invoke: invokeDeleteScript } = useScriptDeleteLazy()
   const { invoke: invokeRunScript } = useScriptRunLazy()
   const styles = useStyles(theme => ({
@@ -18,12 +18,14 @@ export const ScriptDetail = ({ name }: Props) => {
   }
   const handleDeleteScrpt: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault()
-    invokeDeleteScript({ name })
+    invokeDeleteScript({ id })
   }
   const handleRunCommand: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault()
-    invokeRunScript({ name })
+    invokeRunScript({ id })
   }
+  console.log(id)
+  console.log(script)
 
   return (
     <section>

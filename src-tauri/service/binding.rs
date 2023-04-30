@@ -5,12 +5,16 @@ use crate::service::withid::WithId;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct Binding {
-    pub id: Option<String>,
-    pub list: Option<Vec<String>>,
+    id: Option<String>,
+    list: Option<Vec<String>>,
 }
 impl Binding {
-    pub fn new(name: &str) -> Self {
+    pub fn new() -> Self {
         Binding { id: None, list: Some(vec![]) }
+    }
+
+    pub fn get_id(&self) -> Option<String> {
+        self.id.clone()
     }
 
     pub fn add(&mut self, name: String) {

@@ -34,7 +34,7 @@ export const Dashboard = () => {
         </Link>
       </PageSubTitle>
       {projects.map(p => 
-        typeof p.id === 'string' ? <Item key={p.name} id={p.id} name={p.name} /> : <></>
+        typeof p.id === 'string' ? <Item key={p.id} id={p.id} name={p.name} /> : <></>
       )}
     </section>
   )
