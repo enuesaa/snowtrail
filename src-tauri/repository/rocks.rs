@@ -55,7 +55,7 @@ impl RocksRepository {
 
     pub fn check_connect() -> String {
         match DB::open_cf(&Self::options(), &Self::path(), &Self::cfs()) {
-            Ok(db) => "ok".to_string(),
+            Ok(_) => "ok".to_string(),
             Err(err) => err.to_string(),
         }
     }
@@ -71,7 +71,7 @@ impl RocksRepository {
         match db.get_cf(cf, key.as_bytes()) {
             Ok(Some(value)) => RocksKv::from(key).value(value),
             Ok(None) => RocksKv::from(key),
-            Err(err) => RocksKv::from(key),
+            Err(_) => RocksKv::from(key),
         }
     }
 

@@ -4,6 +4,7 @@ use crate::service::project::{Project, ProjectService};
 use crate::service::script::{Script, ScriptService};
 use crate::service::subscribe::{Subscribe, SubscribeService};
 use crate::service::event::{Event, EventService};
+use crate::service::crud::Crud;
 
 pub struct AppUsecase {
     rocks: RocksRepository,

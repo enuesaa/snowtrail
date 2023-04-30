@@ -1,7 +1,6 @@
 use serde::{Serialize, Deserialize};
-use serde_json;
 use crate::repository::rocks::RocksRepository;
-use uuid::Uuid;
+use crate::service::crud::Crud;
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct EventKv {
@@ -36,36 +35,14 @@ impl EventService {
     pub fn new(rocks: RocksRepository) -> Self {
         EventService { rocks }
     }
+}
 
+impl Crud<Event> for EventService {
     fn rocks(&self) -> RocksRepository {
         self.rocks.clone()
     }
 
-    pub fn list(&self) -> Vec<Event> {
-        let kvs = self.rocks().list("event", "", 100);
-        let mut list: Vec<Event> = vec![];
-        for kv in kvs {
-            let mut event: Event = serde_json::from_str(&kv.value).unwrap();
-            event.id = Some(kv.key);
-            list.push(event);
-        };
-        list
-    }
-
-    pub fn get(&self, id: &str) -> Event {
-        let res = self.rocks().get("event", id);
-        let mut event: Event = serde_json::from_str(&res.value).unwrap();
-        event.id = Some(res.key);
-        event
-    }
-
-    pub fn create(&self, event: Event) -> String {
-        let id = Uuid::new_v4().to_string();
-        self.rocks().put("event", &id, &serde_json::to_string(&event).unwrap());
-        id
-    }
-
-    pub fn delete(&self, id: &str) {
-        self.rocks().delete("event", id);
+    fn cfname(&self) -> &str {
+        "event"
     }
 }
