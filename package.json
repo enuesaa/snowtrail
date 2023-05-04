@@ -12,26 +12,26 @@
     "next:format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
-    "@emotion/react": "^11.10.6",
-    "@tauri-apps/api": "^1.2.0",
+    "@emotion/react": "^11.10.8",
+    "@tauri-apps/api": "^1.3.0",
     "emotion-normalize": "^11.0.1",
-    "jotai": "^2.0.3",
+    "jotai": "^2.0.4",
     "nanoid": "^4.0.2",
-    "next": "13.2.4",
+    "next": "13.3.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.2.3",
-    "@types/node": "18.15.11",
-    "@types/react": "18.0.33",
-    "@types/react-dom": "18.0.11",
-    "eslint": "8.37.0",
-    "eslint-config-next": "13.2.4",
-    "prettier": "^2.8.7",
+    "@tauri-apps/cli": "^1.3.0",
+    "@types/node": "18.16.3",
+    "@types/react": "18.2.4",
+    "@types/react-dom": "18.2.3",
+    "eslint": "8.39.0",
+    "eslint-config-next": "13.3.4",
+    "prettier": "^2.8.8",
     "prettier-plugin-organize-imports": "^3.2.2",
-    "typescript": "5.0.3"
+    "typescript": "5.0.4"
   }
 }
