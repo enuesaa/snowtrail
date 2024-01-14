@@ -1,12 +1,12 @@
 {
   "build": {
-    "beforeBuildCommand": "yarn next:build",
-    "beforeDevCommand": "yarn next:dev",
+    "beforeBuildCommand": "pnpm next:build",
+    "beforeDevCommand": "pnpm next:dev",
     "devPath": "http://localhost:3000",
     "distDir": "./dist"
   },
   "package": {
-    "productName": "snowtrail-app",
+    "productName": "snowtrail",
     "version": "0.1.0"
   },
   "tauri": {

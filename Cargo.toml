@@ -3,7 +3,7 @@ crate-type = ["bin"]
 path = "src-tauri/main.rs"
 
 [package]
-name = "snowtrail-app"
+name = "snowtrail"
 version = "0.1.0"
 edition = "2021"
 
