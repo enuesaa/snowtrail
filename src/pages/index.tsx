@@ -4,8 +4,8 @@ import { Dashboard as EventDashboard } from '@/components/event/Dashboard'
 export default function Page() {
   return (
     <>
-      <ProejctDashboard />
-      <EventDashboard />
+      {/* <ProejctDashboard /> */}
+      {/* <EventDashboard /> */}
     </>
   )
 }

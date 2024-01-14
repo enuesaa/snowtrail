@@ -39,9 +39,9 @@ export const Header = () => {
           snowtrail
         </Link>
       </div>
-      <Link href='/publisher' css={styles.iconlink}>
+      {/* <Link href='/publisher' css={styles.iconlink}>
         <MdSnowboarding />
-      </Link>
+      </Link> */}
       <Link href='/settings' css={styles.iconlink}>
         <MdOutlineSettings />
       </Link>
