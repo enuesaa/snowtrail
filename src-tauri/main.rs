@@ -6,15 +6,22 @@ pub mod usecase;
 #[cfg(target_os = "macos")]
 #[macro_use]
 extern crate objc;
-use tauri::{Manager, Builder, Wry, CustomMenuItem, SystemTray, SystemTrayMenu, SystemTrayEvent, SystemTrayMenuItem};
+use tauri::{Manager, Builder, Wry, CustomMenuItem, SystemTray, SystemTrayMenu};
 use repository::runcommand::RuncommandRepository;
 
 fn main() {
     initialize();
 
+    // see https://tauri.app/v1/guides/features/system-tray/#preventing-the-app-from-closing
     create_app()
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+        .build(tauri::generate_context!())
+        .expect("error while building tauri application")
+        .run(|_app_handle, event| match event {
+            tauri::RunEvent::ExitRequested { api, .. } => {
+                api.prevent_exit();
+            }
+            _ => {}
+        });
 }
 
 fn initialize() {
