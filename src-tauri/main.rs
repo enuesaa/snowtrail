@@ -8,9 +8,10 @@ pub mod usecase;
 extern crate objc;
 use tauri::{Manager, Builder, Wry, CustomMenuItem, SystemTray, SystemTrayMenu, SystemTrayEvent};
 use repository::runcommand::RuncommandRepository;
+use command::script;
 
 fn main() {
-    initialize();
+    RuncommandRepository::initialize();
 
     // see https://tauri.app/v1/guides/features/system-tray/#preventing-the-app-from-closing
     create_app()
@@ -24,13 +25,11 @@ fn main() {
         });
 }
 
-fn initialize() {
-    RuncommandRepository::initialize();
-}
-
 fn create_app() -> Builder<Wry> {
     let app = Builder::default();
-    let app = command::inject_commands(app);
+    let app = app.invoke_handler(tauri::generate_handler![
+        script::script_run,
+    ]);
 
     // see https://zenn.dev/izuchy/scraps/b101088f10f806
     let hey = CustomMenuItem::new("hey".to_string(), "Hey");
@@ -62,7 +61,7 @@ fn create_app() -> Builder<Wry> {
                 }
             }
             _ => {}
-          })
+        })
         .setup(|app| {
             let window = app.get_window("main").unwrap();
             window.with_webview(|webview| {
