@@ -6,7 +6,7 @@ pub mod usecase;
 #[cfg(target_os = "macos")]
 #[macro_use]
 extern crate objc;
-use tauri::{Manager, Builder, Wry, CustomMenuItem, SystemTray, SystemTrayMenu};
+use tauri::{Manager, Builder, Wry, CustomMenuItem, SystemTray, SystemTrayMenu, SystemTrayEvent};
 use repository::runcommand::RuncommandRepository;
 
 fn main() {
@@ -34,10 +34,35 @@ fn create_app() -> Builder<Wry> {
 
     // see https://zenn.dev/izuchy/scraps/b101088f10f806
     let hey = CustomMenuItem::new("hey".to_string(), "Hey");
-    let menu = SystemTrayMenu::new().add_item(hey);
+    let quit = CustomMenuItem::new("quit".to_string(), "Quit");
+    let hide = CustomMenuItem::new("hide".to_string(), "Hide");
+    let menu = SystemTrayMenu::new()
+        .add_item(hey)
+        .add_item(hide)
+        .add_item(quit);
 
     app
         .system_tray(SystemTray::new().with_menu(menu))
+        .on_system_tray_event(|app, event| match event {
+            SystemTrayEvent::MenuItemClick { id, .. } => {
+                match id.as_str() {
+                    "hey" => {
+                        println!("hey clicked.");
+                    }
+                    "quit" => {
+                        println!("quit clicked.");
+                        std::process::exit(0);
+                    }
+                    "hide" => {
+                        println!("hide clicked.");
+                        let window = app.get_window("main").unwrap();
+                        window.hide().unwrap();
+                    }
+                    _ => {}
+                }
+            }
+            _ => {}
+          })
         .setup(|app| {
             let window = app.get_window("main").unwrap();
             window.with_webview(|webview| {
