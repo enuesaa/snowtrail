@@ -47,6 +47,8 @@ fn create_app() -> Builder<Wry> {
                 match id.as_str() {
                     "hey" => {
                         println!("hey clicked.");
+                        let item_handle = app.tray_handle().get_item(&id);
+                        item_handle.set_title("HeyHey").unwrap();
                     }
                     "quit" => {
                         println!("quit clicked.");

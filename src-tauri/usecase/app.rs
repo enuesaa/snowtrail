@@ -10,11 +10,11 @@ impl AppUsecase {
         }
     }
 
-    fn runcommand(&self) -> RuncommandRepository {
+    pub fn runcommand(&self) -> RuncommandRepository {
         self.runcommand.clone()
     }
 
-    pub fn run_script(&self, id: &str) {
+    pub fn run_script(&self, _id: &str) {
         println!("hello");
     }
 }
