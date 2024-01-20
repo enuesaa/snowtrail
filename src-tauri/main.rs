@@ -28,7 +28,7 @@ fn main() {
 fn create_app() -> Builder<Wry> {
     let app = Builder::default();
     let app = app.invoke_handler(tauri::generate_handler![
-        script::script_run,
+        script::list_scripts,
     ]);
 
     // see https://zenn.dev/izuchy/scraps/b101088f10f806
