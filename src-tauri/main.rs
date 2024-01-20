@@ -35,10 +35,12 @@ fn create_app() -> Builder<Wry> {
 
     // see https://zenn.dev/izuchy/scraps/b101088f10f806
     let hey = CustomMenuItem::new("hey".to_string(), "Hey");
+    let saver = CustomMenuItem::new("saver".to_string(), "Saver");
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
     let hide = CustomMenuItem::new("hide".to_string(), "Hide");
     let menu = SystemTrayMenu::new()
         .add_item(hey)
+        .add_item(saver)
         .add_item(hide)
         .add_item(quit);
 
@@ -52,6 +54,10 @@ fn create_app() -> Builder<Wry> {
                         let runresult = appcase.run_script();
                         let item_handle = app.tray_handle().get_item(&id);
                         item_handle.set_title(runresult).unwrap();
+                    }
+                    "saver" => {
+                        let appcase = AppUsecase::new();
+                        appcase.savejson();
                     }
                     "quit" => {
                         std::process::exit(0);

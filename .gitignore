@@ -1,25 +1,19 @@
-# logs
-logs
-*.log
+# misc
+.DS_Store
 
 # editor
 .vscode
 
-# misc
-.DS_Store
+# logs
+logs
+*.log
 
-target
-
-# next.js
 node_modules
-.next/
 dist
+*.tsbuildinfo
+target
 
 # local env files
 .env*.local
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-rocksdb
+test.json
