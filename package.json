@@ -12,10 +12,9 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
-    "@emotion/react": "^11.11.3",
+    "@radix-ui/themes": "^2.0.3",
     "@tauri-apps/api": "^1.5.3",
     "@vanilla-extract/css": "^1.14.0",
-    "emotion-normalize": "^11.0.1",
     "jotai": "^2.6.2",
     "nanoid": "^5.0.4",
     "react": "18.2.0",

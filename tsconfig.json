@@ -12,7 +12,6 @@
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsxImportSource": "@emotion/react",
     "jsx": "preserve",
     "incremental": true,
     "baseUrl": "./"
