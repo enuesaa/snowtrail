@@ -10,6 +10,8 @@ use tauri::{Manager, Builder, Wry, CustomMenuItem, SystemTray, SystemTrayMenu, S
 use repository::runcommand::RuncommandRepository;
 use command::script;
 
+use crate::usecase::app::AppUsecase;
+
 fn main() {
     RuncommandRepository::initialize();
 
@@ -46,16 +48,15 @@ fn create_app() -> Builder<Wry> {
             SystemTrayEvent::MenuItemClick { id, .. } => {
                 match id.as_str() {
                     "hey" => {
-                        println!("hey clicked.");
+                        let appcase = AppUsecase::new();
+                        let runresult = appcase.run_script();
                         let item_handle = app.tray_handle().get_item(&id);
-                        item_handle.set_title("HeyHey").unwrap();
+                        item_handle.set_title(runresult).unwrap();
                     }
                     "quit" => {
-                        println!("quit clicked.");
                         std::process::exit(0);
                     }
                     "hide" => {
-                        println!("hide clicked.");
                         let window = app.get_window("main").unwrap();
                         window.hide().unwrap();
                     }
