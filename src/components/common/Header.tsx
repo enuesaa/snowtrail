@@ -1,7 +1,6 @@
-import { useStyles } from '@/styles/use'
-import Link from 'next/link'
+import { useStyles } from '../../styles/use'
 import { IoMdSnow } from 'react-icons/io'
-import { MdOutlineSettings, MdSnowboarding } from 'react-icons/md'
+import { MdOutlineSettings } from 'react-icons/md'
 
 export const Header = () => {
   const styles = useStyles((theme) => ({
@@ -34,17 +33,14 @@ export const Header = () => {
   return (
     <header css={styles.top}>
       <div css={styles.title}>
-        <Link href='/'>
+        <a href='/'>
           <IoMdSnow />
           snowtrail
-        </Link>
+        </a>
       </div>
-      {/* <Link href='/publisher' css={styles.iconlink}>
-        <MdSnowboarding />
-      </Link> */}
-      <Link href='/settings' css={styles.iconlink}>
+      <a href='/settings' css={styles.iconlink}>
         <MdOutlineSettings />
-      </Link>
+      </a>
     </header>
   )
 }

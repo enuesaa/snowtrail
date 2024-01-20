@@ -1,4 +1,4 @@
-import { useStyles } from '@/styles/use'
+import { useStyles } from '../../styles/use'
 import { ReactNode } from 'react'
 
 type Props = {

@@ -3,32 +3,34 @@
   "version": "0.1.0",
   "private": true,
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "dev": "tauri dev --no-watch",
     "build": "tauri build",
-    "next:dev": "next dev",
-    "next:build": "next build",
-    "next:format": "prettier --write \"src/**/*.{ts,tsx}\""
+    "vite:dev": "vite dev --port 3000",
+    "vite:build": "vite build",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\""
   },
   "dependencies": {
-    "@emotion/react": "^11.11.0",
-    "@tauri-apps/api": "^1.5.0",
+    "@emotion/react": "^11.11.3",
+    "@tauri-apps/api": "^1.5.3",
     "emotion-normalize": "^11.0.1",
-    "jotai": "^2.1.0",
-    "nanoid": "^4.0.2",
-    "next": "13.4.2",
+    "jotai": "^2.6.2",
+    "nanoid": "^5.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.43.9",
-    "react-icons": "^4.8.0"
+    "react-hook-form": "^7.49.3",
+    "react-icons": "^5.0.1",
+    "react-router-dom": "^6.21.3"
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.5.0",
-    "@types/node": "20.1.4",
-    "@types/react": "18.2.6",
-    "@types/react-dom": "18.2.4",
-    "prettier": "^2.8.8",
-    "prettier-plugin-organize-imports": "^3.2.2",
-    "typescript": "5.0.4"
+    "@tauri-apps/cli": "^1.5.9",
+    "@types/node": "20.11.5",
+    "@types/react": "18.2.48",
+    "@types/react-dom": "18.2.18",
+    "@vitejs/plugin-react": "^4.2.1",
+    "prettier": "^3.2.4",
+    "typescript": "5.3.3",
+    "vite": "^5.0.12"
   }
 }

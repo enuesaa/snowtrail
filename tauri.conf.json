@@ -1,7 +1,7 @@
 {
   "build": {
-    "beforeBuildCommand": "pnpm next:build",
-    "beforeDevCommand": "pnpm next:dev",
+    "beforeBuildCommand": "pnpm vite:build",
+    "beforeDevCommand": "pnpm vite:dev",
     "devPath": "http://localhost:3000",
     "distDir": "./dist"
   },
@@ -24,7 +24,7 @@
       "icon": [
         "public/icon.png"
       ],
-      "identifier": "dev.nsrciog.snowtrail",
+      "identifier": "dev.snowtrailapp",
       "longDescription": "",
       "macOS": {
         "entitlements": null,

@@ -1,5 +1,5 @@
-import { Header } from '@/components/common/Header'
-import { Main } from '@/components/common/Main'
+import { Header } from './Header'
+import { Main } from './Main'
 import { ReactNode } from 'react'
 
 type Props = {
