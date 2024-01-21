@@ -10,7 +10,7 @@ use tauri::{Manager, Builder, Wry, CustomMenuItem, SystemTray, SystemTrayMenu, S
 use repository::runcommand::RuncommandRepository;
 use command::scripts;
 
-use crate::usecase::app::AppUsecase;
+use crate::usecase::app::{AppUsecase, Config};
 
 fn main() {
     RuncommandRepository::initialize();
@@ -31,6 +31,8 @@ fn create_app() -> Builder<Wry> {
     let app = Builder::default();
     let app = app.invoke_handler(tauri::generate_handler![
         scripts::list_scripts,
+        scripts::add_script,
+        scripts::remove_script,
     ]);
 
     // see https://zenn.dev/izuchy/scraps/b101088f10f806
@@ -57,7 +59,11 @@ fn create_app() -> Builder<Wry> {
                     }
                     "saver" => {
                         let appcase = AppUsecase::new();
-                        let result = appcase.writeconfig();
+                        let config = Config{
+                            updated: "2024-01-21T15:16:00+09:00".to_string(),
+                            scripts: vec![],                            
+                        };
+                        let result = appcase.writeconfig(config);
                         println!("{:?}", result);
 
                         let result = appcase.readconfig();

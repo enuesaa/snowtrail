@@ -7,16 +7,16 @@ use std::io::{Error, ErrorKind};
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
 pub struct Config {
-    scripts: Vec<Script>,
-    updated: String, // datetime
+    pub scripts: Vec<Script>,
+    pub updated: String, // datetime
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct Script {
-    name: String,
-    command: Vec<String>,
-    pid: Option<u64>, // also indicate executing
-    description: String,
+    pub name: String,
+    pub command: Vec<String>,
+    pub pid: Option<u64>, // also indicate executing
+    pub description: String,
 }
 
 pub struct AppUsecase {}
@@ -60,33 +60,33 @@ impl AppUsecase {
         Ok(config)
     }
 
-    pub fn writeconfig(&self) -> Result<(), Error> {
+    pub fn writeconfig(&self, config: Config) -> Result<(), Error> {
         let fs = FsRepository::new();
         let registrypath = self.get_registrypath()?;
         fs.create_dir(&registrypath)?;
-
-        let config = Config {
-            updated: "2024-01-21T15:16:00+09:00".to_string(),
-            scripts: vec![
-                Script {
-                    name: "example".to_string(),
-                    command: vec!["echo".to_string(), "aa".to_string()],
-                    description: "example example".to_string(),
-                    pid: None,
-                },
-                Script {
-                    name: "example2".to_string(),
-                    command: vec!["echo".to_string(), "bb".to_string()],
-                    description: "example2".to_string(),
-                    pid: None,
-                },
-            ],
-        };
 
         let configpath = self.get_configpath()?;
         let configbytes = serde_json::to_vec_pretty(&config)?;
         fs.create(&configpath, configbytes)?;
 
+        Ok(())
+    }
+
+    pub fn add_script(&self, script: Script) -> Result<(), Error> {
+        let mut config = self.readconfig()?;
+        config.scripts.push(script);
+
+        self.writeconfig(config)?;
+        Ok(())
+    }
+
+    pub fn remove_script(&self, name: String) -> Result<(), Error> {
+        let mut config = self.readconfig()?;
+        config.scripts = config.scripts.iter()
+            .filter(|s| s.name != name)
+            .cloned()
+            .collect();
+        self.writeconfig(config)?;
         Ok(())
     }
 }
