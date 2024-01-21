@@ -6,7 +6,7 @@ pub mod init;
 #[cfg(target_os = "macos")]
 #[macro_use]
 extern crate objc;
-use tauri::{Manager, Builder, CustomMenuItem, SystemTray, SystemTrayMenu, SystemTrayEvent};
+use tauri::{Manager, Builder, SystemTrayEvent, SystemTray};
 use command::scripts;
 use std::process;
 
@@ -18,27 +18,22 @@ fn main() {
         process::exit(1);
     };
 
-    let appcase = AppUsecase::new();
-    let mut menu = SystemTrayMenu::new();
-    if let Ok(config) = appcase.readconfig() {
-        for script in config.scripts {
-            let item = CustomMenuItem::new(script.name.clone(), script.name.clone());
-            menu = menu.add_item(item);
-        };
-    };
-    // see https://zenn.dev/izuchy/scraps/b101088f10f806
-    let quit = CustomMenuItem::new("quit".to_string(), "Quit");
-    menu = menu.add_item(quit);
-
     let app = Builder::default()
         .invoke_handler(tauri::generate_handler![
             scripts::list_scripts,
             scripts::add_script,
             scripts::remove_script,
         ])
-        .system_tray(SystemTray::new().with_menu(menu))
+        .system_tray(SystemTray::new().with_menu(init::create_menu()))
         .on_system_tray_event(|app, event| match event {
             SystemTrayEvent::MenuItemClick { id, .. } => {
+                if id.as_str() == "reload" {
+                    if let Err(err) = app.tray_handle().set_menu(init::create_menu()) {
+                        println!("Error: {}", err.to_string());
+                    };
+                    return;
+                };
+                
                 if id.as_str() == "quit" {
                     std::process::exit(0);
                 };
