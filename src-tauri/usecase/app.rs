@@ -45,6 +45,15 @@ impl AppUsecase {
         Ok(path)
     }
 
+    pub fn is_registry_exist(&self) -> Result<bool, io::Error> {
+        let fs: FsRepository = FsRepository::new();
+        let registrypath = self.get_registrypath()?;
+        if fs.is_exist(&registrypath) {
+            return Ok(true)
+        };
+        Ok(false)
+    }
+
     pub fn get_configpath(&self) -> Result<String, io::Error> {
         let registrypath = self.get_registrypath()?;
         let configpath = format!("{}/config.json", registrypath);

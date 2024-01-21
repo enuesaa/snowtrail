@@ -6,7 +6,7 @@ export const ScriptsTable = () => {
   const {data: scripts} = useListScripts()
 
   return (
-    <Table.Root>
+    <Table.Root m='5' mt='2'>
       <Table.Header>
         <Table.Row>
         <Table.ColumnHeaderCell>name</Table.ColumnHeaderCell>

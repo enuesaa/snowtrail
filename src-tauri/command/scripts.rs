@@ -12,13 +12,15 @@ pub fn list_scripts() -> Vec<ScriptSchema> {
 #[tauri::command]
 pub fn add_script(script: ScriptSchema) {
     let appcase = AppUsecase::new();
-    let result = appcase.add_script(script);
-    println!("{:?}", result);
+    if let Err(err) = appcase.add_script(script) {
+        println!("Error: {:?}", err);
+    };
 }
 
 #[tauri::command]
 pub fn remove_script(name: String) {
     let appcase = AppUsecase::new();
-    let result = appcase.remove_script(name);
-    println!("{:?}", result);
+    if let Err(err) = appcase.remove_script(name) {
+        println!("Error: {:?}", err);
+    };
 }

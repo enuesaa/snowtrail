@@ -7,7 +7,6 @@ export const CreateScriptForm = () => {
   const form = useForm<ScriptSchema>()
 
   const hanldeSubmit = form.handleSubmit(async (data) => {
-    console.log('a', data)
     await addScript.mutateAsync(data)
     form.reset()
   })
@@ -15,7 +14,7 @@ export const CreateScriptForm = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button>Create</Button>
+        <Button m='2' style={{ cursor: 'pointer' }}>Create</Button>
       </Dialog.Trigger>
 
       <Dialog.Content style={{ maxWidth: 450 }}>
@@ -34,12 +33,12 @@ export const CreateScriptForm = () => {
             <TextField.Input data-1p-ignore {...form.register('description')} />
           </label>
 
-          <Flex gap='3' justify='end'>
+          <Flex gap='3' justify='end' mt='5'>
             <Dialog.Close>
-              <Button variant='soft' color='gray'>Cancel</Button>
+              <Button variant='soft' color='gray' style={{ cursor: 'pointer' }}>Cancel</Button>
             </Dialog.Close>
             <Dialog.Close>
-              <Button type='submit'>Save</Button>
+              <Button type='submit' style={{ cursor: 'pointer' }}>Save</Button>
             </Dialog.Close>
           </Flex>
         </form>
