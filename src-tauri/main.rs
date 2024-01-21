@@ -1,36 +1,34 @@
 pub mod command;
 pub mod repository;
 pub mod usecase;
+pub mod init;
 
 #[cfg(target_os = "macos")]
 #[macro_use]
 extern crate objc;
 use tauri::{Manager, Builder, CustomMenuItem, SystemTray, SystemTrayMenu, SystemTrayEvent};
-use repository::runcommand::RuncommandRepository;
 use command::scripts;
+use std::process;
 
-use crate::usecase::app::{AppUsecase, ConfigSchema};
+use crate::usecase::app::AppUsecase;
 
 fn main() {
-    RuncommandRepository::initialize();
-    let appcase = AppUsecase::new();
-    if let Ok(is) = appcase.is_registry_exist() {
-        if !is {
-            let _ = appcase.create_registry();
-            let config = ConfigSchema {
-                updated: "2024-01-21T15:16:00+09:00".to_string(),
-                scripts: vec![],                            
-            };
-            let _ = appcase.writeconfig(config);
-        }
-    }
+    if let Err(err) = init::init() {
+        println!("Error: {}", err.to_string());
+        process::exit(1);
+    };
 
+    let appcase = AppUsecase::new();
+    let mut menu = SystemTrayMenu::new();
+    if let Ok(config) = appcase.readconfig() {
+        for script in config.scripts {
+            let item = CustomMenuItem::new(script.name.clone(), script.name.clone());
+            menu = menu.add_item(item);
+        };
+    };
     // see https://zenn.dev/izuchy/scraps/b101088f10f806
-    let hey = CustomMenuItem::new("hey".to_string(), "Hey");
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
-    let menu = SystemTrayMenu::new()
-        .add_item(hey)
-        .add_item(quit);
+    menu = menu.add_item(quit);
 
     let app = Builder::default()
         .invoke_handler(tauri::generate_handler![
@@ -41,18 +39,25 @@ fn main() {
         .system_tray(SystemTray::new().with_menu(menu))
         .on_system_tray_event(|app, event| match event {
             SystemTrayEvent::MenuItemClick { id, .. } => {
-                match id.as_str() {
-                    "hey" => {
-                        let appcase = AppUsecase::new();
-                        let runresult = appcase.run_script();
-                        let item_handle = app.tray_handle().get_item(&id);
-                        item_handle.set_title(runresult).unwrap();
-                    }
-                    "quit" => {
-                        std::process::exit(0);
-                    }
-                    _ => {}
-                }
+                if id.as_str() == "quit" {
+                    std::process::exit(0);
+                };
+
+                let appcase = AppUsecase::new();
+                if let Ok(script) = appcase.get_script(id.clone()) {
+                    println!("run: {:?}", script.command);
+                    let runresult = appcase.run_script(script);
+                    println!("result: {:?}", runresult);
+
+                    let item_handle = app.tray_handle().get_item(&id);
+                    if let Ok(_) = runresult {
+                        item_handle.set_title("OK").unwrap();
+                    } else {
+                        item_handle.set_title("ERR").unwrap();
+                    };
+                    return;
+                };
+                println!("err: not found.");
             }
             _ => {}
         })

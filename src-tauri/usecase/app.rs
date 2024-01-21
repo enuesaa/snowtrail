@@ -25,17 +25,20 @@ impl AppUsecase {
         AppUsecase {}
     }
 
-    pub fn run_script(&self) -> String {
-        let result = RuncommandRepository::new()
-            .program("echo")
-            .args(vec!["aaa"])
-            .exec();
+    pub fn run_script(&self, script: ScriptSchema) -> Result<String, io::Error> {
+        let cmdargs: Vec<&str> = script.command.split(" ").collect();
+        if cmdargs.len() < 2 {
+            return Err(io::Error::new(io::ErrorKind::InvalidData, "invalid command"));
+        };
 
-        if let Ok(output) = result {
-            output
-        } else {
-            "err".to_string()
-        }
+        let mut args = cmdargs.clone();
+        let cmd = args.remove(0);
+    
+        let output = RuncommandRepository::new()
+            .program(cmd)
+            .args(args)
+            .exec()?;
+        Ok(output)
     }
 
     pub fn get_registrypath(&self) -> Result<String, io::Error> {
@@ -92,6 +95,16 @@ impl AppUsecase {
 
         self.writeconfig(config)?;
         Ok(())
+    }
+
+    pub fn get_script(&self, name: String) -> Result<ScriptSchema, io::Error> {
+        let config = self.readconfig()?;
+        for script in config.scripts {
+            if script.name == name {
+                return Ok(script);
+            };
+        };
+        Err(io::Error::new(io::ErrorKind::NotFound, "failed to find script."))
     }
 
     pub fn remove_script(&self, name: String) -> Result<(), io::Error> {

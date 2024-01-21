@@ -1,7 +1,6 @@
 use std::path::PathBuf;
 use std::process::{Command, Stdio};
-use std::env;
-use std::error::Error;
+use std::{env, io};
 
 #[derive(Clone)]
 pub struct RuncommandRepository {
@@ -11,8 +10,10 @@ pub struct RuncommandRepository {
 }
 
 impl RuncommandRepository {
-    pub fn initialize() {
-        let _ = fix_path_env::fix();
+    pub fn init() -> Result<(), io::Error> {
+        fix_path_env::fix()
+            .map_err(|e| io::Error::new(io::ErrorKind::Other, e))?;
+        Ok(())
     }
 
     pub fn new() -> Self {
@@ -34,7 +35,7 @@ impl RuncommandRepository {
         self
     }
 
-    pub fn exec(self) -> Result<String, Box<dyn Error>> {
+    pub fn exec(self) -> Result<String, io::Error> {
         let output = Command::new(self.program)
             .args(self.args)
             .current_dir(self.dir)
