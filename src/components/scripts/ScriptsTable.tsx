@@ -10,6 +10,8 @@ export const ScriptsTable = () => {
       <Table.Header>
         <Table.Row>
         <Table.ColumnHeaderCell>name</Table.ColumnHeaderCell>
+        <Table.ColumnHeaderCell>command</Table.ColumnHeaderCell>
+        <Table.ColumnHeaderCell>description</Table.ColumnHeaderCell>
         <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>

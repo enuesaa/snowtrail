@@ -1,12 +1,14 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { invoke } from '@tauri-apps/api/tauri'
 
-export type Script = {
+export type ScriptSchema = {
   name: string;
+  command: string;
+  description: string;
 }
 
-export const useListScripts = () => useQuery('listScripts', async (): Promise<Script[]> => {
-  const res = await invoke<Script[]>('list_scripts', {})
+export const useListScripts = () => useQuery('listScripts', async (): Promise<ScriptSchema[]> => {
+  const res = await invoke<ScriptSchema[]>('list_scripts', {})
   return res
 })
 
@@ -15,7 +17,7 @@ export const useAddScript = () => {
 
   return useMutation({
     mutationKey: 'addScript',
-    mutationFn: async (script: Script) => {
+    mutationFn: async (script: ScriptSchema) => {
       await invoke('add_script', {script})
     },
     onSuccess: () => {

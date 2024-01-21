@@ -1,9 +1,9 @@
 import { Button, Table } from '@radix-ui/themes';
-import { Script, useRemoveScript } from '../../lib/scripts'
+import { ScriptSchema, useRemoveScript } from '../../lib/scripts'
 import { MouseEventHandler } from 'react';
 
 type Props = {
-  script: Script;
+  script: ScriptSchema;
 }
 export const ScriptsTableItem = ({ script }: Props) => {
   const removeScript = useRemoveScript()
@@ -15,6 +15,8 @@ export const ScriptsTableItem = ({ script }: Props) => {
   return (
     <Table.Row>
       <Table.Cell>{script.name}</Table.Cell>
+      <Table.Cell>{script.command}</Table.Cell>
+      <Table.Cell>{script.description}</Table.Cell>
       <Table.Cell>
         <Button onClick={handleClick}>remove</Button>
       </Table.Cell>

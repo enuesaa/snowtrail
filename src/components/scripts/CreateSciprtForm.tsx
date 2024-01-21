@@ -1,10 +1,10 @@
 import { Button, Dialog, Flex, Text, TextField } from '@radix-ui/themes'
-import { Script, useAddScript } from '../../lib/scripts'
+import { ScriptSchema, useAddScript } from '../../lib/scripts'
 import { useForm } from 'react-hook-form'
 
 export const CreateScriptForm = () => {
   const addScript = useAddScript()
-  const form = useForm<Script>()
+  const form = useForm<ScriptSchema>()
 
   const hanldeSubmit = form.handleSubmit(async (data) => {
     console.log('a', data)
@@ -21,9 +21,17 @@ export const CreateScriptForm = () => {
       <Dialog.Content style={{ maxWidth: 450 }}>
         <Dialog.Title>Create new Script</Dialog.Title>
         <form onSubmit={hanldeSubmit}>
-          <label>
+        <label>
             <Text as='div' size='2' mb='1' weight='bold'>Name</Text>
             <TextField.Input data-1p-ignore {...form.register('name')} />
+          </label>
+          <label>
+            <Text as='div' size='2' mb='1' weight='bold'>Command</Text>
+            <TextField.Input data-1p-ignore {...form.register('command')} />
+          </label>
+          <label>
+            <Text as='div' size='2' mb='1' weight='bold'>Description</Text>
+            <TextField.Input data-1p-ignore {...form.register('description')} />
           </label>
 
           <Flex gap='3' justify='end'>

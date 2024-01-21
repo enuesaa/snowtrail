@@ -10,7 +10,7 @@ use tauri::{Manager, Builder, Wry, CustomMenuItem, SystemTray, SystemTrayMenu, S
 use repository::runcommand::RuncommandRepository;
 use command::scripts;
 
-use crate::usecase::app::{AppUsecase, Config};
+use crate::usecase::app::{AppUsecase, ConfigSchema};
 
 fn main() {
     RuncommandRepository::initialize();
@@ -59,7 +59,7 @@ fn create_app() -> Builder<Wry> {
                     }
                     "saver" => {
                         let appcase = AppUsecase::new();
-                        let config = Config{
+                        let config = ConfigSchema {
                             updated: "2024-01-21T15:16:00+09:00".to_string(),
                             scripts: vec![],                            
                         };
