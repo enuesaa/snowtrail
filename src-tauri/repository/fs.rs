@@ -3,11 +3,11 @@ use std::io;
 use std::io::Error;
 use std::path::Path;
 
-trait FsRepositoryInterface {
+pub trait FsRepositoryInterface {
     fn is_exist(&self, path: &str) -> bool;
     fn is_dir(&self, path: &str) -> Result<bool, Error>;
     fn create_dir(&self, path: &str) -> Result<(), Error>;
-    fn create(&self, path: &str, body: &[u8]) -> Result<(), Error>;
+    fn create(&self, path: &str, body: Vec<u8>) -> Result<(), Error>;
     fn homedir(&self) -> Result<String, Error>;
     fn workdir(&self) -> Result<String, Error>;
     fn remove(&self, path: &str) -> Result<(), Error>;
@@ -15,6 +15,12 @@ trait FsRepositoryInterface {
 
 #[derive(Clone)]
 pub struct FsRepository {}
+
+impl FsRepository {
+    pub fn new() -> Self {
+        FsRepository{}
+    }
+}
 
 impl FsRepositoryInterface for FsRepository {
     fn is_exist(&self, path: &str) -> bool {
@@ -31,7 +37,7 @@ impl FsRepositoryInterface for FsRepository {
         Ok(())
     }
 
-    fn create(&self, path: &str, body: &[u8]) -> Result<(), Error> {
+    fn create(&self, path: &str, body: Vec<u8>) -> Result<(), Error> {
         fs::write(path, body)?;
         Ok(())
     }

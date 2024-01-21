@@ -57,7 +57,8 @@ fn create_app() -> Builder<Wry> {
                     }
                     "saver" => {
                         let appcase = AppUsecase::new();
-                        appcase.savejson();
+                        let result = appcase.savejson();
+                        println!("{:?}", result);
                     }
                     "quit" => {
                         std::process::exit(0);

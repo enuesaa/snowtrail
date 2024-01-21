@@ -1,8 +1,10 @@
 use serde::{Serialize, Deserialize};
 
+use crate::repository::fs::{FsRepository, FsRepositoryInterface};
+// use crate::repository::fs::FsRepositoryInterface;
 use crate::repository::runcommand::RuncommandRepository;
 use std::fs::File;
-use std::io::{BufWriter, Write};
+use std::io::Error;
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
@@ -30,15 +32,22 @@ impl AppUsecase {
         }
     }
 
-    pub fn savejson(&self) {
+    pub fn savejson(&self) -> Result<(), Error> {
+        let fs = FsRepository::new();
+        let homedir = fs.homedir()?;
+        let path = format!("{}/.snowtrail", homedir);
+        println!("path: {}", path);
+        let _ = fs.create_dir(&path)?;
+
         let config = Config {
             name: "hey".to_string(),
             is_ok: true,
         };
-        if let Ok(file) = File::create("test.json") {
-            let mut writer = BufWriter::new(file);
-            let _ = serde_json::to_writer_pretty(&mut writer, &config);
-            let _ = writer.flush();
-        }
+
+        let configpath = format!("{}/config.json", path);
+        let configbytes = serde_json::to_vec_pretty(&config)?;
+        let _ = fs.create(&configpath, configbytes)?;
+
+        Ok(())
     }
 }
