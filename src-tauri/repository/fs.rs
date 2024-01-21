@@ -8,6 +8,7 @@ pub trait FsRepositoryInterface {
     fn is_dir(&self, path: &str) -> Result<bool, Error>;
     fn create_dir(&self, path: &str) -> Result<(), Error>;
     fn create(&self, path: &str, body: Vec<u8>) -> Result<(), Error>;
+    fn read(&self, path: &str) -> Result<Vec<u8>, Error>;
     fn homedir(&self) -> Result<String, Error>;
     fn workdir(&self) -> Result<String, Error>;
     fn remove(&self, path: &str) -> Result<(), Error>;
@@ -40,6 +41,10 @@ impl FsRepositoryInterface for FsRepository {
     fn create(&self, path: &str, body: Vec<u8>) -> Result<(), Error> {
         fs::write(path, body)?;
         Ok(())
+    }
+
+    fn read(&self, path: &str) -> Result<Vec<u8>, Error> {
+        fs::read(path)
     }
 
     fn homedir(&self) -> Result<String, Error> {

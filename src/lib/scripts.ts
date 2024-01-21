@@ -2,7 +2,6 @@ import { useQuery } from 'react-query'
 import { invoke } from '@tauri-apps/api/tauri'
 
 type Script = {
-  id: string;
   name: string;
 }
 

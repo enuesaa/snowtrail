@@ -8,7 +8,7 @@ pub mod usecase;
 extern crate objc;
 use tauri::{Manager, Builder, Wry, CustomMenuItem, SystemTray, SystemTrayMenu, SystemTrayEvent};
 use repository::runcommand::RuncommandRepository;
-use command::script;
+use command::scripts;
 
 use crate::usecase::app::AppUsecase;
 
@@ -30,7 +30,7 @@ fn main() {
 fn create_app() -> Builder<Wry> {
     let app = Builder::default();
     let app = app.invoke_handler(tauri::generate_handler![
-        script::list_scripts,
+        scripts::list_scripts,
     ]);
 
     // see https://zenn.dev/izuchy/scraps/b101088f10f806
@@ -57,7 +57,10 @@ fn create_app() -> Builder<Wry> {
                     }
                     "saver" => {
                         let appcase = AppUsecase::new();
-                        let result = appcase.savejson();
+                        let result = appcase.writeconfig();
+                        println!("{:?}", result);
+
+                        let result = appcase.readconfig();
                         println!("{:?}", result);
                     }
                     "quit" => {
