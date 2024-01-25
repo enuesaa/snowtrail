@@ -11,13 +11,16 @@ pub struct RuncommandRepository {
 
 impl RuncommandRepository {
     pub fn init() -> Result<(), io::Error> {
-        fix_path_env::fix()
-            .map_err(|e| io::Error::new(io::ErrorKind::Other, e))?;
+        fix_path_env::fix().map_err(|e| io::Error::new(io::ErrorKind::Other, e))?;
         Ok(())
     }
 
     pub fn new() -> Self {
-        RuncommandRepository { program: "".to_string(), args: vec![], dir: env::current_dir().unwrap() }
+        RuncommandRepository {
+            program: "".to_string(),
+            args: vec![],
+            dir: env::current_dir().unwrap(),
+        }
     }
 
     pub fn program(mut self, program: &str) -> Self {

@@ -1,4 +1,4 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 use crate::repository::fs::FsRepository;
 use crate::repository::runcommand::RuncommandRepository;
@@ -28,16 +28,16 @@ impl AppUsecase {
     pub fn run_script(&self, script: ScriptSchema) -> Result<String, io::Error> {
         let cmdargs: Vec<&str> = script.command.split(" ").collect();
         if cmdargs.len() < 2 {
-            return Err(io::Error::new(io::ErrorKind::InvalidData, "invalid command"));
+            return Err(io::Error::new(
+                io::ErrorKind::InvalidData,
+                "invalid command",
+            ));
         };
 
         let mut args = cmdargs.clone();
         let cmd = args.remove(0);
-    
-        let output = RuncommandRepository::new()
-            .program(cmd)
-            .args(args)
-            .exec()?;
+
+        let output = RuncommandRepository::new().program(cmd).args(args).exec()?;
         Ok(output)
     }
 
@@ -52,7 +52,7 @@ impl AppUsecase {
         let fs: FsRepository = FsRepository::new();
         let registrypath = self.get_registrypath()?;
         if fs.is_exist(&registrypath) {
-            return Ok(true)
+            return Ok(true);
         };
         Ok(false)
     }
@@ -103,13 +103,18 @@ impl AppUsecase {
             if script.name == name {
                 return Ok(script);
             };
-        };
-        Err(io::Error::new(io::ErrorKind::NotFound, "failed to find script."))
+        }
+        Err(io::Error::new(
+            io::ErrorKind::NotFound,
+            "failed to find script.",
+        ))
     }
 
     pub fn remove_script(&self, name: String) -> Result<(), io::Error> {
         let mut config = self.readconfig()?;
-        config.scripts = config.scripts.iter()
+        config.scripts = config
+            .scripts
+            .iter()
             .filter(|s| s.name != name)
             .cloned()
             .collect();

@@ -2,15 +2,16 @@ import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { invoke } from '@tauri-apps/api/tauri'
 
 export type ScriptSchema = {
-  name: string;
-  command: string;
-  description: string;
+  name: string
+  command: string
+  description: string
 }
 
-export const useListScripts = () => useQuery('listScripts', async (): Promise<ScriptSchema[]> => {
-  const res = await invoke<ScriptSchema[]>('list_scripts', {})
-  return res
-})
+export const useListScripts = () =>
+  useQuery('listScripts', async (): Promise<ScriptSchema[]> => {
+    const res = await invoke<ScriptSchema[]>('list_scripts', {})
+    return res
+  })
 
 export const useAddScript = () => {
   const queryclient = useQueryClient()
@@ -18,10 +19,10 @@ export const useAddScript = () => {
   return useMutation({
     mutationKey: 'addScript',
     mutationFn: async (script: ScriptSchema) => {
-      await invoke('add_script', {script})
+      await invoke('add_script', { script })
     },
     onSuccess: () => {
-      queryclient.invalidateQueries({queryKey: ['listScripts']})
+      queryclient.invalidateQueries({ queryKey: ['listScripts'] })
     },
   })
 }
@@ -32,10 +33,10 @@ export const useRemoveScript = () => {
   return useMutation({
     mutationKey: 'removeScript',
     mutationFn: async (name: string) => {
-      await invoke('remove_script', {name})
+      await invoke('remove_script', { name })
     },
     onSuccess: () => {
-      queryclient.invalidateQueries({queryKey: ['listScripts']})
+      queryclient.invalidateQueries({ queryKey: ['listScripts'] })
     },
   })
 }

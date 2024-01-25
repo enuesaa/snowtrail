@@ -8,7 +8,7 @@ pub struct FsRepository {}
 
 impl FsRepository {
     pub fn new() -> Self {
-        FsRepository{}
+        FsRepository {}
     }
 
     pub fn is_exist(&self, path: &str) -> bool {
@@ -36,9 +36,12 @@ impl FsRepository {
 
     pub fn homedir(&self) -> Result<String, Error> {
         if let Some(path) = dirs::home_dir() {
-            return Ok(path.to_str().unwrap().to_string())
+            return Ok(path.to_str().unwrap().to_string());
         }
-        Err(io::Error::new(io::ErrorKind::NotFound, "failed to find homedir."))
+        Err(io::Error::new(
+            io::ErrorKind::NotFound,
+            "failed to find homedir.",
+        ))
     }
 
     pub fn workdir(&self) -> Result<String, Error> {

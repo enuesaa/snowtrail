@@ -1,14 +1,14 @@
 pub mod command;
+pub mod init;
 pub mod repository;
 pub mod usecase;
-pub mod init;
 
 #[cfg(target_os = "macos")]
 #[macro_use]
 extern crate objc;
-use tauri::{Manager, Builder, SystemTrayEvent, SystemTray};
 use command::scripts;
 use std::process;
+use tauri::{Builder, Manager, SystemTray, SystemTrayEvent};
 
 use crate::usecase::app::AppUsecase;
 
@@ -33,7 +33,7 @@ fn main() {
                     };
                     return;
                 };
-                
+
                 if id.as_str() == "quit" {
                     std::process::exit(0);
                 };
@@ -61,14 +61,14 @@ fn main() {
             window.with_webview(|webview| {
                 #[cfg(target_os = "macos")]
                 unsafe {
-                    let () = msg_send![webview.inner(), setAllowsBackForwardNavigationGestures: true];
+                    let () =
+                        msg_send![webview.inner(), setAllowsBackForwardNavigationGestures: true];
                 }
             })?;
             Ok(())
         });
 
-    app
-        .build(tauri::generate_context!())
+    app.build(tauri::generate_context!())
         .expect("failed to start app")
         .run(|_app_handle, event| match event {
             // see https://tauri.app/v1/guides/features/system-tray/#preventing-the-app-from-closing

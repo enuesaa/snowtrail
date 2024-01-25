@@ -9,7 +9,7 @@
     "build": "tauri build",
     "vite:dev": "vite dev --port 3000",
     "vite:build": "vite build",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" && cargo fmt"
   },
   "dependencies": {
     "@radix-ui/themes": "^2.0.3",
