@@ -14,6 +14,7 @@ command manager
 - vite
 - react router
 
-## メモ
-### RustのTypeをTypeScriptのTypeへマップするには
-ts-rs や typescript-type-def を用いる
+## Development Plan
+- コマンドの実行ログを残す。格納場所は ~/.snowtrail/logs
+- コマンドの手動実行
+- コマンドの実行中ぐるぐるしてしまっているので、非同期にする
