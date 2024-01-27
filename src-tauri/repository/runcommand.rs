@@ -1,7 +1,7 @@
 use std::fs::File;
 use std::path::PathBuf;
 use std::process::{Child, Command, Stdio};
-use std::{env, io};
+use std::{env, io, io::Write};
 
 #[derive(Clone)]
 pub struct RuncommandRepository {
@@ -39,14 +39,18 @@ impl RuncommandRepository {
         self
     }
 
-    pub fn exec(self) -> Result<Child, io::Error> {
-        let child = Command::new(self.program)
+    pub fn exec(self) -> Result<(), io::Error> {
+        let output = Command::new(self.program)
             .args(self.args)
             .current_dir(self.dir)
             .stdout(Stdio::piped())
             .stderr(Stdio::piped())
-            .spawn()?;
-        Ok(child)
+            .output()?;
+
+        let mut file = File::create("a.log")?;
+        let outstr = String::from_utf8_lossy(&output.stdout);
+        writeln!(file, "{}", outstr)?;
+        Ok(())
     }
 
     pub fn log(self, child: Child) -> Result<(), io::Error> {

@@ -11,7 +11,6 @@ use std::process;
 use tauri::{Builder, Manager, SystemTray, SystemTrayEvent};
 
 use crate::usecase::app::AppUsecase;
-use crate::usecase::tryasync::runasync;
 
 #[tokio::main]
 async fn main() {
@@ -40,21 +39,15 @@ async fn main() {
                     std::process::exit(0);
                 };
 
-                let appcase = AppUsecase::new();
+                let mut appcase = AppUsecase::new();
                 if let Ok(script) = appcase.get_script(id.clone()) {
                     println!("run: {:?}", script.command);
-                    tokio::spawn(async move {
-                        let _ = runasync(script).await;
-                    });
-                    println!("run async");
-
                     let item_handle = app.tray_handle().get_item(&id);
-                    item_handle.set_title("OK").unwrap();
-                    // if let Ok(_) = runresult {
-                    //     item_handle.set_title("OK").unwrap();
-                    // } else {
-                    //     item_handle.set_title("ERR").unwrap();
-                    // };
+                    item_handle.set_title("Running").unwrap();
+                    tokio::spawn(async move {
+                        let _ = appcase.run_script(script).await;
+                        item_handle.set_title("OK").unwrap();
+                    });
                     return;
                 };
                 println!("err: not found.");

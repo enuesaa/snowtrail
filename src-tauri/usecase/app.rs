@@ -26,7 +26,7 @@ impl AppUsecase {
         AppUsecase {}
     }
 
-    pub fn run_script(&mut self, script: ScriptSchema) -> Result<(), io::Error> {
+    pub async fn run_script(&mut self, script: ScriptSchema) -> Result<(), io::Error> {
         let cmdargs: Vec<&str> = script.command.split(" ").collect();
         if cmdargs.len() < 2 {
             return Err(io::Error::new(
@@ -38,8 +38,7 @@ impl AppUsecase {
         let mut args = cmdargs.clone();
         let cmd = args.remove(0);
 
-        let child = RuncommandRepository::new().program(cmd).args(args).exec()?;
-        RuncommandRepository::new().log(child)?;
+        RuncommandRepository::new().program(cmd).args(args).exec()?;
         Ok(())
     }
 
