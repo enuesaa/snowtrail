@@ -1,5 +1,5 @@
 import { Box, Text } from '@radix-ui/themes'
-import { useGetLog } from '../../lib/logs'
+import { useGetLog } from '@/lib/logs'
 
 type Props = {
   name: string

@@ -1,6 +1,6 @@
 import { Container, Heading } from '@radix-ui/themes'
-import { Header } from '../../components/common/Header'
-import { LogsTable } from '../../components/logs/LogsTable'
+import { Header } from '@/components/common/Header'
+import { LogsTable } from '@/components/logs/LogsTable'
 
 export default function Page() {
   return (

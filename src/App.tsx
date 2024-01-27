@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import TopPage from './pages/index'
-import LogsPage from './pages/logs/index'
-import LogViewPage from './pages/logs/view'
+import TopPage from '@/pages/index'
+import LogsPage from '@/pages/logs/index'
+import LogViewPage from '@/pages/logs/view'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import '@radix-ui/themes/styles.css'
 import { Theme } from '@radix-ui/themes'
-import './styles/app.css'
+import '@/styles/app.css'
 
 export const App = () => {
   const queryClient = new QueryClient()

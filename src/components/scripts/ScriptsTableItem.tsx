@@ -1,5 +1,5 @@
 import { Button, Table } from '@radix-ui/themes'
-import { ScriptSchema, useRemoveScript } from '../../lib/scripts'
+import { ScriptSchema, useRemoveScript } from '@/lib/scripts'
 import { MouseEventHandler } from 'react'
 
 type Props = {

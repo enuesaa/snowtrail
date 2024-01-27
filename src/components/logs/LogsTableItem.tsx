@@ -1,5 +1,5 @@
 import { Link, Table } from '@radix-ui/themes'
-import { type LogSchema } from '../../lib/logs'
+import { type LogSchema } from '@/lib/logs'
 
 type Props = {
   log: LogSchema

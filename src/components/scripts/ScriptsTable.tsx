@@ -1,5 +1,5 @@
 import { Table } from '@radix-ui/themes'
-import { useListScripts } from '../../lib/scripts'
+import { useListScripts } from '@/lib/scripts'
 import { ScriptsTableItem } from './ScriptsTableItem'
 
 export const ScriptsTable = () => {

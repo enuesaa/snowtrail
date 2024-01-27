@@ -1,5 +1,5 @@
 import { Button, Dialog, Flex, Text, TextField } from '@radix-ui/themes'
-import { ScriptSchema, useAddScript } from '../../lib/scripts'
+import { ScriptSchema, useAddScript } from '@/lib/scripts'
 import { useForm } from 'react-hook-form'
 
 export const CreateScriptForm = () => {
