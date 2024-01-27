@@ -3,7 +3,6 @@ use serde::{Deserialize, Serialize};
 use crate::repository::fs::FsRepository;
 use crate::repository::runcommand::RuncommandRepository;
 use std::io;
-use std::process::Child;
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]

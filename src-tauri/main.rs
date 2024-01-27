@@ -11,6 +11,7 @@ use std::process;
 use tauri::{Builder, Manager, SystemTray, SystemTrayEvent};
 
 use crate::usecase::app::AppUsecase;
+use crate::usecase::tryasync::runasync;
 
 fn main() {
     if let Err(err) = init::init() {
@@ -38,18 +39,19 @@ fn main() {
                     std::process::exit(0);
                 };
 
-                let mut appcase = AppUsecase::new();
+                let appcase = AppUsecase::new();
                 if let Ok(script) = appcase.get_script(id.clone()) {
                     println!("run: {:?}", script.command);
-                    let runresult = appcase.run_script(script);
-                    println!("result: {:?}", runresult);
+                    let _ = runasync(script);
+                    println!("run async");
 
                     let item_handle = app.tray_handle().get_item(&id);
-                    if let Ok(_) = runresult {
-                        item_handle.set_title("OK").unwrap();
-                    } else {
-                        item_handle.set_title("ERR").unwrap();
-                    };
+                    item_handle.set_title("OK").unwrap();
+                    // if let Ok(_) = runresult {
+                    //     item_handle.set_title("OK").unwrap();
+                    // } else {
+                    //     item_handle.set_title("ERR").unwrap();
+                    // };
                     return;
                 };
                 println!("err: not found.");
