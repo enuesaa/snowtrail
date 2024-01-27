@@ -1,7 +1,8 @@
 import { IoMdSnow } from 'react-icons/io'
 import styles from './Header.css'
-import { Box, Flex, Link, Separator } from '@radix-ui/themes'
+import { Box, Flex, Separator } from '@radix-ui/themes'
 import { RxActivityLog } from 'react-icons/rx'
+import { Link } from '@/components/common/Link'
 
 export const Header = () => {
   return (

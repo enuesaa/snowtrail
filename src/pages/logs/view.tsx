@@ -1,8 +1,9 @@
-import { Button, Container, Heading, Link } from '@radix-ui/themes'
+import { Button, Container, Heading } from '@radix-ui/themes'
 import { Header } from '@/components/common/Header'
 import { useParams } from 'react-router-dom'
 import { LogView } from '@/components/logs/LogView'
 import { FaArrowLeft } from 'react-icons/fa'
+import { Link } from '@/components/common/Link'
 
 export default function Page() {
   const { name } = useParams()

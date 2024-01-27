@@ -1,4 +1,5 @@
 {
+  "$schema": "https://esm.sh/@tauri-apps/cli/schema.json",
   "build": {
     "beforeBuildCommand": "pnpm vite:build",
     "beforeDevCommand": "pnpm vite:dev",

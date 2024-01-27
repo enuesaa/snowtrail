@@ -1,5 +1,6 @@
-import { Link, Table } from '@radix-ui/themes'
+import { Table } from '@radix-ui/themes'
 import { type LogSchema } from '@/lib/logs'
+import { Link } from '@/components/common/Link'
 
 type Props = {
   log: LogSchema
