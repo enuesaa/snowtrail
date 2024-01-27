@@ -13,7 +13,8 @@ use tauri::{Builder, Manager, SystemTray, SystemTrayEvent};
 use crate::usecase::app::AppUsecase;
 use crate::usecase::tryasync::runasync;
 
-fn main() {
+#[tokio::main]
+async fn main() {
     if let Err(err) = init::init() {
         println!("Error: {}", err.to_string());
         process::exit(1);
@@ -42,7 +43,9 @@ fn main() {
                 let appcase = AppUsecase::new();
                 if let Ok(script) = appcase.get_script(id.clone()) {
                     println!("run: {:?}", script.command);
-                    let _ = runasync(script);
+                    tokio::spawn(async move {
+                        let _ = runasync(script).await;
+                    });
                     println!("run async");
 
                     let item_handle = app.tray_handle().get_item(&id);
