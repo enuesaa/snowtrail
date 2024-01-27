@@ -21,9 +21,10 @@ pub struct ScriptSchema {
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct LogViewSchema {
+pub struct LogSchema {
     pub name: String,
     pub content: String,
+    pub time: String,
 }
 
 pub struct AppUsecase {}
@@ -45,12 +46,22 @@ impl AppUsecase {
         let mut args = cmdargs.clone();
         let cmd = args.remove(0);
         let out = RuncommandRepository::new().program(cmd).args(args).exec()?;
+        let log = LogSchema {
+            name: script.name,
+            content: out,
+            time: Utc::now().to_string(),
+        };
+        self.write_log(log)?;
+        Ok(())
+    }
 
+    pub fn write_log(&self, log: LogSchema) -> Result<(), io::Error> {
         self.create_logdir()?;
 
         let fs = FsRepository::new();
         let logfilepath = self.get_logfilepath()?;
-        fs.create(&logfilepath, out.into_bytes())?;
+        let logbytes = serde_json::to_vec_pretty(&log)?;
+        fs.create(&logfilepath, logbytes)?;
         Ok(())
     }
 
@@ -70,25 +81,10 @@ impl AppUsecase {
         Ok(false)
     }
 
-    pub fn get_configpath(&self) -> Result<String, io::Error> {
-        let registrypath = self.get_registrypath()?;
-        let configpath = format!("{}/config.json", registrypath);
-        Ok(configpath)
-    }
-
-    pub fn readconfig(&self) -> Result<ConfigSchema, io::Error> {
-        let fs: FsRepository = FsRepository::new();
-        let configpath = self.get_configpath()?;
-        let configbytes = fs.read(&configpath)?;
-        let config: ConfigSchema = serde_json::from_slice(&configbytes)
-            .map_err(|e| io::Error::new(io::ErrorKind::Other, e))?;
-        Ok(config)
-    }
-
     pub fn get_logfilepath(&self) -> Result<String, io::Error> {
         let logdirpath = self.get_logdirpath()?;
         let now = Utc::now().format("%Y%m%d%H%M%S").to_string();
-        let logfilepath = format!("{}/{}.log", logdirpath, now);
+        let logfilepath = format!("{}/{}.json", logdirpath, now);
         Ok(logfilepath)
     }
     
@@ -104,20 +100,19 @@ impl AppUsecase {
         let logs = fs.list_filenames(&logdir)?;
         let mut lognames: Vec<String> = vec![];
         for logfilename in logs {
-            lognames.push(logfilename.replace(".log", ""));
+            lognames.push(logfilename.replace(".json", ""));
         }
         Ok(lognames)
     }
 
-    pub fn get_log(&self, name: String) -> Result<LogViewSchema, io::Error> {
+    pub fn read_log(&self, name: String) -> Result<LogSchema, io::Error> {
         let fs: FsRepository = FsRepository::new();
         let logdir = self.get_logdirpath()?;
-        let logpath = format!("{}/{}.log", logdir, name);
-        let content = fs.read(&logpath)?;
-        let contentstr = String::from_utf8(content)
+        let logpath = format!("{}/{}.json", logdir, name);
+        let logbytes = fs.read(&logpath)?;
+        let log: LogSchema = serde_json::from_slice(&logbytes)
             .map_err(|e| io::Error::new(io::ErrorKind::Other, e))?;
-
-        Ok(LogViewSchema { name, content: contentstr })
+        Ok(log)
     }
 
     pub fn create_logdir(&self) -> Result<(), io::Error> {
@@ -132,6 +127,21 @@ impl AppUsecase {
         let registrypath = self.get_registrypath()?;
         fs.create_dir(&registrypath)?;
         Ok(())
+    }
+
+    pub fn get_configpath(&self) -> Result<String, io::Error> {
+        let registrypath = self.get_registrypath()?;
+        let configpath = format!("{}/config.json", registrypath);
+        Ok(configpath)
+    }
+
+    pub fn readconfig(&self) -> Result<ConfigSchema, io::Error> {
+        let fs: FsRepository = FsRepository::new();
+        let configpath = self.get_configpath()?;
+        let configbytes = fs.read(&configpath)?;
+        let config: ConfigSchema = serde_json::from_slice(&configbytes)
+            .map_err(|e| io::Error::new(io::ErrorKind::Other, e))?;
+        Ok(config)
     }
 
     pub fn writeconfig(&self, config: ConfigSchema) -> Result<(), io::Error> {
