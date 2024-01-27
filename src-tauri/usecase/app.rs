@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use crate::repository::fs::FsRepository;
 use crate::repository::runcommand::RuncommandRepository;
 use std::io;
+use std::process::Child;
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
@@ -20,12 +21,13 @@ pub struct ScriptSchema {
 }
 
 pub struct AppUsecase {}
+
 impl AppUsecase {
     pub fn new() -> Self {
         AppUsecase {}
     }
 
-    pub fn run_script(&self, script: ScriptSchema) -> Result<String, io::Error> {
+    pub fn run_script(&mut self, script: ScriptSchema) -> Result<(), io::Error> {
         let cmdargs: Vec<&str> = script.command.split(" ").collect();
         if cmdargs.len() < 2 {
             return Err(io::Error::new(
@@ -37,8 +39,9 @@ impl AppUsecase {
         let mut args = cmdargs.clone();
         let cmd = args.remove(0);
 
-        let output = RuncommandRepository::new().program(cmd).args(args).exec()?;
-        Ok(output)
+        let child = RuncommandRepository::new().program(cmd).args(args).exec()?;
+        RuncommandRepository::new().log(child)?;
+        Ok(())
     }
 
     pub fn get_registrypath(&self) -> Result<String, io::Error> {

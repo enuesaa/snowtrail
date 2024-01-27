@@ -38,7 +38,7 @@ fn main() {
                     std::process::exit(0);
                 };
 
-                let appcase = AppUsecase::new();
+                let mut appcase = AppUsecase::new();
                 if let Ok(script) = appcase.get_script(id.clone()) {
                     println!("run: {:?}", script.command);
                     let runresult = appcase.run_script(script);
