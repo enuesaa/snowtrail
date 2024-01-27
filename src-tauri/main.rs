@@ -7,6 +7,7 @@ pub mod usecase;
 #[macro_use]
 extern crate objc;
 use command::scripts;
+use command::logs;
 use std::process;
 use tauri::{Builder, Manager, SystemTray, SystemTrayEvent};
 
@@ -24,6 +25,8 @@ async fn main() {
             scripts::list_scripts,
             scripts::add_script,
             scripts::remove_script,
+            logs::list_logs,
+            logs::get_log,
         ])
         .system_tray(SystemTray::new().with_menu(init::create_menu()))
         .on_system_tray_event(|app, event| match event {

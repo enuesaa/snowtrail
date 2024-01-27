@@ -1,6 +1,7 @@
 import { IoMdSnow } from 'react-icons/io'
 import styles from './Header.css'
 import { Box, Flex, Link, Separator } from '@radix-ui/themes'
+import { RxActivityLog } from 'react-icons/rx'
 
 export const Header = () => {
   return (
@@ -13,9 +14,9 @@ export const Header = () => {
               snowtrail
             </Link>
           </Box>
-          {/* <Box grow='0' shrink='0' style={{width: '35px'}}>
-            <Link href='/settings'><MdOutlineSettings /></Link>
-          </Box> */}
+          <Box grow='0' shrink='0' style={{width: '35px'}}>
+            <Link href='/logs'><RxActivityLog /></Link>
+          </Box>
         </Flex>
       </header>
       <Separator size='4' mb='2' />

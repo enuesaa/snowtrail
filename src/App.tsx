@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import TopPage from './pages/index'
+import LogsPage from './pages/logs/index'
+import LogViewPage from './pages/logs/view'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import '@radix-ui/themes/styles.css'
 import { Theme } from '@radix-ui/themes'
@@ -14,6 +16,8 @@ export const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<TopPage />} />
+            <Route path='/logs' element={<LogsPage />} />
+            <Route path='/logs/:name' element={<LogViewPage />} />
           </Routes>
         </BrowserRouter>
       </Theme>

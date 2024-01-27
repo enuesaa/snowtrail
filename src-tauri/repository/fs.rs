@@ -34,6 +34,19 @@ impl FsRepository {
         fs::read(path)
     }
 
+    pub fn list_filenames(&self, path: &str) -> Result<Vec<String>, Error> {
+        let entries = fs::read_dir(path)?;
+
+        let mut filenames: Vec<String> = vec![];
+        for entry in entries {
+            if let Ok(entry) = entry {
+                filenames.push(entry.file_name().to_string_lossy().to_string());
+            }
+        }
+
+        Ok(filenames)
+    }
+
     pub fn homedir(&self) -> Result<String, Error> {
         if let Some(path) = dirs::home_dir() {
             return Ok(path.to_str().unwrap().to_string());

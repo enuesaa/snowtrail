@@ -20,6 +20,12 @@ pub struct ScriptSchema {
     pub description: String,
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct LogViewSchema {
+    pub name: String,
+    pub content: String,
+}
+
 pub struct AppUsecase {}
 
 impl AppUsecase {
@@ -90,6 +96,28 @@ impl AppUsecase {
         let registrypath = self.get_registrypath()?;
         let path = format!("{}/log", registrypath);
         Ok(path)
+    }
+
+    pub fn list_logs(&self) -> Result<Vec<String>, io::Error> {
+        let fs: FsRepository = FsRepository::new();
+        let logdir = self.get_logdirpath()?;
+        let logs = fs.list_filenames(&logdir)?;
+        let mut lognames: Vec<String> = vec![];
+        for logfilename in logs {
+            lognames.push(logfilename.replace(".log", ""));
+        }
+        Ok(lognames)
+    }
+
+    pub fn get_log(&self, name: String) -> Result<LogViewSchema, io::Error> {
+        let fs: FsRepository = FsRepository::new();
+        let logdir = self.get_logdirpath()?;
+        let logpath = format!("{}/{}.log", logdir, name);
+        let content = fs.read(&logpath)?;
+        let contentstr = String::from_utf8(content)
+            .map_err(|e| io::Error::new(io::ErrorKind::Other, e))?;
+
+        Ok(LogViewSchema { name, content: contentstr })
     }
 
     pub fn create_logdir(&self) -> Result<(), io::Error> {

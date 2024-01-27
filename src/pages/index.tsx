@@ -7,11 +7,12 @@ export default function Page() {
   return (
     <>
       <Header />
-      <Container />
-      <Flex justify='end'>
-        <CreateScriptForm />
-      </Flex>
-      <ScriptsTable />
+      <Container>
+        <Flex justify='end'>
+          <CreateScriptForm />
+        </Flex>
+        <ScriptsTable />
+      </Container>
     </>
   )
 }
