@@ -3,6 +3,7 @@ use serde::{Deserialize, Serialize};
 use crate::repository::fs::FsRepository;
 use crate::repository::runcommand::RuncommandRepository;
 use std::io;
+use chrono::Utc;
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
@@ -38,7 +39,10 @@ impl AppUsecase {
         let mut args = cmdargs.clone();
         let cmd = args.remove(0);
 
-        RuncommandRepository::new().program(cmd).args(args).exec()?;
+        let out = RuncommandRepository::new().program(cmd).args(args).exec()?;
+        let fsrepo = FsRepository::new();
+        let logfilepath = self.get_logfilepath()?;
+        fsrepo.create(&logfilepath, out.into_bytes())?;
         Ok(())
     }
 
@@ -71,6 +75,13 @@ impl AppUsecase {
         let config: ConfigSchema = serde_json::from_slice(&configbytes)
             .map_err(|e| io::Error::new(io::ErrorKind::Other, e))?;
         Ok(config)
+    }
+
+    pub fn get_logfilepath(&self) -> Result<String, io::Error> {
+        let registrypath = self.get_registrypath()?;
+        let now = Utc::now().format("%Y%m%d%H%M%S").to_string();
+        let logfilepath = format!("{}/log/{}.log", registrypath, now);
+        Ok(logfilepath)
     }
 
     pub fn create_registry(&self) -> Result<(), io::Error> {

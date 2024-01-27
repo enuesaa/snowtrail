@@ -8,6 +8,7 @@ version = "0.0.1"
 edition = "2021"
 
 [dependencies]
+chrono = "0.4.33"
 dirs = "5.0.0"
 fix-path-env = { git = "https://github.com/tauri-apps/fix-path-env-rs", branch = "dev" }
 objc = "0.2.7"
