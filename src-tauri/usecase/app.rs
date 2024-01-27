@@ -38,11 +38,13 @@ impl AppUsecase {
 
         let mut args = cmdargs.clone();
         let cmd = args.remove(0);
-
         let out = RuncommandRepository::new().program(cmd).args(args).exec()?;
-        let fsrepo = FsRepository::new();
+
+        self.create_logdir()?;
+
+        let fs = FsRepository::new();
         let logfilepath = self.get_logfilepath()?;
-        fsrepo.create(&logfilepath, out.into_bytes())?;
+        fs.create(&logfilepath, out.into_bytes())?;
         Ok(())
     }
 
@@ -78,10 +80,23 @@ impl AppUsecase {
     }
 
     pub fn get_logfilepath(&self) -> Result<String, io::Error> {
-        let registrypath = self.get_registrypath()?;
+        let logdirpath = self.get_logdirpath()?;
         let now = Utc::now().format("%Y%m%d%H%M%S").to_string();
-        let logfilepath = format!("{}/log/{}.log", registrypath, now);
+        let logfilepath = format!("{}/{}.log", logdirpath, now);
         Ok(logfilepath)
+    }
+    
+    pub fn get_logdirpath(&self) -> Result<String, io::Error> {
+        let registrypath = self.get_registrypath()?;
+        let path = format!("{}/log", registrypath);
+        Ok(path)
+    }
+
+    pub fn create_logdir(&self) -> Result<(), io::Error> {
+        let fs = FsRepository::new();
+        let path = self.get_logdirpath()?;
+        fs.create_dir(&path)?;
+        Ok(())
     }
 
     pub fn create_registry(&self) -> Result<(), io::Error> {
