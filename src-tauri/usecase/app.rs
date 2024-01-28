@@ -26,6 +26,15 @@ pub struct LogSchema {
     pub content: String,
     pub time: String,
 }
+impl From<String> for LogSchema {
+    fn from(name: String) -> Self {
+        LogSchema {
+            name,
+            content: "".to_string(),
+            time: Utc::now().to_string(),
+        }
+    }
+}
 
 pub struct AppUsecase {}
 
@@ -46,27 +55,25 @@ impl AppUsecase {
         let mut args = cmdargs.clone();
         let cmd = args.remove(0);
         let out = RuncommandRepository::new().program(cmd).args(args).exec()?;
-        let log = LogSchema {
-            name: script.name,
-            content: out,
-            time: Utc::now().to_string(),
-        };
+        let mut log = LogSchema::from(script.name);
+        log.content = out;
         self.write_log(log)?;
         Ok(())
     }
 
     pub fn write_log(&self, log: LogSchema) -> Result<(), io::Error> {
+        let fs = FsRepository::new();
         self.create_logdir()?;
 
-        let fs = FsRepository::new();
-        let logfilepath = self.get_logfilepath()?;
+        let path = self.get_logfilepath()?;
         let logbytes = serde_json::to_vec_pretty(&log)?;
-        fs.create(&logfilepath, logbytes)?;
+        fs.create(&path, logbytes)?;
         Ok(())
     }
 
     pub fn get_registrypath(&self) -> Result<String, io::Error> {
         let fs: FsRepository = FsRepository::new();
+
         let homedir = fs.homedir()?;
         let path = format!("{}/.snowtrail", homedir);
         Ok(path)
@@ -74,18 +81,16 @@ impl AppUsecase {
 
     pub fn is_registry_exist(&self) -> Result<bool, io::Error> {
         let fs: FsRepository = FsRepository::new();
-        let registrypath = self.get_registrypath()?;
-        if fs.is_exist(&registrypath) {
-            return Ok(true);
-        };
-        Ok(false)
+
+        let path = self.get_registrypath()?;
+        Ok(fs.is_exist(&path))
     }
 
     pub fn get_logfilepath(&self) -> Result<String, io::Error> {
         let logdirpath = self.get_logdirpath()?;
         let now = Utc::now().format("%Y%m%d%H%M%S").to_string();
-        let logfilepath = format!("{}/{}.json", logdirpath, now);
-        Ok(logfilepath)
+        let path = format!("{}/{}.json", logdirpath, now);
+        Ok(path)
     }
 
     pub fn get_logdirpath(&self) -> Result<String, io::Error> {
@@ -96,17 +101,16 @@ impl AppUsecase {
 
     pub fn list_logs(&self) -> Result<Vec<String>, io::Error> {
         let fs: FsRepository = FsRepository::new();
+
         let logdir = self.get_logdirpath()?;
         let logs = fs.list_filenames(&logdir)?;
-        let mut lognames: Vec<String> = vec![];
-        for logfilename in logs {
-            lognames.push(logfilename.replace(".json", ""));
-        }
-        Ok(lognames)
+        let names = logs.iter().map(|s| s.replace(".json", "")).collect();
+        Ok(names)
     }
 
     pub fn read_log(&self, name: String) -> Result<LogSchema, io::Error> {
         let fs: FsRepository = FsRepository::new();
+
         let logdir = self.get_logdirpath()?;
         let logpath = format!("{}/{}.json", logdir, name);
         let logbytes = fs.read(&logpath)?;
@@ -168,7 +172,7 @@ impl AppUsecase {
             if script.name == name {
                 return Ok(script);
             };
-        }
+        };
         Err(io::Error::new(
             io::ErrorKind::NotFound,
             "failed to find script.",
