@@ -18,7 +18,7 @@ export const ScriptsTableItem = ({ script }: Props) => {
       <Table.Cell>{script.command}</Table.Cell>
       <Table.Cell>{script.description}</Table.Cell>
       <Table.Cell>
-        <Button onClick={handleClick} style={{ cursor: 'pointer' }}>
+        <Button variant='outline' onClick={handleClick}>
           remove
         </Button>
       </Table.Cell>

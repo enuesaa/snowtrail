@@ -12,4 +12,7 @@ globalStyle('a', {
 
 globalStyle('*', {
   boxSizing: 'border-box',
+  vars: {
+    '--cursor-button': 'pointer',
+  },
 })

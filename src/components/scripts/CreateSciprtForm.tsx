@@ -14,7 +14,7 @@ export const CreateScriptForm = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button m='2' style={{ cursor: 'pointer' }}>
+        <Button variant='outline' m='2'>
           Create
         </Button>
       </Dialog.Trigger>
@@ -43,12 +43,12 @@ export const CreateScriptForm = () => {
 
           <Flex gap='3' justify='end' mt='5'>
             <Dialog.Close>
-              <Button variant='soft' color='gray' style={{ cursor: 'pointer' }}>
+              <Button variant='soft' color='gray'>
                 Cancel
               </Button>
             </Dialog.Close>
             <Dialog.Close>
-              <Button type='submit' style={{ cursor: 'pointer' }}>
+              <Button type='submit'>
                 Save
               </Button>
             </Dialog.Close>

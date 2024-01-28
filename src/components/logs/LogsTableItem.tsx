@@ -8,9 +8,8 @@ type Props = {
 export const LogsTableItem = ({ log }: Props) => {
   return (
     <Table.Row>
-      <Table.Cell>{log.name}</Table.Cell>
       <Table.Cell>
-        <Link href={`/logs/${log.name}`}>Go</Link>
+        <Link href={`/logs/${log.name}`}>{log.name}</Link>
       </Table.Cell>
     </Table.Row>
   )

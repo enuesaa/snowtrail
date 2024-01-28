@@ -10,7 +10,6 @@ export const LogsTable = () => {
       <Table.Header>
         <Table.Row>
           <Table.ColumnHeaderCell>name</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>{logs && logs.map((v, i) => <LogsTableItem log={v} key={i} />)}</Table.Body>
