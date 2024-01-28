@@ -9,13 +9,11 @@ export const LogsTable = () => {
     <Table.Root m='5' mt='2'>
       <Table.Header>
         <Table.Row>
-        <Table.ColumnHeaderCell>name</Table.ColumnHeaderCell>
-        <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>name</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell></Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
-      <Table.Body>
-        {logs && logs.map((v, i) => <LogsTableItem log={v} key={i} />)}
-      </Table.Body>
+      <Table.Body>{logs && logs.map((v, i) => <LogsTableItem log={v} key={i} />)}</Table.Body>
     </Table.Root>
   )
 }

@@ -6,8 +6,8 @@ pub mod usecase;
 #[cfg(target_os = "macos")]
 #[macro_use]
 extern crate objc;
-use command::scripts;
 use command::logs;
+use command::scripts;
 use std::process;
 use tauri::{Builder, Manager, SystemTray, SystemTrayEvent};
 

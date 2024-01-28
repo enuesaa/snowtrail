@@ -2,8 +2,8 @@ use serde::{Deserialize, Serialize};
 
 use crate::repository::fs::FsRepository;
 use crate::repository::runcommand::RuncommandRepository;
-use std::io;
 use chrono::Utc;
+use std::io;
 
 #[derive(Serialize, Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]
@@ -87,7 +87,7 @@ impl AppUsecase {
         let logfilepath = format!("{}/{}.json", logdirpath, now);
         Ok(logfilepath)
     }
-    
+
     pub fn get_logdirpath(&self) -> Result<String, io::Error> {
         let registrypath = self.get_registrypath()?;
         let path = format!("{}/log", registrypath);

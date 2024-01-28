@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::usecase::app::{AppUsecase, LogSchema};
+use serde::{Deserialize, Serialize};
 
 // TODO mv
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -13,9 +13,7 @@ pub fn list_logs() -> Vec<LogListSchema> {
     let mut res: Vec<LogListSchema> = vec![];
     if let Ok(logs) = appcase.list_logs() {
         for log in logs {
-            res.push(LogListSchema{
-                name: log,
-            });
+            res.push(LogListSchema { name: log });
         }
     };
     res

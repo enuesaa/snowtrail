@@ -8,7 +8,7 @@ import { Link } from '@/components/common/Link'
 export default function Page() {
   const { name } = useParams()
   if (name === undefined) {
-    return (<></>)
+    return <></>
   }
 
   return (

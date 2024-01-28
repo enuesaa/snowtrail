@@ -15,8 +15,10 @@ export const Header = () => {
               snowtrail
             </Link>
           </Box>
-          <Box grow='0' shrink='0' style={{width: '35px'}}>
-            <Link href='/logs'><RxActivityLog /></Link>
+          <Box grow='0' shrink='0' style={{ width: '35px' }}>
+            <Link href='/logs'>
+              <RxActivityLog />
+            </Link>
           </Box>
         </Flex>
       </header>

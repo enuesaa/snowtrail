@@ -5,9 +5,7 @@ import { type LinkProps } from 'node_modules/@radix-ui/themes/dist/esm/component
 export const Link = ({ href, children, ...props }: LinkProps) => {
   return (
     <RadixLink asChild {...props}>
-      <RouterLink to={href ?? '/'}>
-        {children}
-      </RouterLink>
+      <RouterLink to={href ?? '/'}>{children}</RouterLink>
     </RadixLink>
   )
 }
