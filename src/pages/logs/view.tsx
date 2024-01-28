@@ -16,7 +16,7 @@ export default function Page() {
       <Header />
       <Container>
         <Button variant='outline' asChild>
-          <Link href={'/logs'}>
+          <Link href={'/logs'} mt='3'>
             <FaArrowLeft /> Logs
           </Link>
         </Button>

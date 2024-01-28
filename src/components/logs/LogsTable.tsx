@@ -12,7 +12,7 @@ export const LogsTable = () => {
           <Table.ColumnHeaderCell>name</Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
-      <Table.Body>{logs && logs.map((v, i) => <LogsTableItem log={v} key={i} />)}</Table.Body>
+      <Table.Body>{logs && logs.map((s, i) => <LogsTableItem name={s} key={i} />)}</Table.Body>
     </Table.Root>
   )
 }

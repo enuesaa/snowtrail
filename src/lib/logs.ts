@@ -1,13 +1,9 @@
 import { useQuery } from 'react-query'
 import { invoke } from '@tauri-apps/api/tauri'
 
-export type LogSchema = {
-  name: string
-}
-
 export const useListLogs = () =>
-  useQuery('listLogs', async (): Promise<LogSchema[]> => {
-    const res = await invoke<LogSchema[]>('list_logs', {})
+  useQuery('listLogs', async (): Promise<string[]> => {
+    const res = await invoke<string[]>('list_logs', {})
     return res
   })
 

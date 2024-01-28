@@ -1,15 +1,14 @@
 import { Table } from '@radix-ui/themes'
-import { type LogSchema } from '@/lib/logs'
 import { Link } from '@/components/common/Link'
 
 type Props = {
-  log: LogSchema
+  name: string
 }
-export const LogsTableItem = ({ log }: Props) => {
+export const LogsTableItem = ({ name }: Props) => {
   return (
     <Table.Row>
       <Table.Cell>
-        <Link href={`/logs/${log.name}`}>{log.name}</Link>
+        <Link href={`/logs/${name}`}>{name}</Link>
       </Table.Cell>
     </Table.Row>
   )
