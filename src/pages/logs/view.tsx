@@ -15,13 +15,13 @@ export default function Page() {
     <>
       <Header />
       <Container>
+        <Heading mt='4'>Log {name}</Heading>
+        <LogView name={name} />
         <Button variant='outline' asChild>
-          <Link href={'/logs'} mt='3'>
+          <Link href={'/logs'} m='3'>
             <FaArrowLeft /> Logs
           </Link>
         </Button>
-        <Heading mt='4'>Log {name}</Heading>
-        <LogView name={name} />
       </Container>
     </>
   )

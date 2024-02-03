@@ -1,5 +1,5 @@
 use crate::usecase::app::AppUsecase;
-use tauri::{AppHandle, CustomMenuItem, SystemTrayMenu, SystemTrayMenuItem, Manager};
+use tauri::{AppHandle, CustomMenuItem, Manager, SystemTrayMenu, SystemTrayMenuItem};
 
 pub fn create() -> SystemTrayMenu {
     let appcase = AppUsecase::new();
@@ -24,10 +24,10 @@ pub fn handleclick(app: &AppHandle, id: &str) {
             if let Some(window) = app.get_window("main") {
                 window.show().unwrap();
             };
-        },
+        }
         "quit" => {
             std::process::exit(0);
-        },
+        }
         _ => {
             let mut appcase = AppUsecase::new();
             if let Ok(script) = appcase.get_script(id.to_string().clone()) {
@@ -41,6 +41,6 @@ pub fn handleclick(app: &AppHandle, id: &str) {
             } else {
                 println!("Error: no such script.");
             };
-        },
+        }
     };
 }

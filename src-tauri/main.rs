@@ -1,7 +1,7 @@
 pub mod command;
 pub mod init;
-pub mod sysmenu;
 pub mod repository;
+pub mod sysmenu;
 pub mod usecase;
 
 use command::logs;
@@ -31,10 +31,10 @@ async fn main() {
         })
         .on_window_event(|event| match event.event() {
             tauri::WindowEvent::CloseRequested { api, .. } => {
-              event.window().hide().unwrap();
-              api.prevent_close();
-            },
-            _ => {},
+                event.window().hide().unwrap();
+                api.prevent_close();
+            }
+            _ => {}
         });
 
     app.build(tauri::generate_context!())
@@ -42,6 +42,6 @@ async fn main() {
         .run(|_, event| match event {
             // see https://tauri.app/v1/guides/features/system-tray/#preventing-the-app-from-closing
             tauri::RunEvent::ExitRequested { api, .. } => api.prevent_exit(),
-            _ => {},
+            _ => {}
         });
 }

@@ -1,7 +1,7 @@
 use tauri::AppHandle;
 
-use crate::usecase::app::{AppUsecase, ScriptSchema};
 use crate::sysmenu;
+use crate::usecase::app::{AppUsecase, ScriptSchema};
 
 #[tauri::command]
 pub fn list_scripts() -> Vec<ScriptSchema> {

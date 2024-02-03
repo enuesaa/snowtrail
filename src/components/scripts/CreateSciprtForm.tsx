@@ -48,9 +48,7 @@ export const CreateScriptForm = () => {
               </Button>
             </Dialog.Close>
             <Dialog.Close>
-              <Button type='submit'>
-                Save
-              </Button>
+              <Button type='submit'>Save</Button>
             </Dialog.Close>
           </Flex>
         </form>

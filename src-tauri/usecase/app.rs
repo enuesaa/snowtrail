@@ -172,7 +172,7 @@ impl AppUsecase {
             if script.name == name {
                 return Ok(script);
             };
-        };
+        }
         Err(io::Error::new(
             io::ErrorKind::NotFound,
             "failed to find script.",
