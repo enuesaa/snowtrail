@@ -11,22 +11,15 @@ pub fn create() -> SystemTrayMenu {
         }
     };
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
-    let reload = CustomMenuItem::new("reload".to_string(), "Reload");
     let open = CustomMenuItem::new("open".to_string(), "Open");
 
     menu.add_native_item(SystemTrayMenuItem::Separator)
-        .add_item(reload)
         .add_item(open)
         .add_item(quit)
 }
 
 pub fn handleclick(app: &AppHandle, id: &str) {
     match id {
-        "reload" => {
-            if let Err(err) = app.tray_handle().set_menu(create()) {
-                println!("Error: {}", err.to_string());
-            };
-        },
         "open" => {
             if let Some(window) = app.get_window("main") {
                 window.show().unwrap();

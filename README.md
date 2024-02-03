@@ -13,6 +13,3 @@ command manager
 - react
 - vite
 - react router
-
-## Development Plan
-- メニューバーから画面を出す
