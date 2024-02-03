@@ -32,10 +32,11 @@ pub fn handleclick(app: &AppHandle, id: &str) {
             let mut appcase = AppUsecase::new();
             if let Ok(script) = appcase.get_script(id.to_string().clone()) {
                 let item = app.tray_handle().get_item(&id);
-                item.set_title("Running").unwrap();
+                let title = format!("{} 🟢", script.name);
+                item.set_title(title).unwrap();
                 tokio::spawn(async move {
-                    appcase.run_script(script).await.unwrap();
-                    item.set_title("OK").unwrap();
+                    appcase.run_script(script.clone()).await.unwrap();
+                    item.set_title(script.name).unwrap();
                 });
             } else {
                 println!("Error: no such script.");
