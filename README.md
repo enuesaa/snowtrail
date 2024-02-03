@@ -15,5 +15,4 @@ command manager
 - react router
 
 ## Development Plan
-- アプリを開いた時に画面を出さない。メニューバーにだけ表示されるようにする
 - メニューバーから画面を出す

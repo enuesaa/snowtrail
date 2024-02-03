@@ -32,8 +32,10 @@ pub fn create_menu() -> SystemTrayMenu {
     // see https://zenn.dev/izuchy/scraps/b101088f10f806
     let quit = CustomMenuItem::new("quit".to_string(), "Quit");
     let reload = CustomMenuItem::new("reload".to_string(), "Reload");
+    let open = CustomMenuItem::new("open".to_string(), "Open");
 
     menu.add_native_item(SystemTrayMenuItem::Separator)
         .add_item(reload)
+        .add_item(open)
         .add_item(quit)
 }

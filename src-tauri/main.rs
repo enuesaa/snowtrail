@@ -38,6 +38,15 @@ async fn main() {
                     return;
                 };
 
+                if id.as_str() == "open" {
+                    if let Some(window) = app.get_window("main") {
+                        let _ = window.show();
+                    } else {
+                        println!("window nt found.");
+                    };
+                    return;
+                };
+
                 if id.as_str() == "quit" {
                     std::process::exit(0);
                 };
@@ -54,6 +63,14 @@ async fn main() {
                     return;
                 };
                 println!("err: not found.");
+            }
+            _ => {}
+        })
+        .on_window_event(|event| match event.event() {
+            // see https://tauri.app/v1/guides/features/system-tray/#preventing-the-app-from-closing
+            tauri::WindowEvent::CloseRequested { api, .. } => {
+              event.window().hide().unwrap();
+              api.prevent_close();
             }
             _ => {}
         })
