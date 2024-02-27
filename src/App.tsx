@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Route, Switch } from 'wouter'
 import TopPage from '@/pages/index'
 import LogsPage from '@/pages/logs/index'
 import LogViewPage from '@/pages/logs/view'
@@ -13,13 +13,11 @@ export const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <Theme appearance='dark' accentColor='cyan'>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<TopPage />} />
-            <Route path='/logs' element={<LogsPage />} />
-            <Route path='/logs/:name' element={<LogViewPage />} />
-          </Routes>
-        </BrowserRouter>
+        <Switch>
+          <Route path='/' component={TopPage} />
+          <Route path='/logs' component={LogsPage} />
+          <Route path='/logs/:name' component={LogViewPage} />
+        </Switch>
       </Theme>
     </QueryClientProvider>
   )
