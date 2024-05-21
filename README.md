@@ -1,11 +1,9 @@
 # snowtrail
-command manager
-
-> [!NOTE]  
-> holiday app. work in progress..
+My experimental app for creating desktop applications with Tauri.
+Command Manager.
 
 ## モチベーション
-- 不定期に実行したいコマンドがあり、毎回コマンドを打つのは面倒なので、macのネイティブアプリで管理・可視化したい
+- 不定期に実行したいコマンドがあるが毎回コマンドを打つのは面倒なので、ネイティブアプリを作って管理・可視化したい
 - tauri アプリを作ってみたかった
 
 ## Stacks
