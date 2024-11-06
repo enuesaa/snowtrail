@@ -16,8 +16,8 @@ This is my experiment in creating desktop apps using Tauri.
 ## キャプチャ
 ![キャプチャ](./docs/capture.png)
 
-コマンドの実行はシステムトレイ(メニュー)から行える。  
-コマンドを実行するというアプリケーションの特性上、常時起動を想定しており、ウィンドウがあると邪魔なのでシステムトレイにした記憶。
+- コマンドの実行はシステムトレイ(メニュー)から行える。 
+- コマンドを実行するというアプリケーションの特性上、常時起動を想定しており、ウィンドウがあると邪魔なのでシステムトレイにした記憶
 
 ## Stacks
 - tauri
@@ -26,8 +26,8 @@ This is my experiment in creating desktop apps using Tauri.
 - react router
 
 ## Local Development
-tauri-cli を pnpm でインストールしており pnpm dev でアプリケーションが立ち上がる  
-tauri-cli は内部的に cargo run をしてくれるので、cargo を気にする必要はない  
+- tauri-cli を pnpm でインストールしており pnpm dev でアプリケーションが立ち上がる  
+- tauri-cli は内部的に cargo run をしてくれるので、cargo を気にする必要はない  
 
 ```bash
 pnpm dev
